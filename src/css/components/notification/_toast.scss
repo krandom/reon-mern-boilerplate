@@ -1,0 +1,77 @@
+.toast {
+	position: relative;
+	// width: 300px;
+	// min-height: 100px;
+	height: auto;
+	padding: 20px 20px 0 20px;
+
+	@include transition(all, .2s);
+
+	&__content {
+		position: relative;
+		width: 400px;
+		left: 0;
+		// min-height: 80px;
+		border-radius: 6px;
+		padding: 7px;
+		opacity: 1;
+
+		@include transition(all, .4s);
+
+		&--success {
+			background-color: $notification-success;
+			border: 1px solid $notification-success;
+
+			@include box-shadow(0, 0, 16px, rgba($notification-success, .75));
+		}
+
+		&--error {
+			background-color: $notification-error;
+			border: 1px solid $notification-error;
+			color: $white;
+
+			@include box-shadow(0, 0, 16px, rgba($notification-error, .75));
+		}
+
+		&--alert {
+			background-color: $notification-alert;
+			border: 1px solid $notification-alert;
+			color: $black;
+
+			@include box-shadow(0, 0, 16px, rgba($notification-alert, .75));
+		}
+
+		// i {
+		// 	position: absolute;
+		// 	top: 2px;
+		// 	right: 3px;
+		// 	cursor: pointer;
+		// 	color: rgba($black, .5);
+
+		// 	@include transition(all, .1s);
+
+		// 	&:hover {
+		// 		color: $black;
+		// 	}
+		// }
+	}
+
+	&__info {
+		padding: 10px;
+
+		&--icon {
+			font-size: 24px;
+			cursor: pointer;
+			margin-top: 5px;
+		}
+
+		&--header {
+			font-size: 16px;
+			font-weight: 600;
+		}
+
+		&--body {
+			margin-bottom: 15px;
+		}
+	}
+}
