@@ -1,15 +1,10 @@
-import * as NotificationActions from '../../actions/Notification.actions';
+import { connect} from 'react-redux';
+import { notificationActions } from '../../reducers/notification.reducer';
 
 class Toast extends React.Component {
 
     constructor(props) {
         super(props);
-
-        // this.state = {
-        //     uuid : uuid(),
-        //     showAdditionalInfo : false,
-        //     confirmClose : false,
-        // };
 
         this.close = this.close.bind(this);
     }
@@ -28,7 +23,7 @@ class Toast extends React.Component {
     close(e) {
         var self = this;
 
-        const { ID, NotificationActions } = this.props;
+        const { ID, removeToastAction } = this.props;
 
         $(`#${ID} .toast__content`).css({
             'left' : '400px',
@@ -46,7 +41,7 @@ class Toast extends React.Component {
             });
 
             setTimeout(() => {
-                NotificationActions.hideToast(ID);
+                removeToastAction(ID);
             }, 400);
         }, 400);
     }
@@ -63,19 +58,50 @@ class Toast extends React.Component {
             visible,
         } = this.props;
 
+        let icon = '';
+        switch (type)
+        {
+            case 'warning':
+                icon = 'exclamation-triangle';
+                break;
+
+            case 'info':
+                icon = 'info';
+                break;
+
+            case 'error':
+                icon = 'bomb';
+                break;
+
+            default:
+                icon = 'check';
+        }
+
         return ([
             <div className='toast' id={ID}>
                 <div className={`toast__content toast__content--${type}`}>
+                    <div className='toast__icon'>
+                        <i className={`fa fa-${icon}`} />
+                    </div>
 
-                    {message}
+                    <div className='toast__text'>
+                        {message}
+                    </div>
+
+                    <div
+                        className='toast__close'
+                        onClick={() => { this.close(); }}>
+
+                        <i className="fa fa-times"></i>
+                    </div>
                 </div>
             </div>
         ]);
     }
 }
 
-const mdtp = dispatch => ({
-    NotificationActions: Redux.bindActionCreators(NotificationActions, dispatch),
-});
+const mdtp = {
+    removeToastAction: notificationActions.removeToast,
+};
 
-export default ReactRedux.connect(null, mdtp)(Toast);
+export default connect(null, mdtp)(Toast);

@@ -1,0 +1,19 @@
+.page-not-found {
+	width: 100%;
+	padding: 20px 50px;
+
+	&__title {
+		font-family: $mansalva;
+		color: $blue;
+		font-size: 28px;
+		display: inline-block;
+
+		border-bottom: 3px solid $blue;
+	}
+
+	&__description {
+		margin: 20px 0;
+		font-size: 18px;
+		font-family: $raleway;
+	}
+}

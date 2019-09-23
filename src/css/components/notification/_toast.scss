@@ -1,7 +1,5 @@
 .toast {
 	position: relative;
-	// width: 300px;
-	// min-height: 100px;
 	height: auto;
 	padding: 20px 20px 0 20px;
 
@@ -11,16 +9,17 @@
 		position: relative;
 		width: 400px;
 		left: 0;
-		// min-height: 80px;
 		border-radius: 6px;
 		padding: 7px;
 		opacity: 1;
+		box-sizing: border-box;
 
 		@include transition(all, .4s);
 
 		&--success {
 			background-color: $notification-success;
 			border: 1px solid $notification-success;
+			color: $white;
 
 			@include box-shadow(0, 0, 16px, rgba($notification-success, .75));
 		}
@@ -33,12 +32,20 @@
 			@include box-shadow(0, 0, 16px, rgba($notification-error, .75));
 		}
 
-		&--alert {
-			background-color: $notification-alert;
-			border: 1px solid $notification-alert;
-			color: $black;
+		&--warning {
+			background-color: $notification-warning;
+			border: 1px solid $notification-warning;
+			color: $white;
 
-			@include box-shadow(0, 0, 16px, rgba($notification-alert, .75));
+			@include box-shadow(0, 0, 16px, rgba($notification-warning, .75));
+		}
+
+		&--info {
+			background-color: $notification-info;
+			border: 1px solid $notification-info;
+			color: $white;
+
+			@include box-shadow(0, 0, 16px, rgba($notification-info, .75));
 		}
 
 		// i {
@@ -54,6 +61,43 @@
 		// 		color: $black;
 		// 	}
 		// }
+	}
+
+	&__icon {
+		width: 40px;
+		height: 100%;
+		display: inline-block;
+
+		i {
+			left: 15px;
+
+			@include vertical-center();
+		}
+	}
+
+	&__text {
+		width: 320px;
+		display: inline-block;
+	}
+
+	&__close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 30px;
+		height: 30px;
+		cursor: pointer;
+
+		i {
+			opacity: .5;
+
+			@include transition(all, .1s);
+			@include center();
+
+			&:hover {
+				opacity: 1;
+			}
+		}
 	}
 
 	&__info {

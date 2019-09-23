@@ -1,0 +1,48 @@
+.sandbox {
+
+	&__block {
+		width: 100%;
+		padding: 20px 50px;
+
+		button {
+			width: 120px;
+			height: 40px;
+			border-radius: 8px;
+			color: $white;
+
+			display: block;
+			margin-top: 10px;
+		}
+	}
+
+	&__title {
+		font-family: $mansalva;
+		color: $blue;
+		font-size: 28px;
+		display: inline-block;
+
+		border-bottom: 3px solid $blue;
+	}
+
+	&__description {
+		margin: 20px 0;
+		font-size: 18px;
+		font-family: $raleway;
+	}
+
+	&__success {
+		background-color: rgba($notification-success, 1);
+	}
+
+	&__warning {
+		background-color: rgba($notification-warning, 1);
+	}
+
+	&__info {
+		background-color: rgba($notification-info, 1);
+	}
+
+	&__error {
+		background-color: rgba($notification-error, 1);
+	}
+}

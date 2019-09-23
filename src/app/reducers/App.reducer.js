@@ -1,36 +1,32 @@
-import * as types from '../actions/actionTypes';
-import initialState from './InitialState';
-import {browserHistory} from 'react-router';
+import { createAction } from 'redux-actions';
+import initialState from './initialState';
+import formatActionTypeNames from '../helpers/formatActionTypeNames';
 
-export default function UserReducer(state = initialState.app, action) {
-  // state variable here reps just an array of courses
-  switch(action.type) {
+const actions = formatActionTypeNames({
+	boot: 'BOOT',
+	booted: 'BOOTED',
+}, 'APP');
 
-    case types.SET_PROFILE:
-      return { ...state, isLoggedIn : true }
+export const appActions = {
+  boot: createAction(actions.boot),
+  booted: createAction(actions.booted),
+};
 
-    case types.LOGOUT:
-      return initialState.app;
+export default (state = initialState.app, action) => {
+  const { payload } = action;
 
-    default: 
+  switch (action.type) {
+
+    case actions.booted:
+    	const { mainNav } = payload;
+
+    	return {
+        ...state,
+        mainNav,
+        booted: true,
+      };
+
+    default:
       return state;
-  }
+  	}
 }
-
-
-
-
-
-// const AppReducer = (app = {}, action) => {
-// 	switch (action.type)
-// 	{
-// 		case 'SET_ROUTE':
-// 			console.log('BLAH', action.data)
-// 			app.route = action.data.route;
-// 			return app;
-// 	}
-
-// 	return app;
-// };
-
-// export default AppReducer;

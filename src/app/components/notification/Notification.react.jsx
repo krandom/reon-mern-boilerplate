@@ -1,11 +1,9 @@
-import { bindActionCreators } from 'redux';
-
-import * as NotificationActions from '../../actions/Notification.actions';
-import * as types from '../../actions/actionTypes';
+import { connect} from 'react-redux';
+import { notificationActions } from '../../reducers/notification.reducer';
 
 import Toast from './Toast.react';
 
-const Notifications = ({ notification, NotificationActions, }) => {
+const Notification = ({ notification, NotificationActions, }) => {
 
     return (
         <div
@@ -26,6 +24,24 @@ const Notifications = ({ notification, NotificationActions, }) => {
                 })}
             </div>
 
+
+        </div>
+    );
+}
+
+const mstp = state => ({
+    notification: state.notification,
+});
+
+const mdtp = dispatch => ({
+    removeToastAction: notificationActions.removeToast,
+});
+
+export default connect(mstp, mdtp)(Notification);
+
+
+/*
+
             { notification.showCookieWarning &&
                 <div className='notification__cookie'>
                     <div
@@ -37,17 +53,5 @@ const Notifications = ({ notification, NotificationActions, }) => {
                     </span>
                 </div>
             }
-        </div>
-    );
-}
 
-
-const mstp = state => ({
-    notification: state.notification,
-});
-
-const mdtp = dispatch => ({
-    NotificationActions: Redux.bindActionCreators(NotificationActions, dispatch),
-});
-
-export default ReactRedux.connect(mstp, mdtp)(Notifications);
+*/

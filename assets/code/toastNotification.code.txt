@@ -1,0 +1,20 @@
+import { notificationActions } from './notification.reducer';
+import { connect } from 'react-redux';
+
+const Notify = ({ addToastAction }) => {
+    <button
+        onClick={() => {
+            addToastAction({
+                type: 'success',
+                sticky: false,
+            })
+        }}>
+        Add!
+    </button>
+}
+
+const mdtp = {
+    addToastAction: notificationActions.addToast,
+};
+
+export default connect(null, mdtp)(Toast);

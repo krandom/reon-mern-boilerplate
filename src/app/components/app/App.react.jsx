@@ -1,65 +1,76 @@
+/*
+HERO CAROUSEL like this, and then it
+http://html.iwthemes.com/roker/run/index-one-page.html
+
+Template
+https://www.free-css.com/free-css-templates/page233/solution
+*/
+
+import { useEffect } from 'react';
 import { Router } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { hot } from 'react-hot-loader/root';
 
+// https://webthemez.com/preview/?fortune-business-bootstrap-html-website-template
 
-import * as AppActions from '../../actions/App.actions';
+import { history } from '../../store/store';
 
-import {browserHistory} from 'react-router';
-import history from '../../history';
-
-import Cookies from 'universal-cookie';
-import {bindActionCreators} from 'redux';
-
-import Main from '../main/Main.react';
 import Header from '../header/Header.react';
+import { appActions } from '../../reducers/app.reducer';
+
+import Modal from '../modal/Modal.react';
+import Routes from './routing/Routes.react';
 import Notification from '../notification/Notification.react';
+import Sidebar from '../sidebar/Sidebar.react';
+import Preload from './Preload.react';
 
 
-class App extends React.Component {
+const App = ({ s, bootAction }) => {
 
-    componentWillMount() {
-        /*
-            Set this if you want to use cookies
-        */
+	// const scrollHandler = () => {
+	// 	console.log('scroll')
+	// };
 
-        const cookies = new Cookies();
-        if (cookies.get('ubudget'))
-            this.props.AppActions.validateCookie({ cookie : cookies.get('ubudget') });
-    }
+	useEffect(() => {
+		bootAction();
 
-    render() {
-        console.log('APP STATE -------------------------------', this.props.state);
-        const { count, inc } = this.props;
 
-        return [
-            <Router key='1' history={history}>
-                <div
-                    id='app'
-                    className='app'>
+    // window.addEventListener('scroll', scrollHandler);
+    // return () => {
+    //         window.removeEventListener('scroll', scrollHandler);
+    // };
 
-                    <Header />
+	}, []);
 
-                    <div className='app__content'>
+	console.log('state', s)
+  return (
+    <Router history={history}>
+    <>
+			<Preload />
+      <Routes />
 
-                        <Main />
-                    </div>
+      <Header />
+      <Modal />
+      <Notification />
+      <Sidebar />
+    </>
+    </Router>
+  );
+};
 
-                    </div>
-
-            </Router>,
-
-            <Notification />
-        ];
-    }
-}
-
-const mstp = state => ({
-    state,
+const mstp = s => ({
+  s,
 });
 
-const mdtp = dispatch => ({
-    AppActions: bindActionCreators(AppActions, dispatch),
-});
+const mdtp = {
+  bootAction: appActions.boot,
+};
 
-export default connect(mstp, mdtp)(App);
+export default hot(connect(mstp, mdtp)(App));
+
+
+/*
+
+
+
+*/

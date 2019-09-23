@@ -1,0 +1,12 @@
+.preload {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: $preload;
+	background: rgb(63,94,251);
+	background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(180,70,252,1) 100%);
+
+	@include transition(all, .5s);
+}

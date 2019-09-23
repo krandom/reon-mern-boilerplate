@@ -1,7 +1,12 @@
-import { createStore, applyMiddleware } from 'redux'
-import { combineReducers } from 'redux'
-import thunk from 'redux-thunk';
-import logMiddleware from '../middleware/log';
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension';
+import createSagaMiddleware from 'redux-saga';
+import { createBrowserHistory } from 'history';
+import { routerMiddleware, connectRouter } from 'connected-react-router';
+
+// import thunk from 'redux-thunk';
+
+// import logMiddleware from '../middleware/log';
 
 // import createHistory from 'history/createBrowserHistory';
 
@@ -10,9 +15,15 @@ import logMiddleware from '../middleware/log';
 
 // Reducers
 // import CountReducer from '../reducers/Count.reducer'
-import rootReducer from '../reducers/Root.reducer';
+import rootReducer from '../reducers/root.reducer';
 
-import Axios from '../utils/Axios.utils';
+// import authSaga from '../saga/auth.saga';
+// import apiSaga from '../saga/api.saga';
+import appSaga from '../saga/app.saga';
+// import userSaga from '../saga/user.saga';
+// import rootSaga from '../sagas/root.saga'
+
+// import Axios from '../utils/Axios.utils';
 
 // const configureStore = (initialState = {}) => {
 //   return createStore(
@@ -30,18 +41,34 @@ import Axios from '../utils/Axios.utils';
 // const store = configureStore();
 
 // import CountReducer from '../reducers/Count.reducer'
+// console.log('connectRouter', connectRouter(history))
 
+const saga = createSagaMiddleware()
 
-export const mainStore = (initialState) => {
+export const history = createBrowserHistory();
+export const mainStore = ({ initialState = {} } = {}) => {
+  const router = routerMiddleware(history);
+
 	// const reducer = combineReducers({
 	//     CountReducer
 	// });
 
   const store = createStore(
     rootReducer,
+    // rootReducer,
     initialState,
-    applyMiddleware(thunk),
+    composeWithDevTools(
+    	applyMiddleware(
+    		saga,
+        router,
+    	)
+    ),
   );
+
+  saga.run(appSaga);
+  // saga.run(authSaga);
+  // saga.run(apiSaga);
+  // saga.run(userSaga);
 
   return store;
 };

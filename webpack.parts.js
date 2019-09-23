@@ -18,6 +18,13 @@ exports.devServer = ({ host, port } = {}) => ({
 		port, // Defaults to 8080
 		open: true,
 		overlay: true,
+		// proxy: {
+		// 	'/dev-api/login': {
+		// 		bypass: (req, res) => res.send({
+		// 			mssg: 'this is pretty rad',
+		// 		}),
+		// 	}
+		// }
 	},
 });
 
@@ -168,6 +175,8 @@ exports.globalInclude = function() {
                 uuid: "uuid",
                 moment: "moment",
                 _: "lodash",
+                axios: "axios",
+
                 Immutable: "seamless-immutable",
                 Cookies: "universal-cookie",
                 ReactRedux: "react-redux",

@@ -1,15 +1,26 @@
 import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
+import { history } from '../store/store';
 
-import app from './App.reducer';
-import config from './Config.reducer';
-import user from './User.reducer';
-import notification from './Notification.reducer';
+import app from './app.reducer';
+// import auth from './auth.reducer';
+// import config from './config.reducer';
+import modal from './modal.reducer';
+import notification from './notification.reducer';
+import sidebar from './sidebar.reducer';
+// import user from './user.reducer';
 
 const rootReducer = combineReducers({
+	// TODO :: MAKE THIS WORK
+    // router: connectRouter(history),
+
 	app,
-	config,
- 	user,
- 	notification,
-})
+	// auth,
+	// config,
+	modal,
+	notification,
+	sidebar,
+	// user,
+});
 
 export default rootReducer;

@@ -1,37 +1,51 @@
-import * as types from '../actions/actionTypes';
-import initialState from './InitialState';
+import { createAction, handleActions, combineActions } from 'redux-actions';
+import initialState from './initialState';
+import formatActionTypeNames from '../helpers/formatActionTypeNames';
 
-export default function NotificationsReducer(state = initialState.notifications, action) {
-  const payload = action.payload;
+const actions = formatActionTypeNames({
+	addToast: 'ADD_TOAST',
+	removeToast: 'REMOVE_TOAST',
+}, 'NOTIFICATION');
 
-  switch(action.type) {
+export const notificationActions = {
+  addToast: createAction(actions.addToast),
+  removeToast: createAction(actions.removeToast),
+};
 
-    case types.ADD_TOAST:
-      return {
-       	...state, toast: [...state.toast, {
-          ID: payload.ID || uuid(),
-          type: payload.type || 'success',
-          message: payload.message || 'This is a default message!',
-          timer: payload.timer || 5000,
-          sticky: payload.sticky || false,
-          visible: payload.visible || true,
-        }]
-      }
+export default (state = initialState.notification, action) => {
+  const { payload } = action;
 
-    case types.REMOVE_TOAST:
-      return { ...state, toast: state.toast.filter(x => x.ID !== payload) };
+  switch (action.type) {
 
-    case types.HIDE_TOAST:
-      return { ...state, toast: state.toast.map(x => {
-        if (x.ID === payload) { x.visible = false; }
+    case actions.addToast:
+      return ({
+        ...state,
+        toast: [...state.toast,
+          {
+            ID: payload.ID || uuid(),
+            type: payload.type || 'success',
+            sticky: payload.sticky || false,
+            pauseOnHover: payload.pauseOnHover || true,
+            timer: payload.timer || 5000,
+            visible: true,
+            message: payload.message || '',
+            timestamp: moment(),
+          }
+        ]
+      });
 
-        return x;
-      })};
+    case actions.removeToast:
+      return ({
+        ...state,
+        toast: state.toast.map(x => {
+          if (x.ID === payload)
+            x.visible = false;
 
-    case types.HIDE_COOKIE_WARNING:
-      return { ...state, showCookieWarning : false };
+          return x;
+        })
+      });
 
     default:
-      return state;
+        return state;
   }
 }
