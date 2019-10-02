@@ -7,6 +7,7 @@ import app from './app.reducer';
 // import config from './config.reducer';
 import modal from './modal.reducer';
 import notification from './notification.reducer';
+import sandbox from './sandbox.reducer';
 import sidebar from './sidebar.reducer';
 // import user from './user.reducer';
 
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
 	// config,
 	modal,
 	notification,
+	sandbox,
 	sidebar,
 	// user,
 });

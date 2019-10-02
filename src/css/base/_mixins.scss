@@ -25,6 +25,15 @@
     transform: translateY(-50%);
 }
 
+@mixin disable-select-text() {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 // @mixin MQ($media) {
 //     @if $media == S {
 //         @media only screen and (max-width: $break-small) { @content; }
@@ -99,14 +108,7 @@
 //     transform: translateX(-50%) translateY(-50%);
 // }
 
-// @mixin no-select() {
-//     -webkit-touch-callout: none;
-//     -webkit-user-select: none;
-//     -khtml-user-select: none;
-//     -moz-user-select: none;
-//     -ms-user-select: none;
-//     user-select: none;
-// }
+
 
 // @mixin placeholder {
 //     @include optional-at-root('::-webkit-input-placeholder') {

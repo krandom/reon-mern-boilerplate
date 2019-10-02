@@ -4,8 +4,21 @@ export default {
   app: {
   	booted: false,
   	isLoggedIn: false,
-    sessionID: '',
     mainNav: [],
+    showHamburgerMenu: false,
+
+  	endpoints: {
+  		exchangeRatesApi: {
+  			latest: 'https://api.exchangeratesapi.io/latest?base=USD',
+  		},
+      coinMarketCap: {
+        login: '//reonsolutions.com/mock-server/login.php',
+        logout: '//reonsolutions.com/mock-server/logout.php',
+      },
+      user: {
+        getProfile: '//reonsolutions.com/mock-server/getProfile.php',
+      }
+    },
   },
 
   modal: {
@@ -18,15 +31,7 @@ export default {
   },
 
   config: {
-  	endpoints: {
-      auth: {
-        login: '//reonsolutions.com/mock-server/login.php',
-        logout: '//reonsolutions.com/mock-server/logout.php',
-      },
-      user: {
-        getProfile: '//reonsolutions.com/mock-server/getProfile.php',
-      }
-    },
+
     host                     : dev ? 'http://localhost:8080/' : '',
     api                      : dev ? 'http://localhost:8080/' : '',
     fbAppID                  : dev ? '' : '',
@@ -47,4 +52,8 @@ export default {
     pages: [],
     transition: true,
   },
+
+  sandbox: {
+  	exchangeRates: [],
+  }
 }

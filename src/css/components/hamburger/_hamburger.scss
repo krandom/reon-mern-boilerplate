@@ -1,0 +1,73 @@
+.hamburger {
+	position: fixed;
+	top: 87px;
+	left: -320px;
+	width: 320px;
+	height: calc(100vh - 87px);
+	background-color: $white;
+	z-index: $sidebar;
+
+	@include transition(all, .3s);
+	@include disable-select-text();
+
+	&__overlay {
+		position: fixed;
+		top: 87px;
+		width: 100%;
+		height: calc(100% - 87px);
+		z-index: $sidebar-overlay;
+		background-color: rgba($black, .75);
+		display: none;
+
+		&--block {
+			display: block;
+
+			@include transition(all, .3s);
+		}
+	}
+
+	&__item {
+		height: 60px;
+		overflow: hidden;
+
+		@include transition(all, .2s);
+	}
+
+	&__link {
+		position: relative;
+		width: 100%;
+		height: 60px;
+		line-height: 60px;
+		cursor: pointer;
+		overflow: hidden;
+
+		@include transition(color, .1s);
+
+		&:hover {
+		 	color: $blue;
+		}
+
+		&--icon {
+			width: 60px;
+			height: 60px;
+			text-align: center;
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		&--title {
+			display: inline-block;
+			vertical-align: top;
+		}
+	}
+
+	&__subnav {
+		padding-left: 60px;
+
+		div {
+			height: 30px;
+			line-height: 30px;
+			cursor: pointer;
+		}
+	}
+}

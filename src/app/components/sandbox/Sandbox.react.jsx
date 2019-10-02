@@ -2,11 +2,13 @@ import { connect } from 'react-redux';
 import { notificationActions } from '../../reducers/notification.reducer';
 import { sidebarActions } from '../../reducers/sidebar.reducer';
 import { modalActions } from '../../reducers/modal.reducer';
+import { appActions } from '../../reducers/app.reducer';
+import { sandboxActions } from '../../reducers/sandbox.reducer';
 
 import Page1 from './sidebar/Page1.react';
 import Window1 from './modal/Window1.react';
 
-const Sandbox = ({ state, addToastAction, addSidebarPageAction, addModalAction, }) => {
+const Sandbox = ({ state, addToastAction, addSidebarPageAction, addModalAction, toggleHamburgerMenuAction, getExchangeRatesAction, }) => {
 
   return (
     <div className='page'>
@@ -88,6 +90,46 @@ const Sandbox = ({ state, addToastAction, addSidebarPageAction, addModalAction, 
 					</button>
 				</div>
 
+				{/*https://www.cssscript.com/demo/tilted-navigation-clip-path/*/}
+				<div className='sandbox__block'>
+					<div className='sandbox__title'>
+						Hamburger Menu
+					</div>
+
+					<div className='sandbox__description'>
+						The hamburger menu or hamburger icon is a name given to the menu icon found in newer programs and websites that hides the traditional File menu. Alternatively referred to as the hotdog menu, three-line menu, or menu button using the hamburger menu makes it easier to view program options on mobile devices. The icon gets its name because it looks like a hamburger or a top and bottom bun with a meat patty in between the buns.
+					</div>
+
+					<button
+						className='sandbox__success'
+						onClick={() => {
+							toggleHamburgerMenuAction(!state.app.showHamburgerMenu)
+						}}>
+
+						{state.app.showHamburgerMenu ? 'Close' : 'Open'}
+					</button>
+				</div>
+
+				{/*https://www.cssscript.com/demo/tilted-navigation-clip-path/*/}
+				<div className='sandbox__block'>
+					<div className='sandbox__title'>
+						Public API
+					</div>
+
+					<div className='sandbox__description'>
+						The hamburger menu or hamburger icon is a name given to the menu icon found in newer programs and websites that hides the traditional File menu. Alternatively referred to as the hotdog menu, three-line menu, or menu button using the hamburger menu makes it easier to view program options on mobile devices. The icon gets its name because it looks like a hamburger or a top and bottom bun with a meat patty in between the buns.
+					</div>
+
+					<button
+						className='sandbox__success'
+						onClick={() => {
+							getExchangeRatesAction()
+						}}>
+
+						API Call
+					</button>
+				</div>
+
 			</div>
     </div>
   );
@@ -101,6 +143,8 @@ const mdtp = {
   addToastAction: notificationActions.addToast,
 	addSidebarPageAction: sidebarActions.addPage,
 	addModalAction: modalActions.add,
+	toggleHamburgerMenuAction: appActions.toggleHamburgerMenu,
+	getExchangeRatesAction: sandboxActions.getExchangeRates,
 };
 
 export default connect(mstp, mdtp)(Sandbox);

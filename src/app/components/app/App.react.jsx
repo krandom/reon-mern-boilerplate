@@ -22,8 +22,8 @@ import Modal from '../modal/Modal.react';
 import Routes from './routing/Routes.react';
 import Notification from '../notification/Notification.react';
 import Sidebar from '../sidebar/Sidebar.react';
+import Hamburger from '../hamburger/Hamburger.react';
 import Preload from './Preload.react';
-
 
 const App = ({ s, bootAction }) => {
 
@@ -53,6 +53,7 @@ const App = ({ s, bootAction }) => {
       <Modal />
       <Notification />
       <Sidebar />
+      <Hamburger />
     </>
     </Router>
   );

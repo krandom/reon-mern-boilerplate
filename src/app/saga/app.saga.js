@@ -14,6 +14,7 @@ function* boot() {
 				action: null,
 				mobile: true,
 				published: true,
+				icon: 'home',
 			},
 			{
 				title: 'Sandbox',
@@ -23,6 +24,7 @@ function* boot() {
 				action: null,
 				mobile: true,
 				published: true,
+				icon: 'image',
 			},
 			{
 				title: 'Dropdown',
@@ -61,6 +63,7 @@ function* boot() {
 				action: null,
 				mobile: true,
 				published: true,
+				icon: 'caret-down',
 			},
 			{
 				title: 'Mega Menu',
@@ -68,7 +71,7 @@ function* boot() {
 				subnav: null,
 				megamenu: 'libraries',
 				action: null,
-				mobile: true,
+				mobile: false,
 				published: true,
 			},
 		];
