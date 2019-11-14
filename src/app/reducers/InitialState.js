@@ -17,6 +17,9 @@ export default {
       },
       user: {
         getProfile: '//reonsolutions.com/mock-server/getProfile.php',
+      },
+      auth: {
+      	signup: '//localhost:5000/api/auth/signup',
       }
     },
   },

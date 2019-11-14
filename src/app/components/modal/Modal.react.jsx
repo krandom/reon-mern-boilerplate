@@ -7,7 +7,6 @@ const Modal = ({ windows }) => {
 	if (windows.length === 0)
 		return null;
 
-	console.log('windows', windows)
   return (
     <div className='fullscreen'>
 

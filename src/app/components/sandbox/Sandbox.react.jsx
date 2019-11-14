@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { connect } from 'react-redux';
 import { notificationActions } from '../../reducers/notification.reducer';
 import { sidebarActions } from '../../reducers/sidebar.reducer';
@@ -8,7 +9,9 @@ import { sandboxActions } from '../../reducers/sandbox.reducer';
 import Page1 from './sidebar/Page1.react';
 import Window1 from './modal/Window1.react';
 
-const Sandbox = ({ state, addToastAction, addSidebarPageAction, addModalAction, toggleHamburgerMenuAction, getExchangeRatesAction, }) => {
+const Sandbox = ({ state, addToastAction, addSidebarPageAction, addModalAction, toggleHamburgerMenuAction, getExchangeRatesAction, signupAction, }) => {
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
 
   return (
     <div className='page'>
@@ -130,6 +133,29 @@ const Sandbox = ({ state, addToastAction, addSidebarPageAction, addModalAction, 
 					</button>
 				</div>
 
+				<div className='sandbox__block'>
+					<div className='sandbox__title'>
+						Sign up
+					</div>
+
+					<div className='sandbox__description'>
+						Sign up here
+					</div>
+
+					<input type='text' id='username' value={username} placeholder='username' onChange={e => setUsername(e.target.value)} />
+					<br />
+					<input type='text' id='password' value={password} placeholder='password' onChange={e => setPassword(e.target.value)} />
+					<button
+						className='sandbox__success'
+						onClick={() => {
+							console.log('test')
+							signupAction({ username, password })
+						}}>
+
+						Sign Up
+					</button>
+				</div>
+
 			</div>
     </div>
   );
@@ -145,6 +171,7 @@ const mdtp = {
 	addModalAction: modalActions.add,
 	toggleHamburgerMenuAction: appActions.toggleHamburgerMenu,
 	getExchangeRatesAction: sandboxActions.getExchangeRates,
+	signupAction: sandboxActions.signup,
 };
 
 export default connect(mstp, mdtp)(Sandbox);

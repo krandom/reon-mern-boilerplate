@@ -69,34 +69,19 @@ console.log('2222222222222222222')
 };
 
 // public API calls here
-function* publicApi({ method = 'GET', endpoint, payload = {}, }) {
-
-  console.log('privateApiCall 22222', method, endpoint, payload,)
-
+function* publicApi({ method = 'get', endpoint, payload = {}, }) {
 	try {
-		console.log('!!!')
-    // TODO :: add loader obj to store here
-    // payload is not present due to COORS issues on mock server
+    const response = yield call(axios[method], endpoint, /*payload, */);
 
-    const response = yield call(createBlaBla({endpoint, payload}) );
+    let returnObj = {};
+    switch (response.status)
+    {
+      case 200:
+      case 400:
+        return response.data;
+        break;
+    }
 
-    // const response = yield call(axios[method], endpoint, {});
-    console.log('444', response)
-    // const result = response.data;
-    // console.log('555', result)
-
-    // https://restfulapi.net/http-status-codes/
-    // let returnObj = {};
-    // switch (response.status)
-    // {
-    //   case 200:
-    //   case 400:
-    //     returnObj = result.data;
-    //     break;
-    // }
-
-    // TODO :: remove loader obj to store here
-    // return returnObj;
   } catch (e) {
     // yield put({type: "USER_FETCH_FAILED", message: e.message});
   }
@@ -106,10 +91,4 @@ export const publicCall = (...args) => call(publicApi, ...args);
 
 export default function* axiosSaga() {
   // yield takeLatest(authActions.login, login);
-}
-
-export const createBlaBla = ({ endpoint, payload }) => {
-  return axios.get(endpoint, payload)
-    .then(response => response)
-    .catch(err => err);
 }
