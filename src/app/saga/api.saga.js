@@ -69,9 +69,24 @@ console.log('2222222222222222222')
 };
 
 // public API calls here
-function* publicApi({ method = 'get', endpoint, payload = {}, }) {
+function* publicApi({ method = 'get', endpoint, payload: data = {}, header = {}, }) {
+	console.log('data', data)
 	try {
-    const response = yield call(axios[method], endpoint, /*payload, */);
+
+    // const data = {
+    //   email: 'titl123@title.com',
+    //   password: 'description',
+    // };
+    // console.log('Raw data is: ' + Object.entries(data));
+    // => Raw data is: Title,burger,Description,bun,Price,5
+
+    const header = {
+      ContentType: 'application/x-www-form-urlencoded',
+      Accept: 'application/json',
+      ...header,
+    };
+
+    const response = yield call(axios[method], endpoint, data, header);
 
     let returnObj = {};
     switch (response.status)
