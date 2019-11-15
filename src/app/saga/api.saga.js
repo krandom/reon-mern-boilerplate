@@ -68,10 +68,64 @@ console.log('2222222222222222222')
   }
 };
 
+const apiCall = ({ method, endpoint, payload, }) => {
+    return axios.post(endpoint, {
+      payload // only if not an object. Otherwise don't use outer {},
+    },
+    // headerParams: headerParams,
+   ).then(response => response.data)
+    .catch(err => {
+      throw err;
+    });
+  }
+
 // public API calls here
 function* publicApi({ method = 'get', endpoint, payload = {}, }) {
+  console.log('payload', payload)
 	try {
-    const response = yield call(axios[method], endpoint, /*payload, */);
+    // const response = yield call(
+    //   axios[method](endpoint)
+    // );
+    // const response = yield call(apiCall({method, endpoint, payload}));
+    const options = {};
+
+      // const response = yield call(axios[method], endpoint, {
+      //   // data: payload,
+      //   // ...options,
+      //   headers: {'Content-Type': 'application/json'}
+      // });
+
+    // const response = yield call(axios['post'], endpoint, {}, {'Content-Type': 'application/json'});
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    const body = JSON.stringify({ "test":"test" })
+
+    const res = axios.post(endpoint, body, config);
+    console.log('response', response)
+    console.log('res', res)
+    // axios.post(endpoint
+    // // headerParams: headerParams,
+    // ).then(response => response.data)
+    //   .catch(err => {
+    //     throw err;
+    // });
+
+    // // console.log('response', response);
+    // const response = yield call(
+    //   axios({
+    //     method,
+    //     url: endpoint,
+    //     headers: {},
+    //     data: {
+    //       foo: 'bar', // This is the body part
+    //     }
+    //   })
+    // );
 
     let returnObj = {};
     switch (response.status)

@@ -17,7 +17,7 @@ const validateLoginInput = require('../../validation/login');
 // @access 		Public
 router.post('/signup', async (req, res) => {
 	const { email, password } = req.body;
-
+console.log('XXX ---------------------->', req.body, req.params)
 	try {
 		const { errors, isValid } = await validateSignupInput({ email, password });
 

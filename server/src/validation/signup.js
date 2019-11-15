@@ -26,7 +26,7 @@ module.exports = async ({ email, password }) => {
 
 		// User.findOne({ email: email }).then(user => {
 	    if (user)
-	      errors.email = 'Email already exists';
+	      errors.email = 'Please include a valid email 2';
 	  // });
 
 		return {

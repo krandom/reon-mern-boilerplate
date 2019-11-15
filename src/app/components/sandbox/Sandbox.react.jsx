@@ -10,8 +10,8 @@ import Page1 from './sidebar/Page1.react';
 import Window1 from './modal/Window1.react';
 
 const Sandbox = ({ state, addToastAction, addSidebarPageAction, addModalAction, toggleHamburgerMenuAction, getExchangeRatesAction, signupAction, }) => {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+	const [username, setUsername] = useState('test@test.com');
+	const [password, setPassword] = useState('test123');
 
   return (
     <div className='page'>
