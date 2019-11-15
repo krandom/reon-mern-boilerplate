@@ -20,7 +20,8 @@ export default (state = initialState.notification, action) => {
     case actions.addToast:
       return ({
         ...state,
-        toast: [...state.toast,
+        toast: [
+          ...state.toast,
           {
             ID: payload.ID || uuid(),
             type: payload.type || 'success',

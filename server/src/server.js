@@ -1,9 +1,15 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const connectDB = require('./config/db')
-
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors({
+  origin: 'http://localhost:8080',
+  credentials: true
+}));
+
 
 // Connect DB
 connectDB();

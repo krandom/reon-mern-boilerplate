@@ -10,7 +10,7 @@ import Page1 from './sidebar/Page1.react';
 import Window1 from './modal/Window1.react';
 
 const Sandbox = ({ state, addToastAction, addSidebarPageAction, addModalAction, toggleHamburgerMenuAction, getExchangeRatesAction, signupAction, }) => {
-	const [username, setUsername] = useState('test@test.com');
+	const [email, setEmail] = useState('test@test.com');
 	const [password, setPassword] = useState('test123');
 
   return (
@@ -135,21 +135,58 @@ const Sandbox = ({ state, addToastAction, addSidebarPageAction, addModalAction, 
 
 				<div className='sandbox__block'>
 					<div className='sandbox__title'>
-						Sign up
+						Sign up!
 					</div>
 
 					<div className='sandbox__description'>
 						Sign up here
 					</div>
 
-					<input type='text' id='username' value={username} placeholder='username' onChange={e => setUsername(e.target.value)} />
+					<input type='text' id='email' value={email} placeholder='email' onChange={e => setEmail(e.target.value)} />
 					<br />
 					<input type='text' id='password' value={password} placeholder='password' onChange={e => setPassword(e.target.value)} />
 					<button
 						className='sandbox__success'
 						onClick={() => {
 							console.log('test')
-							signupAction({ username, password })
+							signupAction({ email, password })
+
+							// axios.post('//localhost:5000/api/auth/signup', )
+
+
+    // const data = {
+    //   email: 'title@title.com',
+    //   password: 'description',
+    // };
+    // // // console.log('Raw data is: ' + Object.entries(data));
+    // // // => Raw data is: Title,burger,Description,bun,Price,5
+
+    // const header = {
+    //   ContentType: 'application/x-www-form-urlencoded',
+    //   Accept: 'application/json'
+    // };
+
+    // const options = {
+    //   // withCredentials: true,
+    //   validateStatus: (status) => {
+    //     return true
+    //   }
+    // }
+    // // const querystring = require('querystring');
+    // // console.log(querystring.stringify(data));
+    // // => Title=burger&Description=bun&Price=5
+
+    // // console.log('Data is:' + JSON.stringify(data));
+    // // => Data is:{"Title":"burger","Description":"bun","Price":"5"}
+
+    // axios.post('//localhost:5000/api/auth/signup', {data, header, ...options})
+    // .then(res => {
+    //   console.log('THEN', res);
+    // })
+    // .catch(err => {
+    //   console.log('ERR', err);
+    // });
+
 						}}>
 
 						Sign Up
