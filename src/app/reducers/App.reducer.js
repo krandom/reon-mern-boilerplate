@@ -2,7 +2,9 @@ import { createAction } from 'redux-actions';
 import initialState from './initialState';
 import formatActionTypeNames from '../helpers/formatActionTypeNames';
 
-const actions = formatActionTypeNames({
+import { actions as sandboxActions } from './sandbox.reducer';
+
+export const actions = formatActionTypeNames({
 	boot: 'BOOT',
 	booted: 'BOOTED',
 	toggleHamburgerMenu: 'TOGGLE_HAMBURGER_MENU',
@@ -16,16 +18,18 @@ export const appActions = {
 
 export default (state = initialState.app, action) => {
   const { payload } = action;
-
   switch (action.type) {
 
     case actions.booted:
-    	const { mainNav } = payload;
+    	let { mainNav,  } = payload;
 
     	return {
         ...state,
         mainNav,
+        user: payload.user,
+        token: payload.token,
         booted: true,
+				isLoggedIn: payload.token ? true : false,
       };
 
 		case actions.toggleHamburgerMenu:
@@ -34,6 +38,19 @@ export default (state = initialState.app, action) => {
 				...state,
 				showHamburgerMenu: payload,
 			};
+
+		case sandboxActions.loginComplete:
+			let { token, user } = payload;
+
+			return {
+				...state,
+				isLoggedIn: true,
+				token,
+				user,
+			};
+
+		case sandboxActions.logoutComplete:
+			return initialState.app;
 
     default:
       return state;

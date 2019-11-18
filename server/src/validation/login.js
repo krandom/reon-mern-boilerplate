@@ -1,10 +1,11 @@
 const Validator = require('validator');
 const isEmpty = require('is-empty');
+const User = require('../schema/user.schema');
+const resErrMsg = require('../helpers/resErrMsg');
+const bcrypt = require('bcryptjs');
 
-module.exports = ({ email, password }) => {
-	// try {
-
-		console.log('trying', email, password)
+module.exports = async ({ email, password }) => {
+	try {
 	  let errors = {};
 
 		// Convert empty fields to an empty string so we can use validator functions
@@ -13,25 +14,24 @@ module.exports = ({ email, password }) => {
 
 		// Email checks
 	  if (Validator.isEmpty(email) || !Validator.isEmail(email))
-	    errors.email = 'Please include a valid email';
+	    errors.validation = resErrMsg({ message: 'Invalid User Credentials' });
 
 		// Password checks
 		// TODO :: add length and cpecial char check
 	  if (Validator.isEmpty(password))
-	    errors.password = 'Please include a valid password';
+	    errors.validation = resErrMsg({ message: 'Invalid User Credentials' });
 
-		// const user = await User.findOne({ email: email });
+		const user = await User.findOne({ email: email });
 
-		// User.findOne({ email: email }).then(user => {
-	    // if (user)
-	      // errors.email = 'Email already exists';
-	  // });
+		if (!user || !(await bcrypt.compare(password, user.password)))
+			errors.validation = resErrMsg({ message: 'Invalid User Credentials' });
 
 		return {
 	    errors,
-	    isValid: isEmpty(errors)
+	    isValid: isEmpty(errors),
+	    user,
 	  };
-	// } catch(err) {
+	} catch(err) {
 
-	// }
+	}
 };

@@ -9,9 +9,19 @@ import { sandboxActions } from '../../reducers/sandbox.reducer';
 import Page1 from './sidebar/Page1.react';
 import Window1 from './modal/Window1.react';
 
-const Sandbox = ({ state, addToastAction, addSidebarPageAction, addModalAction, toggleHamburgerMenuAction, getExchangeRatesAction, signupAction, }) => {
+const Sandbox = ({
+	state,
+	addToastAction,
+	addSidebarPageAction,
+	addModalAction,
+	toggleHamburgerMenuAction,
+	getExchangeRatesAction,
+	signupAction,
+	loginAction,
+}) => {
 	const [email, setEmail] = useState('test@test.com');
 	const [password, setPassword] = useState('test123');
+	const [rememberMe, setRememberMe] = useState(true);
 
   return (
     <div className='page'>
@@ -133,66 +143,6 @@ const Sandbox = ({ state, addToastAction, addSidebarPageAction, addModalAction, 
 					</button>
 				</div>
 
-				<div className='sandbox__block'>
-					<div className='sandbox__title'>
-						Sign up!
-					</div>
-
-					<div className='sandbox__description'>
-						Sign up here
-					</div>
-
-					<input type='text' id='email' value={email} placeholder='email' onChange={e => setEmail(e.target.value)} />
-					<br />
-					<input type='text' id='password' value={password} placeholder='password' onChange={e => setPassword(e.target.value)} />
-					<button
-						className='sandbox__success'
-						onClick={() => {
-							console.log('test')
-							signupAction({ email, password })
-
-							// axios.post('//localhost:5000/api/auth/signup', )
-
-
-    // const data = {
-    //   email: 'title@title.com',
-    //   password: 'description',
-    // };
-    // // // console.log('Raw data is: ' + Object.entries(data));
-    // // // => Raw data is: Title,burger,Description,bun,Price,5
-
-    // const header = {
-    //   ContentType: 'application/x-www-form-urlencoded',
-    //   Accept: 'application/json'
-    // };
-
-    // const options = {
-    //   // withCredentials: true,
-    //   validateStatus: (status) => {
-    //     return true
-    //   }
-    // }
-    // // const querystring = require('querystring');
-    // // console.log(querystring.stringify(data));
-    // // => Title=burger&Description=bun&Price=5
-
-    // // console.log('Data is:' + JSON.stringify(data));
-    // // => Data is:{"Title":"burger","Description":"bun","Price":"5"}
-
-    // axios.post('//localhost:5000/api/auth/signup', {data, header, ...options})
-    // .then(res => {
-    //   console.log('THEN', res);
-    // })
-    // .catch(err => {
-    //   console.log('ERR', err);
-    // });
-
-						}}>
-
-						Sign Up
-					</button>
-				</div>
-
 			</div>
     </div>
   );
@@ -209,6 +159,7 @@ const mdtp = {
 	toggleHamburgerMenuAction: appActions.toggleHamburgerMenu,
 	getExchangeRatesAction: sandboxActions.getExchangeRates,
 	signupAction: sandboxActions.signup,
+	loginAction: sandboxActions.login,
 };
 
 export default connect(mstp, mdtp)(Sandbox);

@@ -1,33 +1,29 @@
 const Validator = require('validator');
 const isEmpty = require('is-empty');
-
-const User = require('../models/User');
+const User = require('../schema/user.schema');
+const resErrMsg = require('../helpers/resErrMsg');
 
 module.exports = async ({ email, password }) => {
 	try {
-
-		console.log('trying', email, password)
 	  let errors = {};
 
-		// Convert empty fields to an empty string so we can use validator functions
 	  email = !isEmpty(email) ? email : '';
 	  password = !isEmpty(password) ? password : '';
 
 		// Email checks
 	  if (Validator.isEmpty(email) || !Validator.isEmail(email))
-	    errors.email = 'Please include a valid email';
+	    errors.email = resErrMsg({ message: 'Please include a valid email' });
 
 		// Password checks
 		// TODO :: add length and cpecial char check
 	  if (Validator.isEmpty(password))
-	    errors.password = 'Password field is required';
+	    errors.password = resErrMsg({ message: 'Password field is required' });
 
+		// Check if user with the same email is signed up
 		const user = await User.findOne({ email: email });
 
-		// User.findOne({ email: email }).then(user => {
-	    if (user)
-	      errors.email = 'Please include a valid email 2';
-	  // });
+    if (user)
+      errors.email = resErrMsg({ message: 'Please include a valid email' });
 
 		return {
 	    errors,

@@ -100,49 +100,64 @@ const apiCall = ({ method, endpoint, data, header}) => {
 // https://github.com/axios/axios/issues/960
 function* publicApi({
   endpoint,
-  header = {},
+  headers = {},
   method = 'get',
   payload: data = {},
 }) {
-	console.log('data', data)
 	try {
-    const header = {
+		const token = yield select(s => s.app.token)
+
+		let options = {
+			headers: {
+	      'Accept': 'application/json',
+	      'ContentType': 'application/x-www-form-urlencoded',
+	      'Access-Control-Allow-Headers': 'x-access-token',
+	      ...headers,
+			}
+		}
+
+		if (token) {
+			options.headers = {
+				...options.headers,
+	      'Authorization': 'Bearer ' + token,
+	      'x-auth-token': token,
+			}
+		}
+
+    let headers = {
       Accept: 'application/json',
       ContentType: 'application/x-www-form-urlencoded',
-      ...header,
+      ...headers,
     };
 
-    // const options = {
-    //   withCredentials: true,
-    //   validateStatus: (status) => {
-    //     return (status === 200 || status === 400)
-    //   }
-    // }
-    // const response = yield call(apiCall({method, endpoint, data, header }))
-    const response = yield call(axios[method], endpoint, {
-      data,
-      header,
-    });
-    console.log('here at all???')
-    console.log('response', response)
+    if (token)
+			headers = {
+				...headers,
+      	'Authorization': 'Bearer ' + token,
+			};
 
-    let returnObj = {};
+		console.log('HEADER', header)
+    const response = yield call(axios[method], endpoint,
+      data,
+      options,
+    );
+
     switch (response.status)
     {
       case 200:
         return response.data;
         break;
-
-      case 400:
-      console.log('400')
-        yield call(notificationActions.addToast({ type: error, message: 'error' }));
-        break;
     }
 
   } catch (err) {
-    // console.log('catch it here', response)
-    console.log('catch it here', err, err.response)
-    // yield put({type: "USER_FETCH_FAILED", message: e.message});
+    const { response, response: { data } } = err;
+
+    if ('errors' in data) {
+    	const notificationsArr = Object.values(data.errors);
+
+    	for (var i=0; i<notificationsArr.length; i++)
+    		yield put(notificationActions.addToast(notificationsArr[i]) )
+    }
   }
 };
 

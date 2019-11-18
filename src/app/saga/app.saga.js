@@ -1,9 +1,24 @@
+import Cookies from 'universal-cookie';
+
 import { call, select, put, takeEvery, takeLatest } from 'redux-saga/effects'
-// import { api } from './api.saga';
+import { publicCall } from './api.saga';
 import { appActions } from '../reducers/app.reducer';
 
 function* boot() {
    try {
+		// Look for cookie and log user in if valid
+		const cookies = new Cookies();
+		let token = cookies.get('reon-mern-boilerplate');
+    const endpoint = yield select(s => s.app.endpoints.auth.validateCookie);
+    const { user } = yield publicCall({ endpoint, payload: { token }, method: 'post' });
+
+		if (!user) {
+			token = null;
+			cookies.remove('reon-mern-boilerplate');
+		}
+
+		console.log('COOKIE ON BOOT', user);
+		console.log('COOKIE ON BOOT', token);
 
 		const mainNav = [
 			{
@@ -19,7 +34,15 @@ function* boot() {
 			{
 				title: 'Sandbox',
 				url: '/sandbox',
-				subnav: null,
+				subnav: [
+					{
+						title: 'Authentication',
+						url: '/sandbox/auth',
+						subnav: null,
+						megamenu: null,
+						action: null,
+					},
+				],
 				megamenu: null,
 				action: null,
 				mobile: true,
@@ -79,7 +102,7 @@ function* boot() {
       // const endpoint = yield select(s => s.config.endpoints.user.getProfile);
       // const response = yield api({endpoint});
 
-    yield put(appActions.booted({ mainNav }));
+    yield put(appActions.booted({ mainNav, user, token, }));
 
   } catch (e) {}
 }

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 // const validateSignupInput = require('../../validation/signup');
 // const jwt = require('jsonwebtoken');
-const User = require('../../models/User');
+const User = require('../../schema/user.schema');
 const authMiddleware = require('../../middleware/auth');
 
 // @route 		GET api/user

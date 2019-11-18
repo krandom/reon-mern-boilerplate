@@ -4,8 +4,10 @@ export default {
   app: {
   	booted: false,
   	isLoggedIn: false,
-    mainNav: [],
+  	token: null,
     showHamburgerMenu: false,
+    mainNav: [],
+		user: null,
 
   	endpoints: {
   		exchangeRatesApi: {
@@ -19,7 +21,10 @@ export default {
         getProfile: '//reonsolutions.com/mock-server/getProfile.php',
       },
       auth: {
+      	validateCookie: '//localhost:5000/api/auth/validate-token',
       	signup: '//localhost:5000/api/auth/signup',
+      	login: '//localhost:5000/api/auth/login',
+      	logout: '//localhost:5000/api/auth/logout',
       }
     },
   },
