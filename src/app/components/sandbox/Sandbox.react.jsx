@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { notificationActions } from '../../reducers/notification.reducer';
 import { sidebarActions } from '../../reducers/sidebar.reducer';
 import { modalActions } from '../../reducers/modal.reducer';
+import { authActions } from '../../reducers/auth.reducer';
 import { appActions } from '../../reducers/app.reducer';
 import { sandboxActions } from '../../reducers/sandbox.reducer';
 
@@ -158,8 +159,8 @@ const mdtp = {
 	addModalAction: modalActions.add,
 	toggleHamburgerMenuAction: appActions.toggleHamburgerMenu,
 	getExchangeRatesAction: sandboxActions.getExchangeRates,
-	signupAction: sandboxActions.signup,
-	loginAction: sandboxActions.login,
+	signupAction: authActions.signup,
+	loginAction: authActions.login,
 };
 
 export default connect(mstp, mdtp)(Sandbox);

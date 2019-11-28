@@ -1,3 +1,5 @@
+import Cookies from 'universal-cookie';
+
 import { call, select, put, takeEvery, takeLatest, all, } from 'redux-saga/effects'
 import { publicCall } from './api.saga';
 import { history } from '../store/store';
@@ -10,7 +12,7 @@ function* getUser() {
     const endpoint = yield select(s => s.app.endpoints.auth.getUser);
     const { user } = yield publicCall({ method: 'post', endpoint });
 
-		yield put(authActions.userFetched({ user }))
+		yield put(authActions.getUserComplete({ user }))
   } catch (e) {}
 }
 
@@ -48,11 +50,42 @@ function* resetPassword({ payload }) {
   } catch (e) {}
 }
 
+function* signup({ payload }) {
+  try {
+    const endpoint = yield select(s => s.app.endpoints.auth.signup);
+    const response = yield publicCall({ endpoint, payload, method: 'post' });
+  } catch (e) {}
+}
+
+function* login({ payload }) {
+  try {
+    const endpoint = yield select(s => s.app.endpoints.auth.login);
+    const response = yield publicCall({ endpoint, payload, method: 'post' });
+
+		if (payload.rememberMe)
+			new Cookies().set('reon-mern-boilerplate', response.token, { path: '/' });
+
+    yield put(authActions.loginComplete(response));
+  } catch (e) {}
+}
+
+function* logout({ payload }) {
+  try {
+		const cookies = new Cookies();
+		cookies.remove('reon-mern-boilerplate', { path: '/' });
+
+    yield put(authActions.logoutComplete());
+  } catch (e) {}
+}
+
 export default function* authSaga() {
 	yield all([
   	yield takeLatest(authActions.getUser, getUser),
   	yield takeLatest(authActions.verifyEmail, verifyEmail),
   	yield takeLatest(authActions.requestPwdResetLink, requestPwdResetLink),
   	yield takeLatest(authActions.resetPassword, resetPassword),
+  	yield takeLatest(authActions.signup, signup),
+  	yield takeLatest(authActions.login, login),
+  	yield takeLatest(authActions.logout, logout),
 	]);
 }

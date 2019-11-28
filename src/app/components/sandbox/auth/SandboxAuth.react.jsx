@@ -168,9 +168,9 @@ const mstp = s => ({
 })
 
 const mdtp = {
-	signupAction: sandboxActions.signup,
-	loginAction: sandboxActions.login,
-	logoutAction: sandboxActions.logout,
+	signupAction: authActions.signup,
+	loginAction: authActions.login,
+	logoutAction: authActions.logout,
 	requestPwdResetLinkAction: authActions.requestPwdResetLink,
 };
 

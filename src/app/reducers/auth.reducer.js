@@ -6,19 +6,29 @@ import { actions as appActions } from './app.reducer';
 import { actions as sandboxActions } from './sandbox.reducer';
 
 export const actions = formatActionTypeNames({
-	verifyEmail: 'VERIFY_EMAIL',
 	getUser: 'GET_USER',
-	userFetched: 'USER_FETCHED',
-	resetPassword: 'RESET_PASSWORD',
+	getUserComplete: 'GET_USER_COMPLETE',
+	login: 'LOGIN',
+	loginComplete: 'LOGIN_COMPLETE',
+	logout: 'LOGOUT',
+	logoutComplete: 'LOGOUT_COMPLETE',
 	requestPwdResetLink: 'REQUEST_PWD_RESET_LINK',
+	resetPassword: 'RESET_PASSWORD',
+	signup: 'SIGNUP',
+	verifyEmail: 'VERIFY_EMAIL',
 }, 'AUTH');
 
 export const authActions = {
-  verifyEmail: createAction(actions.verifyEmail),
-  getUser: createAction(actions.getUser),
-  userFetched: createAction(actions.userFetched),
-  resetPassword: createAction(actions.resetPassword),
+	login: createAction(actions.login),
+	loginComplete: createAction(actions.loginComplete),
+	logout: createAction(actions.logout),
+	logoutComplete: createAction(actions.logoutComplete),
+	signup: createAction(actions.signup),
+  getUserComplete: createAction(actions.getUser),
+  getUserComplete: createAction(actions.getUserComplete),
   requestPwdResetLink: createAction(actions.requestPwdResetLink),
+  resetPassword: createAction(actions.resetPassword),
+  verifyEmail: createAction(actions.verifyEmail),
 };
 
 export default (state = {}, action) => {
