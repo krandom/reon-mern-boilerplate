@@ -12,7 +12,7 @@ const SandboxAuth = ({
 	signupAction,
 	loginAction,
 	logoutAction,
-	resetPasswordAction,
+	requestPwdResetLinkAction,
 }) => {
 	const [signupForm, setSignupForm] = useState({
 		email: 'test@test.com',
@@ -53,7 +53,7 @@ const SandboxAuth = ({
 
 						<Input
 							value={signupForm.password}
-							type='password'
+							type='text'
 							placeholder='Password'
 							onChange={e => setSignupForm({...signupForm, password: e.target.value}) }
 						/>
@@ -118,7 +118,7 @@ const SandboxAuth = ({
 						</div>
 
 						<Input
-							value={loginForm.email}
+							value={resetPwdForm.email}
 							placeholder='Email'
 							onChange={e => setResetPwdForm({ email: e.target.value }) }
 						/>
@@ -126,7 +126,7 @@ const SandboxAuth = ({
 						<button
 							className='sandbox__success'
 							onClick={() => {
-								resetPasswordAction(resetPwdForm)
+								requestPwdResetLinkAction(resetPwdForm)
 							}}>
 
 							Send Link
@@ -171,7 +171,7 @@ const mdtp = {
 	signupAction: sandboxActions.signup,
 	loginAction: sandboxActions.login,
 	logoutAction: sandboxActions.logout,
-	resetPasswordAction: authActions.resetPassword,
+	requestPwdResetLinkAction: authActions.requestPwdResetLink,
 };
 
 export default connect(mstp, mdtp)(SandboxAuth);

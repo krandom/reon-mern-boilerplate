@@ -2,6 +2,7 @@ const Validator = require('validator');
 const isEmpty = require('is-empty');
 const User = require('../schema/user.schema');
 const responseMsg = require('../helpers/responseMsg');
+const isValidPassword = require('../helpers/isValidPassword');
 
 module.exports = async ({ email, password }) => {
 	try {
@@ -15,12 +16,15 @@ module.exports = async ({ email, password }) => {
 	    errors.email = responseMsg.add({ message: 'Please include a valid email' });
 
 		// Password checks
-		// TODO :: add length and special char check
 	  if (Validator.isEmpty(password))
 	    errors.password = responseMsg.add({ message: 'Password field is required' });
 
+		// Validate password according to your standards set up in isValidPassword
+		const { passwordErrors, passwordIsValid } = isValidPassword(password);
+		if (!passwordIsValid)
+			Object.keys(passwordErrors).forEach(x => errors[x] = responseMsg.add({ message: passwordErrors[x] }) );
+
 		// Check if user with the same email is signed up
-		// const user = await User.findOne({ email: { address: email }});
 		const user = await User.findOne({ email: { $elemMatch: { address: email }}});
 
     if (user)

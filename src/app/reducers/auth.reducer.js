@@ -10,6 +10,7 @@ export const actions = formatActionTypeNames({
 	getUser: 'GET_USER',
 	userFetched: 'USER_FETCHED',
 	resetPassword: 'RESET_PASSWORD',
+	requestPwdResetLink: 'REQUEST_PWD_RESET_LINK',
 }, 'AUTH');
 
 export const authActions = {
@@ -17,6 +18,7 @@ export const authActions = {
   getUser: createAction(actions.getUser),
   userFetched: createAction(actions.userFetched),
   resetPassword: createAction(actions.resetPassword),
+  requestPwdResetLink: createAction(actions.requestPwdResetLink),
 };
 
 export default (state = {}, action) => {

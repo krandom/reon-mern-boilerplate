@@ -1,5 +1,6 @@
 import { call, select, put, takeEvery, takeLatest, all, } from 'redux-saga/effects'
 import { publicCall } from './api.saga';
+import { history } from '../store/store';
 
 import { authActions } from '../reducers/auth.reducer';
 import { notificationActions } from '../reducers/notification.reducer';
@@ -29,12 +30,21 @@ function* verifyEmail({ payload }) {
   } catch (e) {}
 }
 
+function* requestPwdResetLink({ payload }) {
+  try {
+    const endpoint = yield select(s => s.app.endpoints.auth.requestPwdResetLink);
+    const { user } = yield publicCall({ method: 'post', endpoint, payload });
+  } catch (e) {}
+}
+
 function* resetPassword({ payload }) {
   try {
     const endpoint = yield select(s => s.app.endpoints.auth.resetPassword);
-    const { user } = yield publicCall({ method: 'post', endpoint, payload });
+    const { success } = yield publicCall({ method: 'post', endpoint, payload });
 
-		// yield put(authActions.userFetched({ user }))
+    if (success)
+    	history.push('/');
+
   } catch (e) {}
 }
 
@@ -42,6 +52,7 @@ export default function* authSaga() {
 	yield all([
   	yield takeLatest(authActions.getUser, getUser),
   	yield takeLatest(authActions.verifyEmail, verifyEmail),
+  	yield takeLatest(authActions.requestPwdResetLink, requestPwdResetLink),
   	yield takeLatest(authActions.resetPassword, resetPassword),
 	]);
 }

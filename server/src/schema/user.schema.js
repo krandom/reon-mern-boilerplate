@@ -40,11 +40,25 @@ const UserSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
+	lastActive: {
+		type: Date,
+		default: Date.now,
+	},
 	role: {
 		type: String,
 		default: 'user',
 		required: true,
-	}
+	},
+	resetPassword: {
+		verificationCode: {
+			type: String,
+			default: null,
+		},
+		dateAdded: {
+			type: Date,
+			default: null,
+		}
+	},
 });
 
 UserSchema.pre('save', async function(next) {

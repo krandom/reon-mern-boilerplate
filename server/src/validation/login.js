@@ -17,7 +17,6 @@ module.exports = async ({ email, password }) => {
 	    errors.validation = responseMsg.add({ message: 'Invalid User Credentials' });
 
 		// Password checks
-		// TODO :: add length and cpecial char check
 	  if (Validator.isEmpty(password))
 	    errors.validation = responseMsg.add({ message: 'Invalid User Credentials' });
 
