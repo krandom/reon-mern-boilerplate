@@ -3,7 +3,7 @@ import { connectRouter } from 'connected-react-router';
 import { history } from '../store/store';
 
 import app from './app.reducer';
-// import auth from './auth.reducer';
+import auth from './auth.reducer';
 // import config from './config.reducer';
 import modal from './modal.reducer';
 import notification from './notification.reducer';
@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
     // router: connectRouter(history),
 
 	app,
-	// auth,
+	auth,
 	// config,
 	modal,
 	notification,

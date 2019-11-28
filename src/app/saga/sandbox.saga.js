@@ -33,13 +33,9 @@ function* login({ payload }) {
 
 function* logout({ payload }) {
   try {
-    // const endpoint = yield select(s => s.app.endpoints.auth.logout);
-    // const response = yield publicCall({ endpoint });
-
 		const cookies = new Cookies();
-		cookies.remove('reon-mern-boilerplate');
+		cookies.remove('reon-mern-boilerplate', { path: '/' });
 
-	console.log('test')
     yield put(sandboxActions.logoutComplete());
   } catch (e) {}
 }

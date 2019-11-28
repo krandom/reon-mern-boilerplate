@@ -1,25 +1,32 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import { authActions } from '../../../reducers/auth.reducer';
 import { sandboxActions } from '../../../reducers/sandbox.reducer';
 
 import Input from '../../common/form/Input.react';
 import Checkbox from '../../common/form/Checkbox.react';
+import SandboxProfile from './SandboxProfile';
 
 const SandboxAuth = ({
 	isLoggedIn,
 	signupAction,
 	loginAction,
 	logoutAction,
+	resetPasswordAction,
 }) => {
 	const [signupForm, setSignupForm] = useState({
-		email: '',
-		password: '',
+		email: 'test@test.com',
+		password: 'test',
 	});
 
 	const [loginForm, setLoginForm] = useState({
 		email: 'test@test.com',
-		password: 'test123',
+		password: 'test',
 		rememberMe: true,
+	});
+
+	const [resetPwdForm, setResetPwdForm] = useState({
+		email: 'test@test.com',
 	});
 
 	console.log('isLoggedIn', isLoggedIn)
@@ -100,6 +107,33 @@ const SandboxAuth = ({
 					</div>
 				}
 
+				{ !isLoggedIn &&
+					<div className='sandbox__block'>
+						<div className='sandbox__title'>
+							Reset Password
+						</div>
+
+						<div className='sandbox__description'>
+							Reset here
+						</div>
+
+						<Input
+							value={loginForm.email}
+							placeholder='Email'
+							onChange={e => setResetPwdForm({ email: e.target.value }) }
+						/>
+
+						<button
+							className='sandbox__success'
+							onClick={() => {
+								resetPasswordAction(resetPwdForm)
+							}}>
+
+							Send Link
+						</button>
+					</div>
+				}
+
 				{ isLoggedIn &&
 					<div className='sandbox__block'>
 						<div className='sandbox__title'>
@@ -137,6 +171,7 @@ const mdtp = {
 	signupAction: sandboxActions.signup,
 	loginAction: sandboxActions.login,
 	logoutAction: sandboxActions.logout,
+	resetPasswordAction: authActions.resetPassword,
 };
 
 export default connect(mstp, mdtp)(SandboxAuth);

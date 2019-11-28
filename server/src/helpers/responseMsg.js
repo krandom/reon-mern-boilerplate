@@ -1,4 +1,4 @@
-const resErrMsg = ({
+const add = ({
 	icon,
 	message,
 	pauseOnHover,
@@ -15,9 +15,16 @@ const resErrMsg = ({
 		showNotification: showNotification || true,
 		sticky: sticky || false,
 		timer: timer || 5000,
-		type: 'info' || type,
+		type: type || 'info',
 		visible: visible || true,
 	});
 }
 
-module.exports = resErrMsg;
+const warn = (payload) => {
+	return add({ ...payload, type: 'warning' });
+}
+
+module.exports = {
+	add: add,
+	warn: warn,
+};

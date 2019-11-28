@@ -6,7 +6,7 @@ const PageNotFound = () => (
 					404
 				</div>
 				<div className='page-not-found__description'>
-					Page not found, are you sure you are looking at the right place?
+					Page not found, are you sure you are looking in the right place?
 				</div>
 			</div>
 		</div>

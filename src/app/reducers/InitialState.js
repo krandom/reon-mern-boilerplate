@@ -7,9 +7,8 @@ export default {
   	token: null,
     showHamburgerMenu: false,
     mainNav: [],
-		user: null,
 
-  	endpoints: {
+  	endpoints: { // move to config and make different depending on environment
   		exchangeRatesApi: {
   			latest: 'https://api.exchangeratesapi.io/latest?base=USD',
   		},
@@ -22,9 +21,12 @@ export default {
       },
       auth: {
       	validateCookie: '//localhost:5000/api/auth/validate-token',
+      	verifyEmail: '//localhost:5000/api/auth/verify-email',
       	signup: '//localhost:5000/api/auth/signup',
       	login: '//localhost:5000/api/auth/login',
       	logout: '//localhost:5000/api/auth/logout',
+      	getUser: '//localhost:5000/api/auth/get-user',
+      	resetPassword: '//localhost:5000/api/auth/reset-password',
       }
     },
   },
@@ -36,6 +38,7 @@ export default {
 
   auth: {
     popup: null,
+    user: null,
   },
 
   config: {

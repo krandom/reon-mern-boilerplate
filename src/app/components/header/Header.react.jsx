@@ -1,15 +1,14 @@
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import { appActions } from '../../reducers/app.reducer';
+
 import MegaMenu from './MegaMenu.react';
 import MainNavLink from './MainNavLink.react';
 
 const Header = ({
 	mainNav,
-	isLoggedIn,
-	showModal,
-	setAuthWindowAction,
-	logoutAction,
+	toggleHamburgerMenuAction,
 }) => {
 
   return (
@@ -56,6 +55,13 @@ const Header = ({
 						);
         	})}
 	      </div>
+
+	      <div
+	      	className='header__hamburger'
+	      	onClick={() => { toggleHamburgerMenuAction(null); }}>
+
+					<i className='fa fa-bars' />
+	      </div>
       </div>
     </header>
   );
@@ -65,16 +71,8 @@ const mstp = s => ({
 	mainNav: s.app.mainNav,
 });
 
-export default connect(mstp, null)(Header);
+const mdtp = {
+	toggleHamburgerMenuAction: appActions.toggleHamburgerMenu
+}
 
-/*
-
-										{ x.url ?
-											<NavLink to={x.url}>
-
-											</NavLink>
-										:
-											`${x.title}`
-										}
-
-*/
+export default connect(mstp, mdtp)(Header);

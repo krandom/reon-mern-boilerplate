@@ -1,7 +1,7 @@
 const Validator = require('validator');
 const isEmpty = require('is-empty');
 const User = require('../schema/user.schema');
-const resErrMsg = require('../helpers/resErrMsg');
+const responseMsg = require('../helpers/responseMsg');
 const bcrypt = require('bcryptjs');
 
 module.exports = async ({ email, password }) => {
@@ -14,17 +14,17 @@ module.exports = async ({ email, password }) => {
 
 		// Email checks
 	  if (Validator.isEmpty(email) || !Validator.isEmail(email))
-	    errors.validation = resErrMsg({ message: 'Invalid User Credentials' });
+	    errors.validation = responseMsg.add({ message: 'Invalid User Credentials' });
 
 		// Password checks
 		// TODO :: add length and cpecial char check
 	  if (Validator.isEmpty(password))
-	    errors.validation = resErrMsg({ message: 'Invalid User Credentials' });
+	    errors.validation = responseMsg.add({ message: 'Invalid User Credentials' });
 
-		const user = await User.findOne({ email: email });
+		const user = await User.findOne({ email: { $elemMatch: { address: email }}});
 
 		if (!user || !(await bcrypt.compare(password, user.password)))
-			errors.validation = resErrMsg({ message: 'Invalid User Credentials' });
+			errors.validation = responseMsg.add({ message: 'Invalid User Credentials' });
 
 		return {
 	    errors,

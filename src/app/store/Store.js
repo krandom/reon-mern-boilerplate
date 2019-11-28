@@ -17,9 +17,9 @@ import { routerMiddleware, connectRouter } from 'connected-react-router';
 // import CountReducer from '../reducers/Count.reducer'
 import rootReducer from '../reducers/root.reducer';
 
-// import authSaga from '../saga/auth.saga';
 import apiSaga from '../saga/api.saga';
 import appSaga from '../saga/app.saga';
+import authSaga from '../saga/auth.saga';
 import sandboxSaga from '../saga/sandbox.saga';
 // import userSaga from '../saga/user.saga';
 // import rootSaga from '../sagas/root.saga'
@@ -68,8 +68,8 @@ export const mainStore = ({ initialState = {} } = {}) => {
 
   saga.run(apiSaga);
   saga.run(appSaga);
+  saga.run(authSaga);
   saga.run(sandboxSaga);
-  // saga.run(authSaga);
   // saga.run(apiSaga);
   // saga.run(userSaga);
 

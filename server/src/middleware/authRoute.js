@@ -1,17 +1,18 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
+const jwtToken = require('../helpers/jwtToken');
+
+// TODO :: Set global userid here
 
 module.exports = function(req, res, next) {
-	// Get token from header
 	const token = req.header('x-auth-token');
 
-	// Check if no token
 	if (!token)
 		return res.status(401).json({ message: 'No token, Auth denied' });
 
 	try {
-		const decoded = jwt.verify(token, 'mysecret');
-		req.user = decoded.user;
+		const { user } = jwtToken.verify({ token });
+
+		global.userID = user.id;
 
 		next();
 	} catch(err) {

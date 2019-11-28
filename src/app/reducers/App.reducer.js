@@ -21,32 +21,29 @@ export default (state = initialState.app, action) => {
   switch (action.type) {
 
     case actions.booted:
-    	let { mainNav,  } = payload;
+    	let { mainNav } = payload;
 
     	return {
         ...state,
         mainNav,
-        user: payload.user,
         token: payload.token,
         booted: true,
 				isLoggedIn: payload.token ? true : false,
       };
 
 		case actions.toggleHamburgerMenu:
-
 			return {
 				...state,
-				showHamburgerMenu: payload,
+				showHamburgerMenu: payload || !state.showHamburgerMenu,
 			};
 
 		case sandboxActions.loginComplete:
-			let { token, user } = payload;
+			let { token } = payload;
 
 			return {
 				...state,
 				isLoggedIn: true,
 				token,
-				user,
 			};
 
 		case sandboxActions.logoutComplete:
@@ -54,5 +51,5 @@ export default (state = initialState.app, action) => {
 
     default:
       return state;
-  	}
+  }
 }
