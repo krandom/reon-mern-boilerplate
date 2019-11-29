@@ -19,13 +19,13 @@ export const actions = formatActionTypeNames({
 }, 'AUTH');
 
 export const authActions = {
+  getUser: createAction(actions.getUser),
+  getUserComplete: createAction(actions.getUserComplete),
 	login: createAction(actions.login),
 	loginComplete: createAction(actions.loginComplete),
 	logout: createAction(actions.logout),
 	logoutComplete: createAction(actions.logoutComplete),
 	signup: createAction(actions.signup),
-  getUserComplete: createAction(actions.getUser),
-  getUserComplete: createAction(actions.getUserComplete),
   requestPwdResetLink: createAction(actions.requestPwdResetLink),
   resetPassword: createAction(actions.resetPassword),
   verifyEmail: createAction(actions.verifyEmail),
@@ -36,7 +36,7 @@ export default (state = {}, action) => {
 
   switch (action.type) {
 
-		case actions.userFetched:
+		case actions.getUserComplete:
 			return {
 				...state,
 				user: payload.user,

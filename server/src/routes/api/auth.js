@@ -187,7 +187,7 @@ router.post('/request-pwd-reset-password', anonRoute, async (req, res) => {
 		}
 
 		res.status(200).json({
-			toast: responseMsg.add({ message: `Instructions for changing your password have been sent to ${email}` })
+			toast: responseMsg.info({ message: `Instructions for changing your password have been sent to ${email}` })
 		});
 	} catch(err) {
 		console.error('/auth/get-user', err.message);
@@ -217,7 +217,7 @@ router.post('/reset-password', anonRoute, async (req, res) => {
 		}})
 
 		res.status(200).json({
-			toast: responseMsg.add({ message: `Your password have been updated, please log in to continue.`, type: 'success', sticky: true }),
+			toast: responseMsg.info({ message: `Your password have been updated, please log in to continue.`, type: 'success', sticky: true }),
 			success: true,
 		});
 	} catch(err) {

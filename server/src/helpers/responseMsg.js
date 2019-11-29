@@ -1,30 +1,47 @@
 const add = ({
-	icon,
+	icon = null,
 	message,
-	pauseOnHover,
-	showNotification,
-	sticky,
-	timer,
-	type,
-	visible,
+	pauseOnHover = null,
+	showNotification = null,
+	sticky = null,
+	timer = null,
+	type = null,
+	visible = null,
 }) => {
-	return ({
-		icon: icon || null,
+	let returnObj = {
 		message,
-		pauseOnHover: pauseOnHover || true,
-		showNotification: showNotification || true,
-		sticky: sticky || false,
-		timer: timer || 5000,
-		type: type || 'info',
-		visible: visible || true,
-	});
+	};
+
+	if (icon)
+		returnObj.icon = icon;
+
+	if (pauseOnHover)
+		returnObj.pauseOnHover = pauseOnHover;
+
+	if (showNotification)
+		returnObj.showNotification = showNotification;
+
+	if (sticky)
+		returnObj.sticky = sticky;
+
+	if (timer)
+		returnObj.timer = timer;
+
+	if (type)
+		returnObj.type = type;
+
+	if (visible)
+		returnObj.visible = visible;
+
+	return returnObj;
 }
 
-const warn = (payload) => {
-	return add({ ...payload, type: 'warning' });
-}
+const info = (payload) => add({ ...payload, type: 'info' })
+const warn = (payload) => add({ ...payload, type: 'warning' })
+
 
 module.exports = {
 	add: add,
+	info: info,
 	warn: warn,
 };

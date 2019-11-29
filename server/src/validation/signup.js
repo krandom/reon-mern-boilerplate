@@ -13,22 +13,22 @@ module.exports = async ({ email, password }) => {
 
 		// Email checks
 	  if (Validator.isEmpty(email) || !Validator.isEmail(email))
-	    errors.email = responseMsg.add({ message: 'Please include a valid email' });
+	    errors.email = responseMsg.info({ message: 'Please include a valid email' });
 
 		// Password checks
 	  if (Validator.isEmpty(password))
-	    errors.password = responseMsg.add({ message: 'Password field is required' });
+	    errors.password = responseMsg.info({ message: 'Password field is required' });
 
 		// Validate password according to your standards set up in isValidPassword
 		const { passwordErrors, passwordIsValid } = isValidPassword(password);
 		if (!passwordIsValid)
-			Object.keys(passwordErrors).forEach(x => errors[x] = responseMsg.add({ message: passwordErrors[x] }) );
+			Object.keys(passwordErrors).forEach(x => errors[x] = responseMsg.info({ message: passwordErrors[x] }) );
 
 		// Check if user with the same email is signed up
 		const user = await User.findOne({ email: { $elemMatch: { address: email }}});
 
     if (user)
-      errors.email = responseMsg.add({ message: 'Please include a valid email' });
+      errors.email = responseMsg.info({ message: 'Please include a valid email' });
 
 		return {
 	    errors,

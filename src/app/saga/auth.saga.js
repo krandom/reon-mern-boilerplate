@@ -50,7 +50,7 @@ function* resetPassword({ payload }) {
   } catch (e) {}
 }
 
-function* signup({ payload }) {
+function* signup({ payload }) { console.log('signup')
   try {
     const endpoint = yield select(s => s.app.endpoints.auth.signup);
     const response = yield publicCall({ endpoint, payload, method: 'post' });

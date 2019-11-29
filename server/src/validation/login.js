@@ -14,16 +14,16 @@ module.exports = async ({ email, password }) => {
 
 		// Email checks
 	  if (Validator.isEmpty(email) || !Validator.isEmail(email))
-	    errors.validation = responseMsg.add({ message: 'Invalid User Credentials' });
+	    errors.validation = responseMsg.info({ message: 'Invalid User Credentials' });
 
 		// Password checks
 	  if (Validator.isEmpty(password))
-	    errors.validation = responseMsg.add({ message: 'Invalid User Credentials' });
+	    errors.validation = responseMsg.info({ message: 'Invalid User Credentials' });
 
 		const user = await User.findOne({ email: { $elemMatch: { address: email }}});
 
 		if (!user || !(await bcrypt.compare(password, user.password)))
-			errors.validation = responseMsg.add({ message: 'Invalid User Credentials' });
+			errors.validation = responseMsg.info({ message: 'Invalid User Credentials' });
 
 		return {
 	    errors,

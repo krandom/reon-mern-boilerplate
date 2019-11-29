@@ -13,8 +13,5 @@ function* getExchangeRates() {
 export default function* sandboxSaga() {
 	yield all([
   	yield takeLatest(sandboxActions.getExchangeRates, getExchangeRates),
-  	yield takeLatest(sandboxActions.signup, signup),
-  	yield takeLatest(sandboxActions.login, login),
-  	yield takeLatest(sandboxActions.logout, logout),
 	]);
 }

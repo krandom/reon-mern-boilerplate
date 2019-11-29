@@ -9,7 +9,7 @@ module.exports = async ({ email }) => {
 	  email = !isEmpty(email) ? email : '';
 
 	  if (Validator.isEmpty(email) || !Validator.isEmail(email))
-	    errors.validation = responseMsg.add({ message: 'Invalid Email Address' });
+	    errors.validation = responseMsg.info({ message: 'Invalid Email Address' });
 
 		return {
 	    errors,
