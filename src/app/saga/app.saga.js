@@ -9,7 +9,7 @@ function* boot() {
 		// Look for cookie and log user in if valid
 		const cookies = new Cookies();
 		let token = cookies.get('reon-mern-boilerplate');
-    const endpoint = yield select(s => s.app.endpoints.auth.validateCookie);
+    const endpoint = yield select(s => s.config.endpoints.auth.validateCookie);
     const { user } = yield privateCall({ endpoint, payload: { token } });
 
 		if (!user) {

@@ -1,4 +1,12 @@
-var dev = window.location.href.indexOf('localhost') !== -1 ? true : false;
+import getEnvironment from '../helpers/getEnvironment';
+import devConfig from './config/config.dev';
+
+const getConfig = () => {
+	const environment = getEnvironment();
+
+	if (environment === 'dev')
+		return devConfig;
+};
 
 export default {
   app: {
@@ -7,29 +15,6 @@ export default {
   	token: null,
     showHamburgerMenu: false,
     mainNav: [],
-
-  	endpoints: { // move to config and make different depending on environment
-  		exchangeRatesApi: {
-  			latest: 'https://api.exchangeratesapi.io/latest?base=USD',
-  		},
-      coinMarketCap: {
-        login: '//reonsolutions.com/mock-server/login.php',
-        logout: '//reonsolutions.com/mock-server/logout.php',
-      },
-      user: {
-        getProfile: '//reonsolutions.com/mock-server/getProfile.php',
-      },
-      auth: {
-      	validateCookie: '//localhost:5000/api/auth/validate-token',
-      	verifyEmail: '//localhost:5000/api/auth/verify-email',
-      	signup: '//localhost:5000/api/auth/signup',
-      	login: '//localhost:5000/api/auth/login',
-      	logout: '//localhost:5000/api/auth/logout',
-      	getUser: '//localhost:5000/api/auth/get-user',
-      	requestPwdResetLink: '//localhost:5000/api/auth/request-pwd-reset-password',
-      	resetPassword: '//localhost:5000/api/auth/reset-password',
-      }
-    },
   },
 
   modal: {
@@ -42,14 +27,7 @@ export default {
     user: null,
   },
 
-  config: {
-
-    host                     : dev ? 'http://localhost:8080/' : '',
-    api                      : dev ? 'http://localhost:8080/' : '',
-    fbAppID                  : dev ? '' : '',
-    sessionID                : '',
-    cookieID                 : 'reon-react-boilerplate',
-  },
+	config: getConfig(),
 
   user: {
     profile: null,

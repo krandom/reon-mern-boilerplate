@@ -4,7 +4,7 @@ import { history } from '../store/store';
 
 import app from './app.reducer';
 import auth from './auth.reducer';
-// import config from './config.reducer';
+import config from './config.reducer';
 import modal from './modal.reducer';
 import notification from './notification.reducer';
 import sandbox from './sandbox.reducer';
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
 
 	app,
 	auth,
-	// config,
+	config,
 	modal,
 	notification,
 	sandbox,

@@ -9,7 +9,7 @@ import { notificationActions } from '../reducers/notification.reducer';
 
 function* getUser() {
   try {
-    const endpoint = yield select(s => s.app.endpoints.auth.getUser);
+    const endpoint = yield select(s => s.config.endpoints.auth.getUser);
     const { user } = yield privateCall({ endpoint });
 
 		yield put(authActions.getUserComplete({ user }))
@@ -18,7 +18,7 @@ function* getUser() {
 
 function* verifyEmail({ payload }) {
   try {
-    const endpoint = yield select(s => s.app.endpoints.auth.verifyEmail);
+    const endpoint = yield select(s => s.config.endpoints.auth.verifyEmail);
     const { success } = yield privateCall({ endpoint, payload });
 
 		if (success) {
@@ -34,14 +34,14 @@ function* verifyEmail({ payload }) {
 
 function* requestPwdResetLink({ payload }) {
   try {
-    const endpoint = yield select(s => s.app.endpoints.auth.requestPwdResetLink);
+    const endpoint = yield select(s => s.config.endpoints.auth.requestPwdResetLink);
     const { user } = yield privateCall({ endpoint, payload });
   } catch (e) {}
 }
 
 function* resetPassword({ payload }) {
   try {
-    const endpoint = yield select(s => s.app.endpoints.auth.resetPassword);
+    const endpoint = yield select(s => s.config.endpoints.auth.resetPassword);
     const { success } = yield privateCall({ endpoint, payload });
 
     if (success)
@@ -52,14 +52,14 @@ function* resetPassword({ payload }) {
 
 function* signup({ payload }) { console.log('signup')
   try {
-    const endpoint = yield select(s => s.app.endpoints.auth.signup);
+    const endpoint = yield select(s => s.config.endpoints.auth.signup);
     const response = yield privateCall({ endpoint, payload });
   } catch (e) {}
 }
 
 function* login({ payload }) {
   try {
-    const endpoint = yield select(s => s.app.endpoints.auth.login);
+    const endpoint = yield select(s => s.config.endpoints.auth.login);
     const response = yield privateCall({ endpoint, payload });
 
 		if (payload.rememberMe)
