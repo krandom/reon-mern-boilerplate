@@ -2,23 +2,23 @@
 	"verbose": true,
 	"ignore": [
 		"\\.git",
-		"node_modules/*",
-		"dist",
-		"src",
 		"app/*"
+		"dist",
+		"node_modules/*",
+		"src",
 	],
 	"watch": [
-		"package.json",
-		"webpack.config.js",
-		"webpack.parts.js",
-		".eslintrc.js",
+		".babelrc",
 		".editorconfig",
+		".eslintignore"
+		".eslintrc",
+		".eslintrc.js",
+		".sasslintrc",
 		".stylelintrc",
 		".stylelintrc.json",
+		"package.json",
 		"sass-lint.yml",
-		".babelrc",
-		".sasslintrc",
-		".eslintrc",
-		".eslintignore"
+		"webpack.config.js",
+		"webpack.parts.js",
 	]
 }

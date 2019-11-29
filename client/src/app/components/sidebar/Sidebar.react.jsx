@@ -27,7 +27,7 @@ const Sidebar = ({ pages, delPageAction }) => {
 
 	return (
 		<>
-			<div className={`sidebar`} id={id}>
+			<div className={'sidebar'} id={id}>
 				{pages.length > 0 && pages[pages.length - 1]}
 			</div>
 			<div

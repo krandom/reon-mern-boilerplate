@@ -30,12 +30,6 @@ const App = ({ bootAction }) => {
 		bootAction();
 	}, []);
 
-	const test = {
-		test2: {
-			test3: 'hello kitty',
-		}
-	};
-
 	return (
 		<Router history={history}>
 			<>
@@ -46,7 +40,7 @@ const App = ({ bootAction }) => {
 				<Modal />
 				<Notification />
 				<Sidebar />
-				<Hamburger />
+				<Hamburger key="test" />
 			</>
 		</Router>
 	);

@@ -49,7 +49,7 @@ exports.loadImages = ({ include, exclude, options } = {}) => ({
 				include,
 				exclude,
 				use: {
-					loader: "url-loader",
+					loader: 'url-loader',
 					options,
 				},
 			},
@@ -78,7 +78,7 @@ exports.extractCSS = ({ include, exclude, use = [] }) => {
 
 	// Output extracted CSS to a file
 	const plugin = new MiniCssExtractPlugin({
-		filename: "src/[name].[contenthash:8].css",
+		filename: 'src/[name].[contenthash:8].css',
 	});
 
 	return {
@@ -109,7 +109,7 @@ exports.loadJavaScript = ({ include, exclude } = {}) => ({
 				test: /\.(js|jsx)$/,
 				include,
 				exclude,
-				use: "babel-loader",
+				use: 'babel-loader',
 			},
 		],
 	},
@@ -158,32 +158,31 @@ exports.indexTemplate = ({ options }) => ({
 			meta: [
 				{
 					'name': 'format-detection',
-					content: 'telephone=no'
-				}
+					content: 'telephone=no',
+				},
 			],
-		})
-	]
+		}),
+	],
 });
 
 exports.globalInclude = function() {
 	return {
 		plugins: [
 			new webpack.ProvidePlugin({
-				React: "react",
-				ReactDOM: "react-dom",
-				$: "jquery",
-				uuid: "uuid",
-				moment: "moment",
-				_: "lodash",
-				axios: "axios",
-
-				Immutable: "seamless-immutable",
-				Cookies: "universal-cookie",
-				ReactRedux: "react-redux",
-				Redux: "redux"
+				$: 'jquery',
+				_: 'lodash',
+				axios: 'axios',
+				Cookies: 'universal-cookie',
+				Immutable: 'seamless-immutable',
+				moment: 'moment',
+				React: 'react',
+				ReactDOM: 'react-dom',
+				ReactRedux: 'react-redux',
+				Redux: 'redux',
+				uuid: 'uuid',
 			}),
 			// new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-		]
+		],
 	};
 };
 

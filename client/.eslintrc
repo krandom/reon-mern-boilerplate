@@ -34,6 +34,8 @@
     "no-multi-spaces": "warn",
     "object-curly-spacing": ["warn", "always"],
     "semi": 1,
+		"quotes": ["warn", "single"],
+		"comma-dangle": ["warn", "always-multiline"],
   },
   "settings": {
     "react": {
@@ -42,16 +44,16 @@
   },
 
   "globals" : {
+    "$" : false,
+    "_" : false,
+    "JQuery" : false,
+    "moment" : false,
+    "Promise" : false,
     "React" : false,
     "ReactDOM" : false,
-    "$" : false,
-    "moment" : false,
-    "JQuery" : false,
     "Tween" : false,
-    "_" : false,
+    "Typekit" : false,
     "uuid" : false,
-    "Promise" : false,
-    "Typekit" : false
   },
 
 
@@ -70,7 +72,6 @@
   // Enable eslint-plugin-react
 
 	// "rules": {
-		// "comma-dangle": ["error", "always-multiline"],
 		// "indent": ["error", 4],
 		// "linebreak-style": ["error", "windows"],
 		// "quotes": ["error", "single"],
