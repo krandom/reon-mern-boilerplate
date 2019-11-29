@@ -1,7 +1,7 @@
 import Cookies from 'universal-cookie';
 
 import { call, select, put, takeEvery, takeLatest } from 'redux-saga/effects'
-import { publicCall } from './api.saga';
+import { privateCall } from './api.saga';
 import { appActions } from '../reducers/app.reducer';
 
 function* boot() {
@@ -10,7 +10,7 @@ function* boot() {
 		const cookies = new Cookies();
 		let token = cookies.get('reon-mern-boilerplate');
     const endpoint = yield select(s => s.app.endpoints.auth.validateCookie);
-    const { user } = yield publicCall({ endpoint, payload: { token }, method: 'post' });
+    const { user } = yield privateCall({ endpoint, payload: { token } });
 
 		if (!user) {
 			token = null;

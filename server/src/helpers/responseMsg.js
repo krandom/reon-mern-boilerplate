@@ -39,7 +39,6 @@ const add = ({
 const info = (payload) => add({ ...payload, type: 'info' })
 const warn = (payload) => add({ ...payload, type: 'warning' })
 
-
 module.exports = {
 	add: add,
 	info: info,

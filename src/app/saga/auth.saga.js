@@ -1,7 +1,7 @@
 import Cookies from 'universal-cookie';
 
 import { call, select, put, takeEvery, takeLatest, all, } from 'redux-saga/effects'
-import { publicCall } from './api.saga';
+import { privateCall } from './api.saga';
 import { history } from '../store/store';
 
 import { authActions } from '../reducers/auth.reducer';
@@ -10,7 +10,7 @@ import { notificationActions } from '../reducers/notification.reducer';
 function* getUser() {
   try {
     const endpoint = yield select(s => s.app.endpoints.auth.getUser);
-    const { user } = yield publicCall({ method: 'post', endpoint });
+    const { user } = yield privateCall({ endpoint });
 
 		yield put(authActions.getUserComplete({ user }))
   } catch (e) {}
@@ -19,7 +19,7 @@ function* getUser() {
 function* verifyEmail({ payload }) {
   try {
     const endpoint = yield select(s => s.app.endpoints.auth.verifyEmail);
-    const { success } = yield publicCall({ method: 'post', endpoint, payload });
+    const { success } = yield privateCall({ endpoint, payload });
 
 		if (success) {
 			yield put(notificationActions.addToast({
@@ -35,14 +35,14 @@ function* verifyEmail({ payload }) {
 function* requestPwdResetLink({ payload }) {
   try {
     const endpoint = yield select(s => s.app.endpoints.auth.requestPwdResetLink);
-    const { user } = yield publicCall({ method: 'post', endpoint, payload });
+    const { user } = yield privateCall({ endpoint, payload });
   } catch (e) {}
 }
 
 function* resetPassword({ payload }) {
   try {
     const endpoint = yield select(s => s.app.endpoints.auth.resetPassword);
-    const { success } = yield publicCall({ method: 'post', endpoint, payload });
+    const { success } = yield privateCall({ endpoint, payload });
 
     if (success)
     	history.push('/');
@@ -53,14 +53,14 @@ function* resetPassword({ payload }) {
 function* signup({ payload }) { console.log('signup')
   try {
     const endpoint = yield select(s => s.app.endpoints.auth.signup);
-    const response = yield publicCall({ endpoint, payload, method: 'post' });
+    const response = yield privateCall({ endpoint, payload });
   } catch (e) {}
 }
 
 function* login({ payload }) {
   try {
     const endpoint = yield select(s => s.app.endpoints.auth.login);
-    const response = yield publicCall({ endpoint, payload, method: 'post' });
+    const response = yield privateCall({ endpoint, payload });
 
 		if (payload.rememberMe)
 			new Cookies().set('reon-mern-boilerplate', response.token, { path: '/' });
