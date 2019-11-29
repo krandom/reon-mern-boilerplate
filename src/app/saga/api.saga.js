@@ -2,6 +2,21 @@ import axios from 'axios';
 import { call, select, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import { notificationActions } from '../reducers/notification.reducer';
 
+function* toastNotifications(data) {
+	try {
+    if ('toast' in data) {
+    	if ('message' in data.toast) {
+				yield put(notificationActions.addToast(data.toast));
+    	} else {
+	    	const toastArr = Object.values(data.toast);
+
+	    	for (var i=0; i<toastArr.length; i++)
+	    		yield put(notificationActions.addToast(toastArr[i]) )
+	    }
+    }
+	} catch(e) {}
+};
+
 // private API calls here
 // https://github.com/axios/axios/issues/960
 function* privateApi({
@@ -11,6 +26,7 @@ function* privateApi({
   payload = {},
 }) {
 	try {
+
 		let options = {
 			headers: {
 	      'Accept': 'application/json',
@@ -35,37 +51,18 @@ function* privateApi({
       options,
     );
 
+    yield toastNotifications(data);
+
     switch (status)
     {
       case 200:
-		    if ('toast' in data) {
-		    	if ('message' in data.toast) {
-						yield put(notificationActions.addToast(data.toast));
-		    	} else {
-			    	const toastArr = Object.values(data.toast);
-
-			    	for (var i=0; i<toastArr.length; i++)
-			    		yield put(notificationActions.addToast(toastArr[i]) )
-		    	}
-		    }
-
         return data;
         break;
     }
 
   } catch (err) {
     const { response, response: { data } } = err;
-
-    if ('toast' in data) {
-    	if ('message' in data.toast) {
-				yield put(notificationActions.addToast(data.toast));
-    	} else {
-	    	const toastArr = Object.values(data.toast);
-
-	    	for (var i=0; i<toastArr.length; i++)
-	    		yield put(notificationActions.addToast(toastArr[i]) )
-	    }
-    }
+    yield toastNotifications(data);
   }
 };
 
