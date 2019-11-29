@@ -24,25 +24,25 @@
 		float: left;
 
 		img {
+			@include center;
+
 			width: 60px;
 			height: 60px;
 			cursor: pointer;
-
-			@include center();
 		}
 	}
 
-	&__hamburger{
+	&__hamburger {
 		height: 84px;
-    align-items: center;
-    justify-content: center;
+		align-items: center;
+		justify-content: center;
 		float: right;
 		display: none;
 		font-size: 42px;
 		cursor: pointer;
 
 		@media only screen and (max-width: 768px) {
-		  display: flex;
+			display: flex;
 		}
 	}
 }

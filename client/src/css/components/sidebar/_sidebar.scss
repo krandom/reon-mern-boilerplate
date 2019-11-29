@@ -1,4 +1,6 @@
 .sidebar {
+	@include transition(all, .3s);
+
 	position: fixed;
 	top: 87px;
 	right: -320px;
@@ -7,7 +9,6 @@
 	z-index: $sidebar;
 	background-color: $white;
 
-	@include transition(all, .3s);
 
 	&__overlay {
 		position: fixed;
@@ -19,9 +20,9 @@
 		display: none;
 
 		&--block {
-			display: block;
-
 			@include transition(all, .3s);
+
+			display: block;
 		}
 	}
 

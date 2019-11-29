@@ -7,7 +7,7 @@
 	font-size: 14px;
 
 	@media only screen and (max-width: 768px) {
-	  display: none;
+		display: none;
 	}
 
 	&__item {
@@ -20,14 +20,14 @@
 		}
 
 		&--content {
+			@include box-shadow(0, 5px, 5px);
+
 			position: absolute;
 			top: 84px;
 			left: 0;
 			display: none;
 			background-color: $white;
 			min-width: 120px;
-
-			@include box-shadow(0, 5px, 5px);
 
 			div {
 				line-height: 24px;
@@ -48,8 +48,8 @@
 	}
 
 	a {
-		display:inline-block;
-		width:100%;
-		height:100%;
+		display: inline-block;
+		width: 100%;
+		height: 100%;
 	}
 }

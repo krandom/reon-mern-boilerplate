@@ -10,22 +10,22 @@
 	}
 
 	&__outer {
-	  position: relative;
-	  width: 20px;
-	  height: 20px;
-	  border: 1px solid $grey-8;
-	  cursor: pointer;
-	  display: inline-block;
-	  vertical-align: top;
+		position: relative;
+		width: 20px;
+		height: 20px;
+		border: 1px solid $grey-8;
+		cursor: pointer;
+		display: inline-block;
+		vertical-align: top;
 	}
 
 	&__inner {
-	  position: absolute;
-	  top: 3px;
-	  left: 3px;
-	  width: 14px;
-	  height: 14px;
-	  background-color: $blue;
+		position: absolute;
+		top: 3px;
+		left: 3px;
+		width: 14px;
+		height: 14px;
+		background-color: $blue;
 	}
 
 	&__label {
@@ -37,6 +37,6 @@
 		vertical-align: top;
 		cursor: pointer;
 		font-family: $raleway;
-  	line-height: 23px;
+		line-height: 23px;
 	}
 }

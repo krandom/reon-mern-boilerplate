@@ -12,6 +12,8 @@
 	}
 
 	&__close {
+		@include transition(all, .2s);
+
 		position: absolute;
 		top: 0;
 		right: 0;
@@ -21,8 +23,6 @@
 		line-height: 40px;
 		cursor: pointer;
 		color: rgba($blue, .5);
-
-		@include transition(all, .2s);
 
 		&:hover {
 			color: #000;

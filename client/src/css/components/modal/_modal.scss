@@ -1,11 +1,11 @@
 .modal {
+	@include center;
+	@include box-shadow(0, 0, 4px, $light-blue);
+
 	min-width: 320px;
 	min-height: 240px;
 	background-color: #fff;
 	border-radius: 8px;
-
-	@include center();
-	@include box-shadow(0, 0, 4px, $light-blue);
 
 	&__content {
 		padding: 10px;

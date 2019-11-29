@@ -1,37 +1,37 @@
-@mixin box-shadow($horizontal: 0px, $vertical: 1px, $blur: 2px, $color: #CCC) {
-  -webkit-box-shadow: $horizontal $vertical $blur $color!important;
-  -moz-box-shadow: $horizontal $vertical $blur $color!important;
-  box-shadow: $horizontal $vertical $blur $color!important;
+@mixin box-shadow($horizontal: 0, $vertical: 1px, $blur: 2px, $color: #ccc) {
+	-webkit-box-shadow: $horizontal $vertical $blur $color !important;
+	-moz-box-shadow: $horizontal $vertical $blur $color !important;
+	box-shadow: $horizontal $vertical $blur $color !important;
 }
 
-@mixin transition($what: all, $time: 0.2s, $how: ease-in-out) {
-  -webkit-transition: $what $time $how;
-  -moz-transition: $what $time $how;
-  -ms-transition: $what $time $how;
-  -o-transition: $what $time $how;
-  transition: $what $time $how;
+@mixin transition($what: all, $time: .2s, $how: ease-in-out) {
+	-webkit-transition: $what $time $how;
+	-moz-transition: $what $time $how;
+	-ms-transition: $what $time $how;
+	-o-transition: $what $time $how;
+	transition: $what $time $how;
 }
 
 @mixin center($position: absolute) {
-  position: $position;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+	position: $position;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
 }
 
 @mixin vertical-center($position: absolute) {
-    position: $position;
-    top: 50%;
-    transform: translateY(-50%);
+	position: $position;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
-@mixin disable-select-text() {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+@mixin disable-select-text {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	// -khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 // @mixin MQ($media) {
