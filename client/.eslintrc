@@ -1,0 +1,102 @@
+{
+  "plugins": [
+      "react",
+  ],
+  "parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"env": {
+		"browser": true,
+		"commonjs": true,
+		"es6": true,
+		"node": true,
+		"mocha": true
+	},
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    "semi": 1,
+    "indent": ["warn", "tab", { "SwitchCase": 1 }],
+    "object-curly-spacing": ["warn", "always"],
+    "no-extra-parens": "warn",
+    "max-len": 0, //["warn", { "code": 240 }],
+    "no-multi-spaces": "warn",
+		"no-unused-vars": ["warn"],
+		"react/prop-types": 0,
+		"no-console": 1,
+		"no-empty": 0
+  },
+  "settings": {
+    "react": {
+      "version": "16.3"
+    }
+  },
+
+  "globals" : {
+    // dependencies
+    "React" : false,
+    "ReactDOM" : false,
+    "$" : false,
+    "moment" : false,
+    "JQuery" : false,
+    "Tween" : false,
+    "_" : false,
+    "uuid" : false,
+
+    // Promise
+    "Promise" : false,
+
+    // Typekit
+    "Typekit" : false
+  },
+
+
+	// "extends": "airbnb",
+	// "extends": ["eslint:recommended", "plugin:react/recommended"],
+/*	"parserOptions": {
+		// "sourceType": "module",
+		// "allowImportExportEverywhere": true,
+
+		// Enable JSX
+    "ecmaFeatures": {
+        "jsx": true,
+        "modulet": true
+    },
+	},*/
+  // Enable eslint-plugin-react
+
+	// "rules": {
+		// "comma-dangle": ["error", "always-multiline"],
+		// "indent": ["error", 4],
+		// "linebreak-style": ["error", "windows"],
+		// "quotes": ["error", "single"],
+		// "semi": ["error", "always"],
+		// "no-unused-vars": ["warn"],
+		// "no-console": 0,
+
+      // "react/jsx-uses-react": "error",
+      // "react/jsx-uses-vars": "error",
+      // "react/jsx-no-undef": "warn",
+      // "react/jsx-one-expression-per-line": "warn",
+	// },
+  // "settings": {
+  //   "react": {
+  //     "createClass": "createReactClass", // Regex for Component Factory to use,
+  //                                  // default to "createReactClass"
+  //     "pragma": "React",  // Pragma to use, default to "React"
+  //     "version": "16.4.2", // React version, default to the latest React stable release
+  //     //"flowVersion": "0.53" // Flow version
+  //   },
+  //   "propWrapperFunctions": [ "forbidExtraProps" ] // The names of any functions used to wrap the
+  //                                              // propTypes object, e.g. `forbidExtraProps`.
+  //                                              // If this isn't set, any propTypes wrapped in
+  //                                              // a function will be skipped.
+  // }
+}
