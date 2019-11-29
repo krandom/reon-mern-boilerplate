@@ -25,11 +25,16 @@ import Sidebar from '../sidebar/Sidebar.react';
 import Hamburger from '../hamburger/Hamburger.react';
 import Preload from './Preload.react';
 
-const App = ({ bootAction, }) => {
-
+const App = ({ bootAction }) => {
 	useEffect(() => {
 		bootAction();
 	}, []);
+
+	const test = {
+		test2: {
+			test3: 'hello kitty',
+		}
+	};
 
 	return (
 		<Router history={history}>

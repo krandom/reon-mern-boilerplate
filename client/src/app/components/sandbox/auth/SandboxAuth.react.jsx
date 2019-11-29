@@ -29,132 +29,129 @@ const SandboxAuth = ({
 	});
 
 	return (
-		<div className='page'>
-			<div className='page__content'>
+		<div className="page">
+			<div className="page__content">
+				{!isLoggedIn &&
+					<div className="sandbox__block">
+						<div className="sandbox__title">Sign up!</div>
 
-				{ !isLoggedIn &&
-					<div className='sandbox__block'>
-						<div className='sandbox__title'>
-							Sign up!
-						</div>
-
-						<div className='sandbox__description'>
-							Sign up here
-						</div>
+						<div className="sandbox__description">Sign up here</div>
 
 						<Input
 							value={signupForm.email}
-							placeholder='E-mail'
-							onChange={e => setSignupForm({ ...signupForm, email: e.target.value }) }
+							placeholder="E-mail"
+							onChange={e =>
+								setSignupForm({ ...signupForm, email: e.target.value })
+							}
 						/>
 
 						<Input
 							value={signupForm.password}
-							type='text'
-							placeholder='Password'
-							onChange={e => setSignupForm({ ...signupForm, password: e.target.value }) }
+							type="text"
+							placeholder="Password"
+							onChange={e =>
+								setSignupForm({ ...signupForm, password: e.target.value })
+							}
 						/>
 
 						<button
-							className='sandbox__success'
+							className="sandbox__success"
 							onClick={() => {
 								signupAction(signupForm);
-							}}>
-
+							}}
+						>
 							Sign Up
 						</button>
 					</div>
 				}
 
-				{ !isLoggedIn &&
-					<div className='sandbox__block'>
-						<div className='sandbox__title'>
-							Profile!
-						</div>
+				{!isLoggedIn &&
+					<div className="sandbox__block">
+						<div className="sandbox__title">Profile!</div>
 
-						<div className='sandbox__description'>
-							Log in here
-						</div>
+						<div className="sandbox__description">Log in here</div>
 
 						<Input
 							value={loginForm.email}
-							placeholder='Email'
-							onChange={e => setLoginForm({ ...loginForm, email: e.target.value }) }
+							placeholder="Email"
+							onChange={e =>
+								setLoginForm({ ...loginForm, email: e.target.value })
+							}
 						/>
 
 						<Input
 							value={loginForm.password}
-							type='password'
-							placeholder='Password'
-							onChange={e => setLoginForm({ ...loginForm, password: e.target.value }) }
+							type="password"
+							placeholder="Password"
+							onChange={e =>
+								setLoginForm({ ...loginForm, password: e.target.value })
+							}
 						/>
 
 						<Checkbox
 							checked={loginForm.rememberMe}
-							onChange={() => setLoginForm({ ...loginForm, rememberMe: !loginForm.rememberMe }) }> Remember Me</Checkbox>
+							onChange={() =>
+								setLoginForm({
+									...loginForm,
+									rememberMe: !loginForm.rememberMe,
+								})
+							}
+						>
+							Remember Me
+						</Checkbox>
 
 						<button
-							className='sandbox__success'
+							className="sandbox__success"
 							onClick={() => {
 								loginAction(loginForm);
-							}}>
-
+							}}
+						>
 							Login
 						</button>
 					</div>
 				}
 
-				{ !isLoggedIn &&
-					<div className='sandbox__block'>
-						<div className='sandbox__title'>
-							Reset Password
-						</div>
+				{!isLoggedIn &&
+					<div className="sandbox__block">
+						<div className="sandbox__title">Reset Password</div>
 
-						<div className='sandbox__description'>
-							Reset here
-						</div>
+						<div className="sandbox__description">Reset here</div>
 
 						<Input
 							value={resetPwdForm.email}
-							placeholder='Email'
-							onChange={e => setResetPwdForm({ email: e.target.value }) }
+							placeholder="Email"
+							onChange={e => setResetPwdForm({ email: e.target.value })}
 						/>
 
 						<button
-							className='sandbox__success'
+							className="sandbox__success"
 							onClick={() => {
 								requestPwdResetLinkAction(resetPwdForm);
-							}}>
-
+							}}
+						>
 							Send Link
 						</button>
 					</div>
 				}
 
-				{ isLoggedIn &&
-					<div className='sandbox__block'>
-						<div className='sandbox__title'>
-							Log out!
-						</div>
+				{isLoggedIn &&
+					<div className="sandbox__block">
+						<div className="sandbox__title">Log out!</div>
 
-						<div className='sandbox__description'>
-							Log out here
-						</div>
+						<div className="sandbox__description">Log out here</div>
 
 						<button
-							className='sandbox__success'
+							className="sandbox__success"
 							onClick={() => {
 								logoutAction();
-							}}>
-
+							}}
+						>
 							Do it!
 						</button>
 					</div>
 				}
 
-				{ isLoggedIn &&
-					<SandboxProfile />
-				}
+				{isLoggedIn && <SandboxProfile />}
 			</div>
 		</div>
 	);

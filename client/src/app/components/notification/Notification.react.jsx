@@ -2,24 +2,14 @@ import { connect } from 'react-redux';
 
 import Toast from './Toast.react';
 
-const Notification = ({ notification, }) => {
-
+const Notification = ({ notification }) => {
 	return (
-		<div
-			id='notification'
-			className='notification'>
+		<div id="notification" className="notification">
+			<div className="notification__toast">
+				{notification.toast.map(toast => {
+					if (!toast.visible) return null;
 
-			<div className='notification__toast'>
-				{ notification.toast.map(toast => {
-
-					if (!toast.visible)
-						return null;
-
-					return (
-						<Toast
-							{...toast}
-							key={toast.id} />
-					);
+					return <Toast {...toast} key={toast.id} />;
 				})}
 			</div>
 		</div>

@@ -5,28 +5,23 @@ import ModalHeader from '../../modal/ModalHeader.react';
 import Window2 from './Window2.react';
 
 const Window1 = ({ addModalAction }) => {
-
 	return (
-		<div className='modal'>
+		<div className="modal">
+			<ModalHeader title="Window 1" />
 
-			<ModalHeader
-				title='Window 1' />
-
-			<div className='modal__content'>
+			<div className="modal__content">
 				This is a popup
-
-				<br /><br />
-
+				<br />
+				<br />
 				Now lets open another one!
-
-				<br /><br />
-
+				<br />
+				<br />
 				<span
 					onClick={() => {
 						addModalAction({ component: <Window2 /> });
 					}}
-					style={{ cursor:'pointer' }}>
-
+					style={{ cursor: 'pointer' }}
+				>
 					Click Here!
 				</span>
 			</div>

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { sidebarActions } from '../../reducers/sidebar.reducer';
 
 // TODO :: add transition
-const Sidebar = ({ pages, delPageAction }) => { // transition,
+const Sidebar = ({ pages, delPageAction }) => {
+	// transition,
 	const [id] = useState(uuid());
 
 	useEffect(() => {
-
 		if (pages.length > 0) {
 			$(`#${id}overlay`).addClass('sidebar__overlay--block');
 			setTimeout(() => {
@@ -15,7 +15,6 @@ const Sidebar = ({ pages, delPageAction }) => { // transition,
 			}, 10);
 
 			$(`#${id}`).css({ right: 0 });
-
 		} else if (pages.length === 0) {
 			$(`#${id}overlay`).css({ opacity: 0 });
 			setTimeout(() => {
@@ -24,18 +23,19 @@ const Sidebar = ({ pages, delPageAction }) => { // transition,
 
 			$(`#${id}`).css({ right: -320 });
 		}
-
 	}, [pages]);
 
 	return (
 		<>
 			<div className={`sidebar`} id={id}>
-				{pages.length > 0 && pages[pages.length-1]}
+				{pages.length > 0 && pages[pages.length - 1]}
 			</div>
 			<div
-				className='sidebar__overlay'
+				className="sidebar__overlay"
 				id={`${id}overlay`}
-				onClick={() => { delPageAction(); }}
+				onClick={() => {
+					delPageAction();
+				}}
 			/>
 		</>
 	);

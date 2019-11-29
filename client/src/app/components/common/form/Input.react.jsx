@@ -37,15 +37,11 @@ const Input = ({
 	};
 
 	useEffect(() => {
-		if ($(`#${id}-input`).val().length > 0)
-			handleOnFocus();
+		if ($(`#${id}-input`).val().length > 0) handleOnFocus();
 	}, []);
 
 	return (
-		<div
-			id={id}
-			className={`input-text ${className}`}>
-
+		<div id={id} className={`input-text ${className}`}>
 			<input
 				id={`${id}-input`}
 				type={type}
@@ -56,9 +52,7 @@ const Input = ({
 				onBlur={handleOnBlur}
 			/>
 
-			{ placeholder &&
-				<label htmlFor={`${id}-input`}>{placeholder}</label>
-			}
+			{placeholder && <label htmlFor={`${id}-input`}>{placeholder}</label>}
 
 			<div />
 		</div>

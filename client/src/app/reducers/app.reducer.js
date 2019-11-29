@@ -4,11 +4,14 @@ import formatActionTypeNames from '../helpers/formatActionTypeNames';
 
 import { actions as authActions } from './auth.reducer';
 
-export const actions = formatActionTypeNames({
-	boot: 'BOOT',
-	booted: 'BOOTED',
-	toggleHamburgerMenu: 'TOGGLE_HAMBURGER_MENU',
-}, 'APP');
+export const actions = formatActionTypeNames(
+	{
+		boot: 'BOOT',
+		booted: 'BOOTED',
+		toggleHamburgerMenu: 'TOGGLE_HAMBURGER_MENU',
+	},
+	'APP'
+);
 
 export const appActions = {
 	boot: createAction(actions.boot),
@@ -18,8 +21,7 @@ export const appActions = {
 
 export default (state = initialState.app, action) => {
 	const { payload } = action;
-	switch (action.type)
-	{
+	switch (action.type) {
 		case actions.booted:
 			return {
 				...state,

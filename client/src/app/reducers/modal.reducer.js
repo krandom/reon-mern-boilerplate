@@ -2,12 +2,15 @@ import { createAction } from 'redux-actions';
 import initialState from './initialState';
 import formatActionTypeNames from '../helpers/formatActionTypeNames';
 
-const actions = formatActionTypeNames({
-	show: 'SHOW',
-	hide: 'HIDE',
-	add: 'ADD',
-	remove: 'REMOVE',
-}, 'MODAL');
+const actions = formatActionTypeNames(
+	{
+		show: 'SHOW',
+		hide: 'HIDE',
+		add: 'ADD',
+		remove: 'REMOVE',
+	},
+	'MODAL'
+);
 
 export const modalActions = {
 	show: createAction(actions.show),
@@ -19,8 +22,7 @@ export const modalActions = {
 export default (state = initialState.modal, action) => {
 	const { payload } = action;
 
-	switch(action.type) {
-
+	switch (action.type) {
 		case actions.show:
 			return {
 				visible: true,

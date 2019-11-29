@@ -14,24 +14,26 @@
 		"browser": true,
 		"commonjs": true,
 		"es6": true,
+		"mocha": true,
 		"node": true,
-		"mocha": true
 	},
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended"
   ],
   "rules": {
-    "semi": 1,
-    "indent": ["warn", "tab", { "SwitchCase": 1 }],
-    "object-curly-spacing": ["warn", "always"],
-    "no-extra-parens": "warn",
-    "max-len": 0, //["warn", { "code": 240 }],
-    "no-multi-spaces": "warn",
-		"no-unused-vars": ["warn"],
-		"react/prop-types": 0,
 		"no-console": 1,
-		"no-empty": 0
+		"no-empty": 0,
+		"no-unused-vars": ["warn"],
+		"react/jsx-first-prop-new-line": 1,
+		"react/no-array-index-key": 1,
+		"react/prop-types": 0,
+    "indent": ["warn", "tab", { "SwitchCase": 1 }],
+    "max-len": 0, // ["warn", { "code": 240 }],
+    "no-extra-parens": "warn",
+    "no-multi-spaces": "warn",
+    "object-curly-spacing": ["warn", "always"],
+    "semi": 1,
   },
   "settings": {
     "react": {
@@ -40,7 +42,6 @@
   },
 
   "globals" : {
-    // dependencies
     "React" : false,
     "ReactDOM" : false,
     "$" : false,
@@ -49,11 +50,7 @@
     "Tween" : false,
     "_" : false,
     "uuid" : false,
-
-    // Promise
     "Promise" : false,
-
-    // Typekit
     "Typekit" : false
   },
 

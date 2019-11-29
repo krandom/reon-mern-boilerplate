@@ -1,6 +1,6 @@
 import Cookies from 'universal-cookie';
 
-import { select, put, takeLatest, all, } from 'redux-saga/effects';
+import { select, put, takeLatest, all } from 'redux-saga/effects';
 import { privateCall } from './api.saga';
 import { history } from '../store/store';
 
@@ -22,19 +22,22 @@ function* verifyEmail({ payload }) {
 		const { success } = yield privateCall({ endpoint, payload });
 
 		if (success) {
-			yield put(notificationActions.addToast({
-				message: 'Thank you for verifying your email address!',
-			}));
+			yield put(
+				notificationActions.addToast({
+					message: 'Thank you for verifying your email address!',
+				})
+			);
 
-			if (yield select(s => s.app.isLoggedIn))
-				yield put(authActions.getUser());
+			if (yield select(s => s.app.isLoggedIn)) yield put(authActions.getUser());
 		}
 	} catch (e) {}
 }
 
 function* requestPwdResetLink({ payload }) {
 	try {
-		const endpoint = yield select(s => s.config.endpoints.auth.requestPwdResetLink);
+		const endpoint = yield select(
+			s => s.config.endpoints.auth.requestPwdResetLink
+		);
 		yield privateCall({ endpoint, payload });
 	} catch (e) {}
 }
@@ -44,9 +47,7 @@ function* resetPassword({ payload }) {
 		const endpoint = yield select(s => s.config.endpoints.auth.resetPassword);
 		const { success } = yield privateCall({ endpoint, payload });
 
-		if (success)
-			history.push('/');
-
+		if (success) history.push('/');
 	} catch (e) {}
 }
 

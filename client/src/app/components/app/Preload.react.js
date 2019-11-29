@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 const Preload = ({ booted }) => {
-
 	const [visible, setVisible] = useState(true);
 
 	useEffect(() => {
@@ -15,12 +14,9 @@ const Preload = ({ booted }) => {
 		}
 	}, [booted]);
 
-	if (!visible)
-		return null;
+	if (!visible) return null;
 
-	return (
-		<div className='preload' />
-	);
+	return <div className="preload" />;
 };
 
 const mstp = s => ({

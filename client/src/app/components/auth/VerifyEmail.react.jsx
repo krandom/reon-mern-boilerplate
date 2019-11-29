@@ -4,18 +4,16 @@ import { history } from '../../store/store';
 import { authActions } from '../../reducers/auth.reducer';
 import { notificationActions } from '../../reducers/notification.reducer';
 
-const VerifyEmail = ({ booted, addToastAction, verifyEmailAction, }) => {
+const VerifyEmail = ({ booted, addToastAction, verifyEmailAction }) => {
 	var urlParams = new URLSearchParams(location.search);
 
 	useEffect(() => {
-
-		if (!booted)
-			return;
+		if (!booted) return;
 
 		if (!urlParams.has('email') || !urlParams.has('code')) {
 			addToastAction({
 				type: 'warning',
-				message: 'Your email address could not be verified!'
+				message: 'Your email address could not be verified!',
 			});
 		} else {
 			verifyEmailAction({

@@ -4,8 +4,7 @@ import devConfig from './config/config.dev';
 const getConfig = () => {
 	const environment = getEnvironment();
 
-	if (environment === 'dev')
-		return devConfig;
+	if (environment === 'dev') return devConfig;
 };
 
 export default {
@@ -44,5 +43,5 @@ export default {
 
 	sandbox: {
 		exchangeRates: [],
-	}
+	},
 };

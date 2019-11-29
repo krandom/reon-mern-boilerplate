@@ -1,4 +1,4 @@
-import { select, takeLatest, all, } from 'redux-saga/effects';
+import { select, takeLatest, all } from 'redux-saga/effects';
 import { privateCall } from './api.saga';
 import { sandboxActions } from '../reducers/sandbox.reducer';
 

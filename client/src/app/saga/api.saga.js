@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { call, select, put, } from 'redux-saga/effects';
+import { call, select, put } from 'redux-saga/effects';
 import { notificationActions } from '../reducers/notification.reducer';
 
 function* toastNotifications(data) {
@@ -10,11 +10,11 @@ function* toastNotifications(data) {
 			} else {
 				const toastArr = Object.values(data.toast);
 
-				for (var i=0; i<toastArr.length; i++)
+				for (var i = 0; i < toastArr.length; i++)
 					yield put(notificationActions.addToast(toastArr[i]));
 			}
 		}
-	} catch(e) {}
+	} catch (e) {}
 }
 
 // private API calls here
@@ -26,11 +26,10 @@ function* privateApi({
 	payload = {},
 }) {
 	try {
-
 		let options = {
 			headers: {
-				'Accept': 'application/json',
-				'ContentType': 'application/x-www-form-urlencoded',
+				Accept: 'application/json',
+				ContentType: 'application/x-www-form-urlencoded',
 				'Access-Control-Allow-Headers': 'x-access-token',
 				...headers,
 			},
@@ -48,19 +47,19 @@ function* privateApi({
 			axios[method],
 			endpoint,
 			payload,
-			options,
+			options
 		);
 
 		yield toastNotifications(data);
 
-		switch (status)
-		{
+		switch (status) {
 			case 200:
 				return data;
 		}
-
 	} catch (err) {
-		const { response: { data } } = err;
+		const {
+			response: { data },
+		} = err;
 		yield toastNotifications(data);
 	}
 }

@@ -1,8 +1,8 @@
 export default {
-	host                     : 'http://localhost:8080/',
-	api                      : 'http://localhost:8080/',
-	fbAppID                  : '',
-	cookieID                 : 'reon-react-boilerplate',
+	host: 'http://localhost:8080/',
+	api: 'http://localhost:8080/',
+	fbAppID: '',
+	cookieID: 'reon-react-boilerplate',
 
 	endpoints: {
 		exchangeRatesApi: {
@@ -22,8 +22,9 @@ export default {
 			login: '//localhost:5000/api/auth/login',
 			logout: '//localhost:5000/api/auth/logout',
 			getUser: '//localhost:5000/api/auth/get-user',
-			requestPwdResetLink: '//localhost:5000/api/auth/request-pwd-reset-password',
+			requestPwdResetLink:
+				'//localhost:5000/api/auth/request-pwd-reset-password',
 			resetPassword: '//localhost:5000/api/auth/reset-password',
-		}
+		},
 	},
 };

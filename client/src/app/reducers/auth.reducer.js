@@ -3,18 +3,21 @@ import formatActionTypeNames from '../helpers/formatActionTypeNames';
 
 import { actions as appActions } from './app.reducer';
 
-export const actions = formatActionTypeNames({
-	getUser: 'GET_USER',
-	getUserComplete: 'GET_USER_COMPLETE',
-	login: 'LOGIN',
-	loginComplete: 'LOGIN_COMPLETE',
-	logout: 'LOGOUT',
-	logoutComplete: 'LOGOUT_COMPLETE',
-	requestPwdResetLink: 'REQUEST_PWD_RESET_LINK',
-	resetPassword: 'RESET_PASSWORD',
-	signup: 'SIGNUP',
-	verifyEmail: 'VERIFY_EMAIL',
-}, 'AUTH');
+export const actions = formatActionTypeNames(
+	{
+		getUser: 'GET_USER',
+		getUserComplete: 'GET_USER_COMPLETE',
+		login: 'LOGIN',
+		loginComplete: 'LOGIN_COMPLETE',
+		logout: 'LOGOUT',
+		logoutComplete: 'LOGOUT_COMPLETE',
+		requestPwdResetLink: 'REQUEST_PWD_RESET_LINK',
+		resetPassword: 'RESET_PASSWORD',
+		signup: 'SIGNUP',
+		verifyEmail: 'VERIFY_EMAIL',
+	},
+	'AUTH'
+);
 
 export const authActions = {
 	getUser: createAction(actions.getUser),
@@ -33,7 +36,6 @@ export default (state = {}, action) => {
 	const { payload } = action;
 
 	switch (action.type) {
-
 		case appActions.booted:
 			return {
 				...state,

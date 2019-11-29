@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { notificationActions } from '../../reducers/notification.reducer';
 
 class Toast extends React.Component {
-
 	constructor(props) {
 		super(props);
 
@@ -12,7 +11,7 @@ class Toast extends React.Component {
 	componentDidMount() {
 		var self = this;
 
-		const { sticky, timer, } = this.props;
+		const { sticky, timer } = this.props;
 
 		if (!sticky)
 			setTimeout(() => {
@@ -24,18 +23,18 @@ class Toast extends React.Component {
 		const { id, removeToastAction } = this.props;
 
 		$(`#${id} .toast__content`).css({
-			'left' : '400px',
-			'opacity' : 0
+			left: '400px',
+			opacity: 0,
 		});
 
 		$(`#${id}`).css({
-			'height' : parseInt($(`#${id}`).css('height')),
+			height: parseInt($(`#${id}`).css('height')),
 		});
 
 		setTimeout(() => {
 			$(`#${id}`).css({
-				'height'      : 0,
-				'padding-top' : 0,
+				height: 0,
+				'padding-top': 0,
 			});
 
 			setTimeout(() => {
@@ -45,16 +44,10 @@ class Toast extends React.Component {
 	}
 
 	render() {
-
-		const {
-			id,
-			message,
-			type,
-		} = this.props;
+		const { id, message, type } = this.props;
 
 		let icon = '';
-		switch (type)
-		{
+		switch (type) {
 			case 'warning':
 				icon = 'exclamation-triangle';
 				break;
@@ -72,20 +65,20 @@ class Toast extends React.Component {
 		}
 
 		return (
-			<div className='toast' id={id}>
+			<div className="toast" id={id}>
 				<div className={`toast__content toast__content--${type}`}>
-					<div className='toast__icon'>
+					<div className="toast__icon">
 						<i className={`fa fa-${icon}`} />
 					</div>
 
-					<div className='toast__text'>
-						{message}
-					</div>
+					<div className="toast__text">{message}</div>
 
 					<div
-						className='toast__close'
-						onClick={() => { this.close(); }}>
-
+						className="toast__close"
+						onClick={() => {
+							this.close();
+						}}
+					>
 						<i className="fa fa-times"></i>
 					</div>
 				</div>

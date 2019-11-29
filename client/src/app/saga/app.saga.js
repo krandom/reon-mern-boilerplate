@@ -99,8 +99,7 @@ function* boot() {
 		// const endpoint = yield select(s => s.config.endpoints.user.getProfile);
 		// const response = yield api({endpoint});
 
-		yield put(appActions.booted({ mainNav, user, token, }));
-
+		yield put(appActions.booted({ mainNav, user, token }));
 	} catch (e) {}
 }
 

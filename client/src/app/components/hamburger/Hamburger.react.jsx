@@ -32,22 +32,21 @@ const Hamburger = ({
 
 	return (
 		<>
-			<div className='hamburger' id={id}>
-
-				<div className='hamburger__content'>
+			<div className="hamburger" id={id}>
+				<div className="hamburger__content">
 					{mainNav.map(x => {
+						if (!x.published || !x.mobile) return null;
 
-						if (!x.published || !x.mobile)
-							return null;
-
-						return <HamburgerItem {...x} key={x.title}/>;
+						return <HamburgerItem {...x} key={x.title} />;
 					})}
 				</div>
 			</div>
 			<div
-				className='hamburger__overlay'
+				className="hamburger__overlay"
 				id={`${id}overlay`}
-				onClick={() => { toggleHamburgerMenuAction(false); }}
+				onClick={() => {
+					toggleHamburgerMenuAction(false);
+				}}
 			/>
 		</>
 	);

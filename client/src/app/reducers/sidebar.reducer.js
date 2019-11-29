@@ -2,12 +2,15 @@ import { createAction } from 'redux-actions';
 import initialState from './initialState';
 import formatActionTypeNames from '../helpers/formatActionTypeNames';
 
-const actions = formatActionTypeNames({
-	addPage: 'ADD',
-	delPage: 'DEL',
-	close: 'CLOSE',
-	transition: 'TRANSITION',
-}, 'SIDEBAR');
+const actions = formatActionTypeNames(
+	{
+		addPage: 'ADD',
+		delPage: 'DEL',
+		close: 'CLOSE',
+		transition: 'TRANSITION',
+	},
+	'SIDEBAR'
+);
 
 export const sidebarActions = {
 	addPage: createAction(actions.addPage),
@@ -19,12 +22,11 @@ export const sidebarActions = {
 export default (state = initialState.sidebar, action) => {
 	const { payload } = action;
 
-	switch(action.type) {
-
+	switch (action.type) {
 		case actions.addPage:
 			return {
 				pages: [...state.pages, payload.page],
-				position: payload.position || 'left'
+				position: payload.position || 'left',
 			};
 
 		case actions.delPage:
