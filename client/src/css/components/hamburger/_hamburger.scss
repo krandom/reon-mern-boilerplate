@@ -19,7 +19,7 @@
 		background-color: rgba($black, .75);
 		display: none;
 
-		&--block {
+		&--visible {
 			@include transition(all, .3s);
 
 			display: block;

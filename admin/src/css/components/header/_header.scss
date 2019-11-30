@@ -1,0 +1,43 @@
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 64px;
+	background-color: #364c66;
+	z-index: $header;
+	display: flex;
+	justify-content: space-between;
+
+	&__logo {
+		height: 100%;
+		padding-left: 15px;
+		display: flex;
+		align-items: center;
+		color: $white;
+		font-weight: 600;
+		letter-spacing: 1.1px;
+		font-size: 24px;
+		font-family: $source;
+
+		img {
+			width: 32px;
+			margin-right: 8px;
+		}
+	}
+
+	&__hamburger {
+		width: 64px;
+		height: 64px;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		font-size: 42px;
+		cursor: pointer;
+		color: $white;
+
+		@media only screen and (max-width: 768px) {
+			display: flex;
+		}
+	}
+}

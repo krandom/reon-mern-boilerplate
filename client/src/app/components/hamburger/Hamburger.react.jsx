@@ -14,7 +14,7 @@ const Hamburger = ({
 
 	useEffect(() => {
 		if (showHamburgerMenu) {
-			$(`#${id}overlay`).addClass('hamburger__overlay--block');
+			$(`#${id}overlay`).addClass('hamburger__overlay--visible');
 			setTimeout(() => {
 				$(`#${id}overlay`).css({ opacity: 1 });
 			}, 10);
@@ -23,7 +23,7 @@ const Hamburger = ({
 		} else {
 			$(`#${id}overlay`).css({ opacity: 0 });
 			setTimeout(() => {
-				$(`#${id}overlay`).removeClass('hamburger__overlay--block');
+				$(`#${id}overlay`).removeClass('hamburger__overlay--visible');
 			}, 300);
 
 			$(`#${id}`).css({ left: -320 });

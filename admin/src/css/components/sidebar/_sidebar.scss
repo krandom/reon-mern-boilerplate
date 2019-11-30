@@ -1,0 +1,56 @@
+.sidebar {
+	@include transition(all, .3s);
+
+	position: fixed;
+	top: 87px;
+	right: -320px;
+	width: 320px;
+	height: calc(100% - 87px);
+	z-index: $sidebar;
+	background-color: $white;
+
+	&__overlay {
+		position: fixed;
+		top: 87px;
+		width: 100%;
+		height: calc(100% - 87px);
+		z-index: $sidebar-overlay;
+		background-color: rgba($black, .75);
+		display: none;
+
+		&--block {
+			@include transition(all, .3s);
+
+			display: block;
+		}
+	}
+
+	ul {
+		padding: 20px;
+
+		li {
+			cursor: pointer;
+		}
+	}
+
+	&__body {
+		padding: 20px;
+
+		&--title {
+			font-size: 24px;
+		}
+
+		&--link {
+			margin-top: 20px;
+
+			span {
+				color: $blue;
+				cursor: pointer;
+			}
+		}
+
+		p {
+			margin-top: 20px;
+		}
+	}
+}

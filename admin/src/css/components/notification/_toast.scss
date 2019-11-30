@@ -1,0 +1,107 @@
+.toast {
+	@include transition(all, .2s);
+
+	position: relative;
+	height: auto;
+	padding: 20px 20px 0;
+
+	&__content {
+		@include transition(all, .4s);
+
+		position: relative;
+		width: 400px;
+		left: 0;
+		border-radius: 6px;
+		padding: 7px;
+		opacity: 1;
+		box-sizing: border-box;
+
+		&--success {
+			@include box-shadow(0, 0, 16px, rgba($notification-success, .75));
+
+			background-color: $notification-success;
+			border: 1px solid $notification-success;
+			color: $white;
+		}
+
+		&--error {
+			@include box-shadow(0, 0, 16px, rgba($notification-error, .75));
+
+			background-color: $notification-error;
+			border: 1px solid $notification-error;
+			color: $white;
+		}
+
+		&--warning {
+			@include box-shadow(0, 0, 16px, rgba($notification-warning, .75));
+
+			background-color: $notification-warning;
+			border: 1px solid $notification-warning;
+			color: $white;
+		}
+
+		&--info {
+			@include box-shadow(0, 0, 16px, rgba($notification-info, .75));
+
+			background-color: $notification-info;
+			border: 1px solid $notification-info;
+			color: $white;
+		}
+	}
+
+	&__icon {
+		width: 40px;
+		height: 100%;
+		display: inline-block;
+
+		i {
+			@include vertical-center;
+
+			left: 15px;
+		}
+	}
+
+	&__text {
+		width: 320px;
+		display: inline-block;
+	}
+
+	&__close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 30px;
+		height: 30px;
+		cursor: pointer;
+
+		i {
+			@include transition(all, .1s);
+			@include center;
+
+			opacity: .5;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+	}
+
+	&__info {
+		padding: 10px;
+
+		&--icon {
+			font-size: 24px;
+			cursor: pointer;
+			margin-top: 5px;
+		}
+
+		&--header {
+			font-size: 16px;
+			font-weight: 600;
+		}
+
+		&--body {
+			margin-bottom: 15px;
+		}
+	}
+}

@@ -1,0 +1,82 @@
+.hamburger {
+	@include transition(all, .5s);
+	@include disable-select-text;
+
+	position: fixed;
+	top: 64px;
+	left: -320px;
+	width: 300px;
+	height: calc(100vh - 64px);
+	background-color: #364c66;
+	z-index: $sidebar;
+
+	&__open {
+		left: 0 !important;
+	}
+
+	&__overlay {
+		position: fixed;
+		top: 64px;
+		width: 100%;
+		height: calc(100% - 64px);
+		z-index: $sidebar-overlay;
+		background-color: rgba($black, .45);
+		display: none;
+
+		&--visible {
+			@include transition(opacity, .5s);
+
+			opacity: 0;
+			display: none;
+
+			@media only screen and (max-width: 768px) {
+				display: block;
+			}
+		}
+	}
+
+	&__item {
+		@include transition(all, .2s);
+
+		height: 60px;
+		overflow: hidden;
+	}
+
+	&__link {
+		@include transition(color, .1s);
+
+		position: relative;
+		width: 100%;
+		height: 60px;
+		line-height: 60px;
+		cursor: pointer;
+		overflow: hidden;
+
+		&:hover {
+			color: $blue;
+		}
+
+		&--icon {
+			width: 60px;
+			height: 60px;
+			text-align: center;
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		&--title {
+			display: inline-block;
+			vertical-align: top;
+		}
+	}
+
+	&__subnav {
+		padding-left: 60px;
+
+		div {
+			height: 30px;
+			line-height: 30px;
+			cursor: pointer;
+		}
+	}
+}

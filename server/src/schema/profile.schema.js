@@ -11,7 +11,32 @@ const ProfileSchema = new mongoose.Schema({
 	lastName: {
 		type: String,
 	},
-
+	phone: [{
+		name: {
+			type: String,
+		},
+		number: {
+			type: String,
+			required: true,
+		},
+		type: {
+			type: String,
+			default: 'cell',
+		},
+		primary: {
+			type: Boolean,
+			default: true,
+		},
+		verificationCode: {
+			type: String,
+			default: 'Not Verified',
+		},
+		dateAdded: {
+			type: Date,
+			default: Date.now,
+			private: true,
+		}
+	}],
 });
 
 module.exports = Profile = mongoose.model('profile', ProfileSchema);
