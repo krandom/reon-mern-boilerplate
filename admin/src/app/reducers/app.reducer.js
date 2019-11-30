@@ -25,7 +25,6 @@ export default (state = initialState.app, action) => {
 		case actions.booted:
 			return {
 				...state,
-				mainNav: payload.mainNav,
 				token: payload.token,
 				booted: true,
 				isLoggedIn: payload.token ? true : false,

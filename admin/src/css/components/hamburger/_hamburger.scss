@@ -4,8 +4,8 @@
 
 	position: fixed;
 	top: 64px;
-	left: -320px;
-	width: 300px;
+	left: -$hamburger-width;
+	width: $hamburger-width;
 	height: calc(100vh - 64px);
 	background-color: #364c66;
 	z-index: $sidebar;
@@ -38,22 +38,28 @@
 	&__item {
 		@include transition(all, .2s);
 
-		height: 60px;
+		height: 47px;
 		overflow: hidden;
 	}
 
 	&__link {
 		@include transition(color, .1s);
+		@include transition(background-color, .1s);
 
 		position: relative;
 		width: 100%;
-		height: 60px;
-		line-height: 60px;
+		height: 47px;
+		line-height: 47px;
 		cursor: pointer;
 		overflow: hidden;
+		font-size: 13px;
+		font-weight: 600;
+		color: #a7b1c2;
+		letter-spacing: 1.1px;
 
 		&:hover {
-			color: $blue;
+			color: $white;
+			background-color: #2f4050;
 		}
 
 		&--icon {
@@ -67,6 +73,10 @@
 		&--title {
 			display: inline-block;
 			vertical-align: top;
+		}
+
+		&--active {
+			color: $white;
 		}
 	}
 

@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import initialState from './initialState';
 import formatActionTypeNames from '../helpers/formatActionTypeNames';
 
 import { actions as appActions } from './app.reducer';
@@ -32,7 +33,7 @@ export const authActions = {
 	verifyEmail: createAction(actions.verifyEmail),
 };
 
-export default (state = {}, action) => {
+export default (state = initialState.auth, action) => {
 	const { payload } = action;
 
 	switch (action.type) {
@@ -53,6 +54,9 @@ export default (state = {}, action) => {
 				...state,
 				user: payload.user,
 			};
+
+		case actions.logoutComplete:
+			return initialState.auth;
 
 		default:
 			return state;

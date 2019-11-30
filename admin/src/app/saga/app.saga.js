@@ -8,98 +8,19 @@ function* boot() {
 	try {
 		// Look for cookie and log user in if valid
 		const cookies = new Cookies();
-		let token = cookies.get('reon-mern-boilerplate');
+		let token = cookies.get('reon-mern-boilerplate-admin');
 		const endpoint = yield select(s => s.config.endpoints.auth.validateCookie);
 		const { user } = yield privateCall({ endpoint, payload: { token } });
 
 		if (!user) {
 			token = null;
-			cookies.remove('reon-mern-boilerplate');
+			cookies.remove('reon-mern-boilerplate-admin');
 		}
-
-		const mainNav = [
-			{
-				title: 'Home',
-				url: '/',
-				subnav: null,
-				megamenu: null,
-				action: null,
-				mobile: true,
-				published: true,
-				icon: 'home',
-			},
-			{
-				title: 'Sandbox',
-				url: '/sandbox',
-				subnav: [
-					{
-						title: 'Authentication',
-						url: '/sandbox/auth',
-						subnav: null,
-						megamenu: null,
-						action: null,
-					},
-				],
-				megamenu: null,
-				action: null,
-				mobile: true,
-				published: true,
-				icon: 'image',
-			},
-			{
-				title: 'Dropdown',
-				url: null,
-				subnav: [
-					{
-						title: 'SurviveJS',
-						url: 'https://survivejs.com/',
-						subnav: null,
-						megamenu: null,
-						action: null,
-					},
-					{
-						title: 'Link 2',
-						url: null,
-						subnav: null,
-						megamenu: null,
-						action: null,
-					},
-					{
-						title: 'Link 3',
-						url: 'link3',
-						subnav: null,
-						megamenu: null,
-						action: null,
-					},
-					{
-						title: 'Link 4',
-						url: 'link4',
-						subnav: null,
-						megamenu: null,
-						action: null,
-					},
-				],
-				megamenu: null,
-				action: null,
-				mobile: true,
-				published: true,
-				icon: 'caret-down',
-			},
-			{
-				title: 'Mega Menu',
-				url: null,
-				subnav: null,
-				megamenu: 'libraries',
-				action: null,
-				mobile: false,
-				published: true,
-			},
-		];
 
 		// const endpoint = yield select(s => s.config.endpoints.user.getProfile);
 		// const response = yield api({endpoint});
 
-		yield put(appActions.booted({ mainNav, user, token }));
+		yield put(appActions.booted({  user, token }));
 	} catch (e) {}
 }
 

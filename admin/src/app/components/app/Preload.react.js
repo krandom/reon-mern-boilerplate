@@ -15,33 +15,32 @@ const Preload = ({ booted, isLoggedIn }) => {
 	}, []);
 
 	const toggle = () => {
-		if (disableToggle || !visible)
+		if (disableToggle)
 			return;
 
 		if (isLoggedIn) {
 			$('.preload').css({ opacity: 0 });
-			setTimeout(() => { setVisible(false); }, 500);
+			setTimeout(() => { setVisible(false); }, 1000);
 		} else {
+			setVisible(true);
 			setShowLogin(true);
 		}
 	};
 
-	useEffect(() => {
-		toggle();
-	}, [booted, disableToggle, isLoggedIn]);
-
-	useEffect(() => {
-		$('.login').css({ opacity: 1 });
-	}, [showLogin]);
+	useEffect(toggle, [booted, disableToggle, isLoggedIn]);
 
 	if (!visible) return null;
+
+	// TODO :: make proper loader/spinner
 
 	return (
 		<div className='preload'>
 
-			<div className='preload__loader'>
-				LOADING...
-			</div>
+			{ disableToggle &&
+				<div className='preload__loader'>
+					LOADING...
+				</div>
+			}
 
 			{ showLogin &&
 				<Login />

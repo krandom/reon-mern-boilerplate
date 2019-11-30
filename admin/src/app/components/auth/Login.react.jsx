@@ -1,26 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { appActions } from '../../reducers/app.reducer';
+import { authActions } from '../../reducers/auth.reducer';
 
 import Input from '../common/form/Input.react';
 import Label from '../common/form/Label.react';
 import Checkbox from '../common/form/Checkbox.react';
 import Button from '../common/Button.react';
 
-const Login = () => {
+const Login = ({ loginAction }) => {
 
 	const [loginForm, setLoginForm] = useState({
-		username: '',
-		password: '',
+		email: 'test2@test.com',
+		password: 'test',
 		rememberMe: true,
 	});
 
-	const { username, password, rememberMe } = loginForm;
+	const { email, password, rememberMe } = loginForm;
 
 	const isValid = () => {
 		return (
-			username.length > 0 &&
+			email.length > 0 &&
 			password.length > 0
 		);
 	};
@@ -34,9 +34,9 @@ const Login = () => {
 				label='Email Address:'
 			/>
 			<Input
-				value={username}
-				placeholder='Username'
-				onChange={e => setLoginForm({ ...loginForm, username: e.target.value }) }
+				value={email}
+				placeholder='Email'
+				onChange={e => setLoginForm({ ...loginForm, email: e.target.value }) }
 			/>
 			<Label
 				label='Password:'
@@ -52,7 +52,7 @@ const Login = () => {
 				onChange={() => { setLoginForm({ ...loginForm, rememberMe: !rememberMe }); }}
 			/>
 			<Button
-				onClick={() => {  }}
+				onClick={() => { loginAction(loginForm); }}
 				label='Login'
 				width='100%'
 				disabled={!isValid()}
@@ -61,8 +61,8 @@ const Login = () => {
 	);
 };
 
-// const mdtp = {
-// 	bootAction: appActions.boot,
-// };
+const mdtp = {
+	loginAction: authActions.login,
+};
 
-export default connect(null, null)(Login);
+export default connect(null, mdtp)(Login);

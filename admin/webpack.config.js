@@ -35,14 +35,14 @@ const commonConfig = merge([
 			style: PATHS.style,
 		},
 		output: {
-			publicPath: '/'
+			publicPath: '/',
 		},
 		devServer: {
-			historyApiFallback: true
+			historyApiFallback: true,
 		},
 		plugins: [
 			new HtmlWebpackPlugin({
-				title: "Webpack demo",
+				title: 'Webpack demo',
 			}),
 		],
 		resolve: {
@@ -50,10 +50,10 @@ const commonConfig = merge([
 		},
 	},
 	parts.indexTemplate({ options : {
-		title: 'CHECKOUT',
+		title: 'Reon MERN Admin Panel',
 		appMountId: 'template',
 		baseHref: '',
-		devServer: ''
+		devServer: '',
 	} }),
 	parts.loadFonts(),
 	parts.loadJavaScript({ include: PATHS.app }),
@@ -65,8 +65,8 @@ const commonConfig = merge([
 const productionConfig = merge([
 	{
 		output: {
-			chunkFilename: "src/[name].[chunkhash:8].js",
-			filename: "src/[name].[chunkhash:8].js",
+			chunkFilename: 'src/[name].[chunkhash:8].js',
+			filename: 'src/[name].[chunkhash:8].js',
 		},
 	},
 	parts.clean(PATHS.build),
@@ -85,11 +85,11 @@ const productionConfig = merge([
 	parts.loadImages({
 		options: {
 			limit: 15000,
-			name: "[name].[hash:8].[ext]",
+			name: '[name].[hash:8].[ext]',
 		},
 	}),
 	parts.extractCSS({
-		use: ["css-loader", "sass-loader"]
+		use: ['css-loader', 'sass-loader']
 	}),
 	parts.purifyCSS({
 		paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true }),
@@ -100,13 +100,13 @@ const productionConfig = merge([
 				cacheGroups: {
 					commons: {
 						test: /[\\/]node_modules[\\/]/,
-						name: "vendor",
-						chunks: "initial",
+						name: 'vendor',
+						chunks: 'initial',
 					},
 				},
 			},
 			runtimeChunk: {
-				name: "manifest",
+				name: 'manifest',
 			},
 		},
 	},
@@ -125,7 +125,7 @@ const developmentConfig = merge([
 
 module.exports = mode => {
 
-	if (mode === "production") {
+	if (mode === 'production') {
 		return merge(commonConfig, productionConfig, { mode });
 	}
 

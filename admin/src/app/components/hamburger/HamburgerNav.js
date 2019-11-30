@@ -1,0 +1,47 @@
+export default [
+	{
+		title: 'Dashboard',
+		url: '/',
+		subnav: null,
+		megamenu: null,
+		action: null,
+		mobile: true,
+		published: true,
+		icon: 'home',
+	},
+	{
+		title: 'User Profiles',
+		url: '/user-profiles',
+		subnav: null,
+		megamenu: null,
+		action: null,
+		mobile: true,
+		published: true,
+		icon: 'image',
+	},
+	{
+		title: 'Config',
+		url: null,
+		subnav: [
+			{
+				title: 'Feature Flags',
+				url: '/config/feature-flags',
+				subnav: null,
+				megamenu: null,
+				action: null,
+			},
+			{
+				title: 'Meta Data',
+				url: '/config/meta-data',
+				subnav: null,
+				megamenu: null,
+				action: null,
+			},
+		],
+		megamenu: null,
+		action: null,
+		mobile: true,
+		published: true,
+		icon: 'caret-down',
+	},
+];

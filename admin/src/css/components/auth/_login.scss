@@ -1,34 +1,29 @@
 .login {
-	// position: fixed;
-	// top: 0;
-	// left: 0;
-	// width: 100%;
-	// height: 100%;
-	// background-color: $white;
-	// z-index: $popup;
+	// @include transition(opacity, .5s);
+	@include center;
+	@include box-shadow(0, 10px, 25px, rgba($black, .25));
 
-	// background-image: url('/assets/login-bg.jpg');
-	// background-repeat: no-repeat;
-	// background-position: center center;
-	// background-size: cover;
+	width: 100%;
+	max-width: 420px;
+	height: auto;
+	background-color: $white;
+	padding: 20px;
+	border-radius: 8px;
+	// opacity: 0;
+	animation: opacity 1s forwards;
 
-	// main {
-		@include transition(opacity, .5s);
-		@include center;
-		@include box-shadow(0, 10px, 25px, rgba($black, .25));
+	h4 {
+		text-align: center;
+		margin-bottom: 40px;
+	}
+}
 
-		width: 100%;
-		max-width: 420px;
-		height: auto;
-		background-color: $white;
-		padding: 20px;
-		border-radius: 8px;
+@keyframes opacity {
+	0% {
 		opacity: 0;
+	}
 
-
-		h4 {
-			text-align: center;
-			margin-bottom: 40px;
-		}
-	// }
+	100% {
+		opacity: 1;
+	}
 }

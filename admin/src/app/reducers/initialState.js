@@ -13,7 +13,6 @@ export default {
 		isLoggedIn: false,
 		token: null,
 		toggleHamburgerMenu: false,
-		mainNav: [],
 	},
 
 	modal: {
@@ -22,10 +21,10 @@ export default {
 	},
 
 	auth: {
-		popup: null,
 		user: null,
 	},
 
+	// TODO :: make endpoints for own environment in same file so you only have to specify host
 	config: getConfig(),
 
 	user: {

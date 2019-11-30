@@ -1,17 +1,23 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+
+import mainNav from './HamburgerNav';
 
 import { appActions } from '../../reducers/app.reducer';
 
-// import HamburgerItem from './HamburgerItem.react';
+import HamburgerItem from './HamburgerItem.react';
 
 const Hamburger = ({
 	toggleHamburgerMenu,
 	toggleHamburgerMenuAction,
+	location,
 }) => {
 	const [id] = useState(uuid());
 	const [bp] = useState(1024);
 	const [visible, setVisible] = useState(null);
+
+	const { pathname } = location;
 
 	// TODO :: better logic for this, use animate for overlay
 	const open = () => {
@@ -69,12 +75,15 @@ const Hamburger = ({
 		setVisible(!visible);
 	}, [toggleHamburgerMenu]);
 
-
 	return (
 		<>
 			<div className='hamburger' id={id}>
 				<div className='hamburger__content'>
+					{mainNav.map(x => {
+						if (!x.published) return null;
 
+						return <HamburgerItem {...x} pathname={pathname} key={x.title} />;
+					})}
 				</div>
 			</div>
 			<div
@@ -96,4 +105,4 @@ const mdtp = {
 	toggleHamburgerMenuAction: appActions.toggleHamburgerMenu,
 };
 
-export default connect(mstp, mdtp)(Hamburger);
+export default withRouter(connect(mstp, mdtp)(Hamburger));

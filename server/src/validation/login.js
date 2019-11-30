@@ -4,7 +4,7 @@ const User = require('../schema/user.schema');
 const responseMsg = require('../helpers/responseMsg');
 const bcrypt = require('bcryptjs');
 
-module.exports = async ({ email, password }) => {
+module.exports = async ({ email, password, role }) => {
 	try {
 	  let errors = {};
 
@@ -20,7 +20,7 @@ module.exports = async ({ email, password }) => {
 	  if (Validator.isEmpty(password))
 	    errors.validation = responseMsg.info({ message: 'Invalid User Credentials' });
 
-		const user = await User.findOne({ email: { $elemMatch: { address: email }}});
+		const user = await User.findOne({ email: { $elemMatch: { address: email }}, role });
 
 		if (!user || !(await bcrypt.compare(password, user.password)))
 			errors.validation = responseMsg.info({ message: 'Invalid User Credentials' });

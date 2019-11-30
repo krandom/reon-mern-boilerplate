@@ -22,7 +22,6 @@ export default {
 	},
 
 	auth: {
-		popup: null,
 		user: null,
 	},
 

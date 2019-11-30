@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const jwtToken = require('../../helpers/jwtToken');
 const responseMsg = require('../../helpers/responseMsg');
@@ -70,7 +69,7 @@ router.post('/login', anonRoute, async (req, res) => {
 	const { email, password } = req.body;
 
 	try {
-		const { errors, isValid, user } = await validateLoginInput({ email, password });
+		const { errors, isValid, user } = await validateLoginInput({ email, password, role: 'user' });
 
 	  if (!isValid)
 	    return res.status(400).json({ toast: errors });

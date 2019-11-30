@@ -1,6 +1,12 @@
 const isEmpty = require('is-empty');
 
 module.exports = password => {
+	// remove
+	return {
+		passwordErrors: {},
+		passwordIsValid: true,
+	};
+
 	const minLength = 4;
 	const uppercase = true;
 	const lowercase = true;

@@ -4,7 +4,7 @@
 	width: 100%;
 
 	&__sidebar-open {
-		width: calc(100% - 300px);
-		padding-left: 300px;
+		width: calc(100% - $hamburger-width);
+		padding-left: $hamburger-width;
 	}
 }

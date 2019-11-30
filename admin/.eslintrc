@@ -36,6 +36,7 @@
     "semi": 1,
 		"quotes": ["warn", "single"],
 		"comma-dangle": ["warn", "always-multiline"],
+    "no-debugger": 1,
   },
   "settings": {
     "react": {
