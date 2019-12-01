@@ -43,4 +43,8 @@ export default {
 	sandbox: {
 		exchangeRates: [],
 	},
+
+	users: {
+
+	},
 };

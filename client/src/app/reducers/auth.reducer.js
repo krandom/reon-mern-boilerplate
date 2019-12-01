@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import initialState from './initialState';
 import formatActionTypeNames from '../helpers/formatActionTypeNames';
 
-import { actions as appActions } from './app.reducer';
+import { actions as appActionTypes } from './app.reducer';
 
 export const actions = formatActionTypeNames(
 	{
@@ -37,7 +37,7 @@ export default (state = initialState.auth, action) => {
 	const { payload } = action;
 
 	switch (action.type) {
-		case appActions.booted:
+		case appActionTypes.booted:
 			return {
 				...state,
 				user: payload.user,

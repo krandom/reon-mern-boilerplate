@@ -10,8 +10,8 @@ export default [
 		icon: 'home',
 	},
 	{
-		title: 'User Profiles',
-		url: '/user-profiles',
+		title: 'Users',
+		url: '/users',
 		subnav: null,
 		megamenu: null,
 		action: null,

@@ -26,6 +26,8 @@ function* privateApi({
 	payload = {},
 }) {
 	try {
+		const token = yield select(s => s.app.token);
+
 		let options = {
 			headers: {
 				Accept: 'application/json',
@@ -35,7 +37,6 @@ function* privateApi({
 			},
 		};
 
-		const token = yield select(s => s.app.token);
 		if (token) {
 			options.headers = {
 				...options.headers,

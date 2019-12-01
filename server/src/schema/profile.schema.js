@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uuid = require('uuid');
 
 const ProfileSchema = new mongoose.Schema({
 	user: {
@@ -29,7 +30,7 @@ const ProfileSchema = new mongoose.Schema({
 		},
 		verificationCode: {
 			type: String,
-			default: 'Not Verified',
+			default: uuid(),
 		},
 		dateAdded: {
 			type: Date,

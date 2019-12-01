@@ -10,6 +10,7 @@ import apiSaga from '../saga/api.saga';
 import appSaga from '../saga/app.saga';
 import authSaga from '../saga/auth.saga';
 import sandboxSaga from '../saga/sandbox.saga';
+import usersSaga from '../saga/users.saga';
 
 const saga = createSagaMiddleware();
 
@@ -27,6 +28,7 @@ export const mainStore = ({ initialState = {} } = {}) => {
 	saga.run(appSaga);
 	saga.run(authSaga);
 	saga.run(sandboxSaga);
+	saga.run(usersSaga);
 
 	return store;
 };

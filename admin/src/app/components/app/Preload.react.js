@@ -11,7 +11,7 @@ const Preload = ({ booted, isLoggedIn }) => {
 	useEffect(() => {
 		setTimeout(() => {
 			setDisableToggle(false);
-		}, 2500);
+		}, 500);
 	}, []);
 
 	const toggle = () => {

@@ -10,5 +10,8 @@ export default {
 			login: '//localhost:5000/api/admin/auth/login',
 			getUser: '//localhost:5000/api/auth/get-user',
 		},
+		userProfiles: {
+			getAllProfiles: '//localhost:5000/api/admin/users/all',
+		},
 	},
 };

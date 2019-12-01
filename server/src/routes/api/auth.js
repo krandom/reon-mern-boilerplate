@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwtToken = require('../../helpers/jwtToken');
 const responseMsg = require('../../helpers/responseMsg');
 const uuid = require('uuid');
+const getNextSequenceValue = require('../../helpers/getNextSequenceValue');
 
 // const nodemailer = require('nodemailer');
 // const nodemailer = require('../../helpers/nodemailer');
@@ -12,6 +13,7 @@ const uuid = require('uuid');
 const nodemailer = require('../../helpers/nodemailer');
 
 const userSchema = require('../../schema/user.schema');
+const profileSchema = require('../../schema/profile.schema');
 const userModel = require('../../models/user.model');
 const profileModel = require('../../models/profile.model');
 
@@ -34,12 +36,16 @@ router.post('/signup', anonRoute, async (req, res) => {
 	  if (!isValid)
 	    return res.status(400).json({ toast: errors });
 
+		// TODO :: make _id autoincrement from 1... instead of auto generate to easier keep track of userID's
     const newUser = new userSchema({
+    	// _id: await getNextSequenceValue(),
       email: { address: email },
       password,
     });
 
 		await newUser.save();
+		const profile = await profileSchema.create({ userid: newUser._id });
+		await userSchema.updateOne({ _id: newUser._id }, { $set: { profile: profile._id }});
 
     nodemailer.send({
       template: 'verify-email',

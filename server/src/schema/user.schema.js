@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
+const getNextSequenceValue = require('../helpers/getNextSequenceValue');
+
+// TODO :: make _id autoincrement from 1... instead of auto generate to easier keep track of userID's
 
 const UserSchema = new mongoose.Schema({
 	email: [{
@@ -60,6 +63,10 @@ const UserSchema = new mongoose.Schema({
 			default: null,
 		}
 	},
+	profile: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'profile',
+	}
 });
 
 UserSchema.pre('save', async function(next) {

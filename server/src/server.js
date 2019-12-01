@@ -10,7 +10,6 @@ app.use(cors({
   credentials: true
 }));
 
-
 // Connect DB
 connectDB();
 
@@ -22,7 +21,7 @@ app.get('/', (req, res) => res.send('API Running'));
 // Define Routes
 app.use('/api/auth/', require('./routes/api/auth'));
 app.use('/api/admin/auth', require('./routes/api/admin/auth'));
-// app.use('/api/user/', require('./routes/api/user'));
+app.use('/api/admin/users', require('./routes/api/admin/users'));
 
 const PORT = process.env.PORT || 5000;
 

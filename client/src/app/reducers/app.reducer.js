@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import initialState from './initialState';
 import formatActionTypeNames from '../helpers/formatActionTypeNames';
 
-import { actions as authActions } from './auth.reducer';
+import { actions as authActionTypes } from './auth.reducer';
 
 export const actions = formatActionTypeNames(
 	{
@@ -37,14 +37,14 @@ export default (state = initialState.app, action) => {
 				showHamburgerMenu: payload || !state.showHamburgerMenu,
 			};
 
-		case authActions.loginComplete:
+		case authActionTypes.loginComplete:
 			return {
 				...state,
 				isLoggedIn: true,
 				token: payload.token,
 			};
 
-		case authActions.logoutComplete:
+		case authActionTypes.logoutComplete:
 			return initialState.app;
 
 		default:
