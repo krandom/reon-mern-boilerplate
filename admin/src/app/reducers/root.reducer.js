@@ -8,6 +8,7 @@ import notification from './notification.reducer';
 import sandbox from './sandbox.reducer';
 import sidebar from './sidebar.reducer';
 import users from './users.reducer';
+import settings from './settings.reducer';
 
 const rootReducer = combineReducers({
 	// TODO :: MAKE THIS WORK
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
 	sandbox,
 	sidebar,
 	users,
+	settings,
 });
 
 export default rootReducer;

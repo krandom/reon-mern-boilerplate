@@ -18,14 +18,14 @@ import { history } from '../../store/store';
 import Header from '../header/Header.react';
 import { appActions } from '../../reducers/app.reducer';
 
-import Modal from '../modal/Modal.react';
+import ModalContainer from '../modal/ModalContainer.react';
 import Routes from './routing/Routes.react';
 import Notification from '../notification/Notification.react';
 import Sidebar from '../sidebar/Sidebar.react';
 import Hamburger from '../hamburger/Hamburger.react';
 import Preload from './Preload.react';
 
-const App = ({ bootAction }) => {
+const App = ({ booted, bootAction }) => {
 	useEffect(() => {
 		bootAction();
 	}, []);
@@ -35,20 +35,28 @@ const App = ({ bootAction }) => {
 			<>
 				<div className='app'>
 					<Preload />
-					<Routes />
-					<Header />
-					<Modal />
-					<Notification />
-					<Sidebar />
-					<Hamburger />
+					{ booted &&
+						<>
+							<Routes />
+							<Header />
+							<ModalContainer />
+							<Notification />
+							<Sidebar />
+							<Hamburger />
+						</>
+					}
 				</div>
 			</>
 		</Router>
 	);
 };
 
+const mstp = s => ({
+	booted: s.app.booted,
+});
+
 const mdtp = {
 	bootAction: appActions.boot,
 };
 
-export default hot(connect(null, mdtp)(App));
+export default hot(connect(mstp, mdtp)(App));

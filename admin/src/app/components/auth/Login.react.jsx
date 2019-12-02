@@ -11,7 +11,7 @@ import Button from '../common/Button.react';
 const Login = ({ loginAction }) => {
 
 	const [loginForm, setLoginForm] = useState({
-		email: 'test2@test.com',
+		email: 'test@test.com',
 		password: 'test',
 		rememberMe: true,
 	});

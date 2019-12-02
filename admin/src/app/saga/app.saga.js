@@ -9,7 +9,7 @@ function* boot() {
 		// Look for cookie and log user in if valid
 		const cookies = new Cookies();
 		let token = cookies.get('reon-mern-boilerplate-admin');
-		const endpoint = yield select(s => s.config.endpoints.auth.validateCookie);
+		let endpoint = yield select(s => s.config.endpoints.auth.validateCookie);
 		const { user } = yield privateCall({ endpoint, payload: { token } });
 
 		if (!user) {
@@ -17,10 +17,21 @@ function* boot() {
 			cookies.remove('reon-mern-boilerplate-admin');
 		}
 
+		// TODO :: make boot call after validate token to grab all data needed to start up app
+		// TODO :: move user and profile here instead of validateCookie call
+		endpoint = yield select(s => s.config.endpoints.app.featureFlags);
+		const { featureFlags } = yield privateCall({
+			endpoint,
+			payload: {
+				app: 'admin',
+				environment: yield select(s => s.app.environment),
+			},
+		});
+
 		// const endpoint = yield select(s => s.config.endpoints.user.getProfile);
 		// const response = yield api({endpoint});
 
-		yield put(appActions.booted({ user, token }));
+		yield put(appActions.booted({ user, token, featureFlags }));
 	} catch (e) {}
 }
 

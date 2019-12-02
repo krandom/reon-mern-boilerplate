@@ -48,7 +48,7 @@ function* privateApi({
 			axios[method],
 			endpoint,
 			payload,
-			options
+			options,
 		);
 
 		yield toastNotifications(data);

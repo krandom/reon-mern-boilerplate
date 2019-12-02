@@ -1,11 +1,13 @@
 import { connect } from 'react-redux';
 
 import { appActions } from '../../reducers/app.reducer';
+import getFeatureFlag from '../../helpers/getFeatureFlag';
 
 import MegaMenu from './MegaMenu.react';
 import MainNavLink from './MainNavLink.react';
 
 const Header = ({ mainNav, toggleHamburgerMenuAction }) => {
+
 	return (
 		<header id="header" className="header">
 			<div className="header__content">
@@ -19,14 +21,17 @@ const Header = ({ mainNav, toggleHamburgerMenuAction }) => {
 				</div>
 
 				<div className="main-nav">
-					{mainNav.map(x => {
+					{ mainNav.map(x => {
 						if (!x.published) return null;
+
+						if (x.title === 'Sandbox' && !getFeatureFlag('sandbox'))
+							return null;
 
 						return (
 							<div className="main-nav__item" key={`${JSON.stringify(x)}`}>
 								<MainNavLink url={x.url} title={x.title} action={x.action} />
 
-								{x.subnav && !x.megamenu &&
+								{ x.subnav && !x.megamenu &&
 									<div className="main-nav__item--content">
 										{x.subnav.map(y =>
 											<MainNavLink
@@ -39,7 +44,7 @@ const Header = ({ mainNav, toggleHamburgerMenuAction }) => {
 									</div>
 								}
 
-								{x.megamenu && x.megamenu === 'libraries' && <MegaMenu />}
+								{ x.megamenu && x.megamenu === 'libraries' && <MegaMenu /> }
 							</div>
 						);
 					})}
@@ -60,6 +65,7 @@ const Header = ({ mainNav, toggleHamburgerMenuAction }) => {
 
 const mstp = s => ({
 	mainNav: s.app.mainNav,
+	featureFlags: s.app.featureFlags,
 });
 
 const mdtp = {

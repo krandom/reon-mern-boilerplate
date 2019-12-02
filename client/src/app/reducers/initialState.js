@@ -15,6 +15,7 @@ export default {
 		showHamburgerMenu: false,
 		mainNav: [],
 		featureFlags: {},
+		environment: getEnvironment(),
 		// websocketID: uuid(),
 	},
 

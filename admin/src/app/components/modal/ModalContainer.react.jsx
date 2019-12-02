@@ -3,7 +3,7 @@ import { modalActions } from '../../reducers/modal.reducer';
 
 import ModalWindow from './ModalWindow.react';
 
-const Modal = ({ windows }) => {
+const ModalContainer = ({ windows }) => {
 	if (windows.length === 0) return null;
 
 	return (
@@ -25,4 +25,4 @@ const mdtp = {
 	showModalAction: modalActions.show,
 };
 
-export default connect(mstp, mdtp)(Modal);
+export default connect(mstp, mdtp)(ModalContainer);

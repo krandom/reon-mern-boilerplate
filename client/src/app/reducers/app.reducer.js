@@ -8,7 +8,8 @@ export const actions = formatActionTypeNames(
 	{
 		boot: 'BOOT',
 		booted: 'BOOTED',
-		setFeatureFlags: 'SET_FEATURE_FLAGS',
+		getFeatureFlags: 'GET_FEATURE_FLAGS',
+		getFeatureFlagsComplete: 'GET_FEATURE_FLAGS_COMPLETE',
 		toggleHamburgerMenu: 'TOGGLE_HAMBURGER_MENU',
 	},
 	'APP'
@@ -17,7 +18,8 @@ export const actions = formatActionTypeNames(
 export const appActions = {
 	boot: createAction(actions.boot),
 	booted: createAction(actions.booted),
-	setFeatureFlags: createAction(actions.setFeatureFlags),
+	getFeatureFlags: createAction(actions.getFeatureFlags),
+	getFeatureFlagsComplete: createAction(actions.getFeatureFlagsComplete),
 	toggleHamburgerMenu: createAction(actions.toggleHamburgerMenu),
 };
 
@@ -29,15 +31,15 @@ export default (state = initialState.app, action) => {
 				...state,
 				mainNav: payload.mainNav,
 				token: payload.token,
+				featureFlags: payload.featureFlags,
 				booted: true,
 				isLoggedIn: payload.token ? true : false,
 			};
 
-		case actions.setFeatureFlags:
-			console.log('set setFeatureFlags')
+		case actions.getFeatureFlagsComplete:
 			return {
 				...state,
-				setFeatureFlags: payload,
+				featureFlags: payload,
 			};
 
 		case actions.toggleHamburgerMenu:

@@ -1,6 +1,6 @@
 import Cookies from 'universal-cookie';
 
-import { select, put, takeLatest } from 'redux-saga/effects';
+import { select, put, takeLatest, all } from 'redux-saga/effects';
 import { privateCall } from './api.saga';
 import { appActions } from '../reducers/app.reducer';
 
@@ -9,13 +9,19 @@ function* boot() {
 		// Look for cookie and log user in if valid
 		const cookies = new Cookies();
 		let token = cookies.get('reon-mern-boilerplate');
-		const endpoint = yield select(s => s.config.endpoints.auth.validateCookie);
+
+		let endpoint = yield select(s => s.config.endpoints.auth.validateCookie);
 		const { user } = yield privateCall({ endpoint, payload: { token } });
 
 		if (!user) {
 			token = null;
 			cookies.remove('reon-mern-boilerplate');
 		}
+
+		// TODO :: make boot call after validate token to grab all data needed to start up app
+		// TODO :: move user and profile here instead of validateCookie call
+		endpoint = yield select(s => s.config.endpoints.app.featureFlags);
+		const { featureFlags } = yield privateCall({ endpoint });
 
 		const mainNav = [
 			{
@@ -99,10 +105,22 @@ function* boot() {
 		// const endpoint = yield select(s => s.config.endpoints.user.getProfile);
 		// const response = yield api({endpoint});
 
-		yield put(appActions.booted({ mainNav, user, token }));
+		yield put(appActions.booted({ mainNav, user, token, featureFlags }));
+	} catch (e) {}
+}
+
+function* getFeatureFlags() {
+	try {
+		const endpoint = yield select(s => s.config.endpoints.app.featureFlags);
+		const { featureFlags } = yield privateCall({ endpoint });
+
+		yield put(appActions.getFeatureFlagsComplete(featureFlags));
 	} catch (e) {}
 }
 
 export default function* appSaga() {
-	yield takeLatest(appActions.boot, boot);
+	yield all([
+		yield takeLatest(appActions.boot, boot),
+		yield takeLatest(appActions.getFeatureFlags, getFeatureFlags),
+	]);
 }

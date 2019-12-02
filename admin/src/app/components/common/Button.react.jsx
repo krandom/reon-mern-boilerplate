@@ -6,12 +6,13 @@ const Button = ({
 	disabled = false,
 	className = null,
 	onClick,
+	style = {},
 }) => {
 
 	return (
 		<div
-			className={`btn btn__${type} ${className}`}
-			style={{ width }}
+			className={`btn btn__${type} ${className} ${disabled && 'btn__disabled'}`}
+			style={{ ...style, width }}
 			disabled={disabled}
 			onClick={() => {
 				if (onClick)

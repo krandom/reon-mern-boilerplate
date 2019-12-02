@@ -5,6 +5,7 @@ export default {
 	fbAppID: '',
 	cookieID: 'reon-react-boilerplate',
 
+	// TODO :: add GET so we don't have to do "setFeatureFlags" etc...
 	endpoints: {
 		exchangeRatesApi: {
 			latest: 'https://api.exchangeratesapi.io/latest?base=USD',
@@ -15,6 +16,9 @@ export default {
 		},
 		user: {
 			getProfile: '//reonsolutions.com/mock-server/getProfile.php',
+		},
+		app: {
+			featureFlags: '//localhost:5000/api/app/get-feature-flags',
 		},
 		auth: {
 			validateCookie: '//localhost:5000/api/auth/validate-token',

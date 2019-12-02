@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
-const getNextSequenceValue = require('../helpers/getNextSequenceValue');
+// const getNextSequenceValue = require('../helpers/getNextSequenceValue');
 
 // TODO :: make _id autoincrement from 1... instead of auto generate to easier keep track of userID's
 

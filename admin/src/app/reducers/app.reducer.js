@@ -26,6 +26,7 @@ export default (state = initialState.app, action) => {
 			return {
 				...state,
 				token: payload.token,
+				featureFlags: payload.featureFlags,
 				booted: true,
 				isLoggedIn: payload.token ? true : false,
 			};

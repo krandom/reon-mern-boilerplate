@@ -31,8 +31,8 @@ const Table = ({ data, columns = null, }) => {
 
 
 
-	console.log('DATA in TABLE', rows)
-	console.log('LAYOUT in TABLE', layout)
+	// console.log('DATA in TABLE', rows)
+	// console.log('LAYOUT in TABLE', layout)
 	return (
 		<div className='table'>
 			<table>

@@ -10,7 +10,7 @@
 	line-height: 35px;
 	cursor: pointer;
 
-	&:disabled {
+	&__disabled {
 		opacity: .4;
 		cursor: not-allowed !important;
 	}

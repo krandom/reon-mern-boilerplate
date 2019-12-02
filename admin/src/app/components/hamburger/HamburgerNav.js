@@ -20,19 +20,30 @@ export default [
 		icon: 'image',
 	},
 	{
-		title: 'Config',
+		title: 'App Settings',
 		url: null,
 		subnav: [
 			{
 				title: 'Feature Flags',
-				url: '/config/feature-flags',
+				url: '/settings/feature-flags',
 				subnav: null,
 				megamenu: null,
 				action: null,
 			},
+		],
+		megamenu: null,
+		action: null,
+		mobile: true,
+		published: true,
+		icon: 'caret-down',
+	},
+	{
+		title: 'Pages',
+		url: null,
+		subnav: [
 			{
 				title: 'Meta Data',
-				url: '/config/meta-data',
+				url: '/pages/meta-data',
 				subnav: null,
 				megamenu: null,
 				action: null,

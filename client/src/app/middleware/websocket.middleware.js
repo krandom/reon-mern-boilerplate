@@ -15,17 +15,25 @@ export const setupSocket = (store) => {
 
 	socket.onmessage = (event) => {
 		const data = JSON.parse(event.data);
+		console.log('WE GOT A SIGNAL!!!', data)
 		switch (data.type) {
-			case 'ADD_MESSAGE':
-				console.log('message got added', data, appActions);
-				dispatch(appActions.setFeatureFlags(data));
-				// dispatch(messageReceived(data.message, data.author));
+			case 'REFRESH_FEATURE_FLAGS':
+			console.log('REFRESH_FEATURE_FLAGS', data)
+
+				dispatch(appActions.getFeatureFlags(data));
+
 				break;
 
-			case 'USERS_LIST':
-				console.log('list???');
+			// case 'ADD_MESSAGE':
+				// console.log('message got added', data, appActions);
+				// dispatch(appActions.getFeatureFlags(data));
+				// dispatch(messageReceived(data.message, data.author));
+				// break;
+
+			// case 'USERS_LIST':
+				// console.log('list???');
 				// 	dispatch(populateUsersList(data.users));
-				break;
+				// break;
 
 			default:
 				break;

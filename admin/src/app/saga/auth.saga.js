@@ -6,7 +6,7 @@ import { privateCall } from './api.saga';
 import { authActions } from '../reducers/auth.reducer';
 
 function* login({ payload }) {
-	try {
+	try { console.log('login', )
 		const endpoint = yield select(s => s.config.endpoints.auth.login);
 		const response = yield privateCall({ endpoint, payload });
 

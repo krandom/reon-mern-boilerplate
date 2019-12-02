@@ -55,5 +55,6 @@
     "Tween" : false,
     "Typekit" : false,
     "uuid" : false,
+    "axios": false,
   },
 }

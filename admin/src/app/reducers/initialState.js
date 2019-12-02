@@ -13,6 +13,8 @@ export default {
 		isLoggedIn: false,
 		token: null,
 		toggleHamburgerMenu: false,
+		featureFlags: {},
+		environment: getEnvironment(),
 	},
 
 	modal: {
@@ -46,5 +48,9 @@ export default {
 
 	users: {
 
+	},
+
+	settings: {
+		featureFlags: [],
 	},
 };
