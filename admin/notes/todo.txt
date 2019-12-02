@@ -31,7 +31,7 @@ https://medium.com/@ianovenden/redux-websocket-integration-c1a0d22d3189
 
 
 
-!!!
+!!! Frontned
 https://dev.to/aduranil/how-to-use-websockets-with-redux-a-step-by-step-guide-to-writing-understanding-connecting-socket-middleware-to-your-project-km3
 
 
@@ -52,3 +52,5 @@ https://github.com/flaviocopes/chat-app-react-redux-saga-websockets
 // tutorial
 http://appsbuilders.org/guides/build-a-chat-application-using-react-redux-redux-saga-and-web-sockets-tutorial/
 https://github.com/beaucarnes/fcc-project-tutorials/tree/master/chat
+
+https://dzone.com/articles/building-a-react-based-chat-client-with-redux-part

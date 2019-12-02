@@ -10,8 +10,13 @@ import apiSaga from '../saga/api.saga';
 import appSaga from '../saga/app.saga';
 import authSaga from '../saga/auth.saga';
 import sandboxSaga from '../saga/sandbox.saga';
+import websocketSaga from '../saga/websocket.saga';
+
+import { setupSocket } from '../middleware/websocket.middleware';
 
 const saga = createSagaMiddleware();
+
+export let socket = null;
 
 export const history = createBrowserHistory();
 export const mainStore = ({ initialState = {} } = {}) => {
@@ -27,6 +32,9 @@ export const mainStore = ({ initialState = {} } = {}) => {
 	saga.run(appSaga);
 	saga.run(authSaga);
 	saga.run(sandboxSaga);
+	saga.run(websocketSaga);
+
+	socket = setupSocket(store);
 
 	return store;
 };

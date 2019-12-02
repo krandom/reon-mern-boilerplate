@@ -1,5 +1,5 @@
 .preload {
-	@include transition(all, 1s);
+	@include transition(opacity, 1s);
 
 	position: fixed;
 	top: 0;

@@ -5,6 +5,7 @@ import { modalActions } from '../../reducers/modal.reducer';
 import { authActions } from '../../reducers/auth.reducer';
 import { appActions } from '../../reducers/app.reducer';
 import { sandboxActions } from '../../reducers/sandbox.reducer';
+import { websocketActions } from '../../reducers/websocket.reducer';
 
 import Page1 from './sidebar/Page1.react';
 import Window1 from './modal/Window1.react';
@@ -16,6 +17,7 @@ const Sandbox = ({
 	addModalAction,
 	toggleHamburgerMenuAction,
 	getExchangeRatesAction,
+	newMessageAction,
 }) => {
 	return (
 		<div className="page">
@@ -152,6 +154,24 @@ const Sandbox = ({
 						API Call
 					</button>
 				</div>
+
+				{/*https://www.cssscript.com/demo/tilted-navigation-clip-path/*/}
+				<div className="sandbox__block">
+					<div className="sandbox__title">Websockets</div>
+
+					<div className="sandbox__description">
+						are cool...
+					</div>
+
+					<button
+						className="sandbox__success"
+						onClick={() => {
+							newMessageAction();
+						}}
+					>
+						API Call
+					</button>
+				</div>
 			</div>
 		</div>
 	);
@@ -169,6 +189,7 @@ const mdtp = {
 	getExchangeRatesAction: sandboxActions.getExchangeRates,
 	signupAction: authActions.signup,
 	loginAction: authActions.login,
+	newMessageAction: websocketActions.newMessage,
 };
 
 export default connect(mstp, mdtp)(Sandbox);

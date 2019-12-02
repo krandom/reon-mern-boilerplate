@@ -7,7 +7,7 @@ import modal from './modal.reducer';
 import notification from './notification.reducer';
 import sandbox from './sandbox.reducer';
 import sidebar from './sidebar.reducer';
-// import user from './user.reducer';
+import websocket from './websocket.reducer';
 
 const rootReducer = combineReducers({
 	// TODO :: MAKE THIS WORK
@@ -20,6 +20,7 @@ const rootReducer = combineReducers({
 	notification,
 	sandbox,
 	sidebar,
+	websocket,
 	// user,
 });
 

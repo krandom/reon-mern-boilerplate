@@ -14,6 +14,8 @@ export default {
 		token: null,
 		showHamburgerMenu: false,
 		mainNav: [],
+		featureFlags: {},
+		// websocketID: uuid(),
 	},
 
 	modal: {
@@ -42,5 +44,10 @@ export default {
 
 	sandbox: {
 		exchangeRates: [],
+	},
+
+	websocket: {
+		websocketID: uuid(),
+		socket: null,
 	},
 };
