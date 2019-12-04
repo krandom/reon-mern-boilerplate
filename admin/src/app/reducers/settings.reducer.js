@@ -4,17 +4,25 @@ import formatActionTypeNames from '../helpers/formatActionTypeNames';
 
 export const actions = formatActionTypeNames(
 	{
+		getConstants: 'GET_CONSTANTS',
+		getConstantsComplete: 'GET_CONSTANTS_COMPLETE',
+		setConstants: 'SET_CONSTANTS',
 		getFeatureFlags: 'GET_FEATURE_FLAGS',
 		getFeatureFlagsComplete: 'GET_FEATURE_FLAGS_COMPLETE',
 		setFeatureFlags: 'SET_FEATURE_FLAGS',
+		setMetaDataConstants: 'SET_META_DATA_CONSTANTS',
 	},
 	'SETTINGS'
 );
 
 export const settingsActions = {
+	getConstants: createAction(actions.getConstants),
+	getConstantsComplete: createAction(actions.getConstantsComplete),
+	setConstants: createAction(actions.setConstants),
 	getFeatureFlags: createAction(actions.getFeatureFlags),
 	getFeatureFlagsComplete: createAction(actions.getFeatureFlagsComplete),
 	setFeatureFlags: createAction(actions.setFeatureFlags),
+	setMetaDataConstants: createAction(actions.setMetaDataConstants),
 };
 
 export default (state = initialState.settings, action) => {
@@ -25,6 +33,15 @@ export default (state = initialState.settings, action) => {
 			return {
 				...state,
 				featureFlags: payload,
+			};
+
+		case actions.getConstantsComplete:
+			return {
+				...state,
+				constants: {
+					...state.constants,
+					...payload,
+				},
 			};
 
 		default:

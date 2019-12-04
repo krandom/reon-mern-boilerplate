@@ -19,6 +19,7 @@ export default {
 		},
 		app: {
 			featureFlags: '//localhost:5000/api/app/get-feature-flags',
+			metaData: '//localhost:5000/api/app/get-meta-data',
 		},
 		auth: {
 			validateCookie: '//localhost:5000/api/auth/validate-token',

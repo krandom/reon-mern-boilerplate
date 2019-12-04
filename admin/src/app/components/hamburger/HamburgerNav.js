@@ -30,6 +30,13 @@ export default [
 				megamenu: null,
 				action: null,
 			},
+			{
+				title: 'Constants',
+				url: '/settings/constants',
+				subnav: null,
+				megamenu: null,
+				action: null,
+			},
 		],
 		megamenu: null,
 		action: null,

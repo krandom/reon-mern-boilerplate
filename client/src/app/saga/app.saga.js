@@ -11,6 +11,14 @@ function* boot() {
 		let token = cookies.get('reon-mern-boilerplate');
 
 		let endpoint = yield select(s => s.config.endpoints.auth.validateCookie);
+
+		// BUNDLE CALLS HERE
+		// validate token will return auth info
+		// boot call will return public info
+		// make separate boot calls for admin/client called 'boot.js'
+		// TODO :: make boot call after validate token to grab all data needed to start up app
+		// TODO :: move user and profile here instead of validateCookie call
+
 		const { user } = yield privateCall({ endpoint, payload: { token } });
 
 		if (!user) {
@@ -18,11 +26,18 @@ function* boot() {
 			cookies.remove('reon-mern-boilerplate');
 		}
 
-		// TODO :: make boot call after validate token to grab all data needed to start up app
-		// TODO :: move user and profile here instead of validateCookie call
 		endpoint = yield select(s => s.config.endpoints.app.featureFlags);
 		const { featureFlags } = yield privateCall({ endpoint });
 
+		endpoint = yield select(s => s.config.endpoints.app.metaData);
+		const { metaData } = yield privateCall({ endpoint });
+
+		// move to mongodb
+		// make published by environment
+		// { environment: 'dev', value: true/false }
+		// missing = false
+		// default Date
+		// date > now = false
 		const mainNav = [
 			{
 				title: 'Home',

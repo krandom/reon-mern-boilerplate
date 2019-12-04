@@ -14,6 +14,7 @@ const nodemailer = require('../../helpers/nodemailer');
 
 const userSchema = require('../../schema/user.schema');
 const profileSchema = require('../../schema/profile.schema');
+const metaDataConstantsSchema = require('../../schema/constants/metaDataConstants.schema');
 const userModel = require('../../models/user.model');
 const profileModel = require('../../models/profile.model');
 
@@ -102,6 +103,7 @@ router.post('/validate-token', async (req, res) => {
 		const { user } = jwtToken.verify({ token });
 
 		res.json({
+			success: true,
 			message: 'Token is valid',
 			user: await userModel(user.id),
 			profile: await profileModel(user.id),

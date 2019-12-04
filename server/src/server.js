@@ -22,6 +22,11 @@ connectDB();
 // Init middleware
 app.use(express.json({ extended: false }));
 
+app.all('*', (req, res, next) => {
+  req.props = { ...req.body, ...req.query };
+  next();
+});
+
 app.get('/', (req, res) => res.send('API Running'));
 
 // Define Routes
@@ -61,6 +66,7 @@ wss.on('connection', ws => {
 
   // verify anon/auth somehow?
   // only save for logged in user?
+  // do it on login
   // websockets[userID] = ws;
   // broadcast from client when logging in, also app (client/admin)?
 
@@ -70,16 +76,16 @@ wss.on('connection', ws => {
 
     switch (data.type) {
       case 'ADD_USER': {
-        index = users.length
-        users.push({ name: 'mumin', id: index + 1 })
-        ws.send(JSON.stringify({
-          type: 'USERS_LIST',
-          users
-        }))
-        broadcastToClient({
-          type: 'USERS_LIST',
-          users
-        }, ws)
+        // index = users.length
+        // users.push({ name: 'mumin', id: index + 1 })
+        // ws.send(JSON.stringify({
+        //   type: 'USERS_LIST',
+        //   users
+        // }))
+        // broadcastToClient({
+        //   type: 'USERS_LIST',
+        //   users
+        // }, ws)
         break
       }
       case 'ADD_MESSAGE':

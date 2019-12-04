@@ -38,9 +38,11 @@ const add = ({
 
 const info = (payload) => add({ ...payload, type: 'info' })
 const warn = (payload) => add({ ...payload, type: 'warning' })
+const success = (payload) => add({ ...payload, type: 'success' })
 
 module.exports = {
 	add: add,
 	info: info,
 	warn: warn,
+	success: success,
 };

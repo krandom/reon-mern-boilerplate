@@ -16,8 +16,9 @@ export default {
 			featureFlags: '//localhost:5000/api/app/get-feature-flags',
 		},
 		settings: {
-			featureFlags: '//localhost:5000/api/admin/settings/get-feature-flags',
-			setFeatureFlags: '//localhost:5000/api/admin/settings/set-feature-flags',
+			featureFlags: '//localhost:5000/api/admin/settings/feature-flags',
+			constants: '//localhost:5000/api/admin/settings/constants',
+			metaDataConstants: '//localhost:5000/api/admin/settings/meta-data-constants',
 		},
 		userProfiles: {
 			getAllProfiles: '//localhost:5000/api/admin/users/all',

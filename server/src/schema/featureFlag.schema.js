@@ -3,19 +3,19 @@ const mongoose = require('mongoose');
 const FeatureFlagSchema = new mongoose.Schema({
 	app: {
 		type: String,
-		require: true,
+		required: true,
 	},
 	environment: {
 		type: String,
-		require: true,
+		required: true,
 	},
 	value: {
 		type: Boolean,
-		require: true,
+		required: true,
 	},
 	name: {
 		type: String,
-		require: true,
+		required: true,
 	}
 });
 

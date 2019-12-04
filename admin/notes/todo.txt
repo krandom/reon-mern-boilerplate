@@ -54,3 +54,11 @@ http://appsbuilders.org/guides/build-a-chat-application-using-react-redux-redux-
 https://github.com/beaucarnes/fcc-project-tutorials/tree/master/chat
 
 https://dzone.com/articles/building-a-react-based-chat-client-with-redux-part
+
+
+
+
+// metaDataConstants
+// featureFlagConstants
+
+// constants table with all constants in it

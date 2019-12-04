@@ -1,0 +1,44 @@
+META DATA
+
+type (meta/title)
+[
+	name
+	property
+	itemprop
+]
+content
+
+USER ROLES
+
+type (admin/user)
+
+FEATURE FLAG
+
+key
+name
+value
+description
+
+
+
+
+const mongoose = require('mongoose');
+
+const FeatureFlagSchema = new mongoose.Schema({
+	name: {
+		type: String,
+		require: true,
+	},
+	values: [
+		{
+			key: {
+				type: String,
+			},
+			value: {
+				type: String,
+			}
+		}
+	]
+});
+
+module.exports = FeatureFlag = mongoose.model('feature-flag', FeatureFlagSchema);

@@ -43,6 +43,7 @@ const Input = ({
 				onChange={handleOnChange}
 				onFocus={handleOnFocus}
 				onBlur={handleOnBlur}
+				placeholder={placeholder}
 			/>
 
 			{placeholder && <label htmlFor={`${id}-input`}>{placeholder}</label>}

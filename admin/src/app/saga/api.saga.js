@@ -37,19 +37,32 @@ function* privateApi({
 			},
 		};
 
-		if (token) {
-			options.headers = {
-				...options.headers,
-				'x-auth-token': token,
+		if (token)
+			axios.defaults.headers['x-auth-token'] = token;
+
+		let response = null;
+
+		if (method === 'post') {
+			response = yield call(
+				axios[method],
+				endpoint,
+				payload,
+				options,
+			);
+		} else if (method === 'get') {
+			options = {
+				...options,
+				params: payload,
 			};
+
+			response = yield call(
+				axios[method],
+				endpoint,
+				options,
+			);
 		}
 
-		const { status, data } = yield call(
-			axios[method],
-			endpoint,
-			payload,
-			options,
-		);
+		const { status, data } = response;
 
 		yield toastNotifications(data);
 
