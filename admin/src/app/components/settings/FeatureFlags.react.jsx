@@ -12,15 +12,18 @@ import Table from '../common/table/Table.react';
 import Button from '../common/Button.react';
 import EditFeatureFlags from './feature-flags/EditFeatureFlags.react';
 
-const FeatureFlags = ({ featureFlags, addModalAction, getFeatureFlagsAction }) => {
+const FeatureFlags = ({
+	featureFlags,
+	featureFlagConstants,
+	environmentConstants,
+	addModalAction,
+	getFeatureFlagsAction,
+}) => {
 	useEffect(() => {
 		getFeatureFlagsAction();
 	}, []);
 
-	const flagDescription = [
-		{ name: 'sandbox', description: 'Allow sandbox environment' },
-		{ name: 'auth', description: 'Login/Signup' },
-	];
+	// TODO :: further nest in applications as well (client/admin/...)
 
 	const getFlag = ({ app, environment, name }) => {
 		let value = 'false';
@@ -34,25 +37,34 @@ const FeatureFlags = ({ featureFlags, addModalAction, getFeatureFlagsAction }) =
 	};
 
 	const getTableData = ({ app }) => {
-		return Object.values(flagDescription).map(x => {
-			return {
+		return featureFlagConstants.map(x => {
+			let returnObj = {
 				flagName: x['name'],
-				dev: getFlag({ app, environment: 'dev', name: x['name'] }),
-				production: getFlag({ app, environment: 'production', name: x['name'] }),
 				description: x['description'],
 			};
+
+			environmentConstants.map(y => {
+				returnObj[y.value] = getFlag({ app, environment: y.key, name: x.value });
+			});
+
+			return returnObj;
 		});
 	};
 
 	const columns = {
 		'Flag Name': 'flagName',
-		'Development': 'dev',
-		'Production': 'production',
 		'Description': 'description',
 	};
 
+	environmentConstants.forEach(x => {
+		columns[x.name] = x.value;
+	});
+
 	const clientTable = getTableData({ app: 'client' });
 	const adminTable = getTableData({ app: 'admin' });
+
+	console.log('featureFlags', featureFlags);
+	console.log('featureFlagConstants', featureFlagConstants);
 
 	return (
 		<div className='page'>
@@ -114,10 +126,9 @@ const FeatureFlags = ({ featureFlags, addModalAction, getFeatureFlagsAction }) =
 };
 
 const mstp = s => ({
-	booted: s.app.booted,
-	isLoggedIn: s.app.isLoggedIn,
-	users: s.users,
 	featureFlags: s.settings.featureFlags,
+	environmentConstants: s.settings.constants?.environments || [],
+	featureFlagConstants: s.settings.constants?.featureFlags || [],
 });
 
 const mdtp = {

@@ -9,6 +9,7 @@ const metaDataConstantsSchema = require('../../../schema/constants/metaDataConst
 const metaDataConstantsModel = require('../../../models/constants/metaDataConstants.model');
 const constantsSchema = require('../../../schema/constants/constants.schema');
 const constantsModel = require('../../../models/constants/constants.model');
+const sanitizeConstants = require('../../../sanitize/constants.sanitize');
 
 const validateConstants = require('../../../validation/constants');
 const validateMetaDataConstants = require('../../../validation/metaDataConstants');
@@ -56,12 +57,14 @@ router.post('/feature-flags', adminRoute, async (req, res) => {
 });
 
 router.get('/constants', adminRoute, async (req, res) => {
+	const app = req.header('app');
 	try {
 		res.json({
 			constants: {
 				metaData: await metaDataConstantsModel({ admin: true }),
+				applications: await constantsModel({ slug: 'applications' }),
 				userRoles: await constantsModel({ slug: 'user-roles' }),
-				featureFlags: await constantsModel({ slug: 'feature-flags' }),
+				featureFlags: await constantsModel({ slug: 'feature-flags', }),
 				environments: await constantsModel({ slug: 'environments' }),
 			}
 		});
@@ -73,16 +76,18 @@ router.get('/constants', adminRoute, async (req, res) => {
 });
 
 router.post('/constants', adminRoute, async (req, res) => {
-	const { description, key, name, url, value, add, slug, title } = req.props;
+	const { app, description, key, name, value, add, slug, title } = sanitizeConstants(req.props);
+
+	console.log('slug', slug)
 	try {
-		const { errors, isValid } = await validateConstants({ description, key, name, url, value, add, slug });
+		const { errors, isValid } = await validateConstants({ app, description, key, name, value, add, slug });
 
 	  if (!isValid)
 	    return res.status(400).json({ toast: errors });
 
-		let constants = await constantsSchema.findOneAndUpdate({ slug }, { $push: { values: { description, key, name, url, value }}});
+		let constants = await constantsSchema.findOneAndUpdate({ slug }, { $push: { values: { app, description, key, name, value }}});
 		if (!constants)
-			await constantsSchema.create({ title, slug, values: { description, key, name, url, value }});
+			await constantsSchema.create({ title, slug, values: { app, description, key, name, value }});
 
 		res.json({
 			toast: responseMsg.success({ message: 'Done!' }),

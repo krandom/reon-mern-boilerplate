@@ -28,6 +28,9 @@ function* boot() {
 			},
 		});
 
+		// endpoint = yield select(s => s.config.endpoints.settings.constants);
+		// const { constants } = yield privateCall({ endpoint, method: 'get' });
+
 		// const endpoint = yield select(s => s.config.endpoints.user.getProfile);
 		// const response = yield api({endpoint});
 

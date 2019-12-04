@@ -9,16 +9,25 @@ import Button from '../../common/Button.react';
 import Input from '../../common/form/Input.react';
 import Label from '../../common/form/Label.react';
 
-const ConstantsTemplateEdit = ({ slug, add, title, constants, hideModalAction, setConstantsAction }) => {
+const ConstantsTemplateEdit = ({
+	slug,
+	add,
+	title,
+	constants,
+	disableSelectApp = false,
+	applicationConstants,
+	hideModalAction,
+	setConstantsAction,
+}) => {
 	const [form, setForm] = useState({
+		app: '',
 		description: '',
 		key: '',
 		name: '',
-		url: '',
 		value: '',
 	});
 
-	const { key, name, value, description, url } = form;
+	const { app, key, name, value, description } = form;
 	const updateForm = (key, value) => setForm({ ...form, [key]: value });
 
 	const isValid = () => {
@@ -29,13 +38,13 @@ const ConstantsTemplateEdit = ({ slug, add, title, constants, hideModalAction, s
 	};
 
 	const isDuplicate = () => {
-		if (constants.filter(x => x.key.toLowerCase() === key.toLowerCase())[0])
-			return `Duplicate Key. Another constant with the same Key already exists in ${title}.`;
-
-		if (constants.filter(x => x.name.toLowerCase().trim() === name.toLowerCase().trim())[0])
+		if (constants.filter(x => x.name.toLowerCase().trim() === name.toLowerCase().trim() && x.app === (app || null))[0])
 			return `Duplicate Name. Another constant with the same Name already exists in ${title}.`;
 
-		if (constants.filter(x => x.value.toLowerCase() === value.toLowerCase())[0])
+		if (constants.filter(x => x.key.toLowerCase() === key.toLowerCase() && x.app === (app || null))[0])
+			return `Duplicate Key. Another constant with the same Key already exists in ${title}.`;
+
+		if (constants.filter(x => x.value.toLowerCase() === value.toLowerCase() && x.app === (app || null))[0])
 			return `Duplicate Value. Another constant with the same Value already exists in ${title}.`;
 
 		return false;
@@ -45,6 +54,20 @@ const ConstantsTemplateEdit = ({ slug, add, title, constants, hideModalAction, s
 		<div className='modal modal__320'>
 			<ModalHeader title={`${add ? 'Add' : 'Edit'} ${title}`} />
 			<div className='modal__body'>
+
+				{ !disableSelectApp &&
+					<>
+						<Label
+							label='Applications'
+							required
+							info='Select application touched by this constant.'
+						/>
+						<select value={app} onChange={e => updateForm('app', e.target.value)}>
+							<option value=''>All Applications</option>
+							{ applicationConstants.map(x => <option value={x.value} key={x.value}>{x.name}</option>)}
+						</select>
+					</>
+				}
 
 				<Label
 					label='Name'
@@ -81,12 +104,6 @@ const ConstantsTemplateEdit = ({ slug, add, title, constants, hideModalAction, s
 					onChange={e => updateForm('description', e.target.value)}
 				/>
 
-				<Label label='Url' />
-				<Input
-					value={url}
-					onChange={e => updateForm('url', e.target.value)}
-				/>
-
 				{ isDuplicate() &&
 					isDuplicate()
 				}
@@ -97,10 +114,10 @@ const ConstantsTemplateEdit = ({ slug, add, title, constants, hideModalAction, s
 
 						setConstantsAction({
 							add,
+							app,
 							description,
 							key,
 							name,
-							url,
 							value,
 							slug,
 							title,
@@ -117,9 +134,13 @@ const ConstantsTemplateEdit = ({ slug, add, title, constants, hideModalAction, s
 	);
 };
 
+const mstp = s => ({
+	applicationConstants: s.settings.constants?.applications,
+});
+
 const mdtp = {
 	hideModalAction: modalActions.hide,
 	setConstantsAction: settingsActions.setConstants,
 };
 
-export default connect(null, mdtp)(ConstantsTemplateEdit);
+export default connect(mstp, mdtp)(ConstantsTemplateEdit);

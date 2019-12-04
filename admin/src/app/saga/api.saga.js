@@ -40,6 +40,8 @@ function* privateApi({
 		if (token)
 			axios.defaults.headers['x-auth-token'] = token;
 
+		axios.defaults.headers['app'] = 'admin';
+
 		let response = null;
 
 		if (method === 'post') {

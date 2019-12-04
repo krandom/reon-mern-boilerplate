@@ -24,6 +24,7 @@ app.use(express.json({ extended: false }));
 
 app.all('*', (req, res, next) => {
   req.props = { ...req.body, ...req.query };
+
   next();
 });
 

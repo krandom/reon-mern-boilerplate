@@ -63,8 +63,16 @@ const Constants = ({ constants, getConstantsAction }) => {
 			<div className='page__content'>
 				<div className='page__content--block'>
 					<ConstantsTemplate
+						title='Applications'
+						slug='applications'
+						disableSelectApp
+						disableAdd
+						constants={constants.applications || []}
+					/>
+					<ConstantsTemplate
 						title='User Roles'
 						slug='user-roles'
+						disableSelectApp
 						constants={constants.userRoles || []}
 					/>
 					<ConstantsTemplate

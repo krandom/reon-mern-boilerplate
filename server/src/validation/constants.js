@@ -3,18 +3,15 @@ const isEmpty = require('is-empty');
 const constantsSchema = require('../schema/constants/constants.schema');
 const responseMsg = require('../helpers/responseMsg');
 
-module.exports = async ({ description, key, name, url, value, add, slug }) => {
+module.exports = async ({ app, description, key, name, value, add, slug }) => {
 	try {
 	  let errors = {};
 
 	  name = !isEmpty(name) ? name : '';
 	  value = !isEmpty(value) ? value : '';
 
-		value = value.toLowerCase();
-		name = name.trim();
-
 		if (key)
-			key = key.toLowerCase();
+			key = key.trim().toLowerCase();
 
 	  if (Validator.isEmpty(name))
 	    errors.name = responseMsg.info({ message: 'Please include a valid Name.' });
@@ -23,14 +20,36 @@ module.exports = async ({ description, key, name, url, value, add, slug }) => {
 	    errors.value = responseMsg.info({ message: 'Please include a valid Value.' });
 
 		if (add) {
-			// TODO :: make case insensitive
-			let constant = await constantsSchema.findOne({ slug, 'values.name': name });
-			if (constant)
-				errors.name = responseMsg.info({ message: 'Name and must be an unique value in the Database.'});
+			if (!app) {
+				// TODO :: make case insensitive
+				let constant = await constantsSchema.findOne({ slug, values: { $elemMatch: { name }}});
+				if (constant)
+					errors.name = responseMsg.info({ message: 'Combination of Name and Application must be unique.'});
 
-			constant = await constantsSchema.findOne({ slug, 'values.value': value });
-			if (constant)
-				errors.value = responseMsg.info({ message: 'Value and must be an unique value in the Database.'});
+				// TODO :: make case insensitive
+				constant = await constantsSchema.findOne({ slug, values: { $elemMatch: { value }}});
+				if (constant)
+					errors.value = responseMsg.info({ message: 'Combination of Value and Application must be unique.'});
+			} else {
+				// TODO :: make case insensitive
+				let constant = await constantsSchema.findOne({ slug, values: { $elemMatch: { name, app }}});
+				if (constant)
+					errors.name = responseMsg.info({ message: 'Combination of Name and Application must be unique.'});
+
+				// TODO :: don't make two queries for this!!! =)
+				constant = await constantsSchema.findOne({ slug, values: { $elemMatch: { name, app: null }}});
+				if (constant)
+					errors.name = responseMsg.info({ message: 'Combination of Name and Application must be unique.'});
+
+				constant = await constantsSchema.findOne({ slug, values: { $elemMatch: { value, app }}});
+				if (constant)
+					errors.value = responseMsg.info({ message: 'Combination of Value and Application must be unique.'});
+
+				// TODO :: don't make two queries for this!!! =)
+				constant = await constantsSchema.findOne({ slug, values: { $elemMatch: { value, app: null }}});
+				if (constant)
+					errors.value = responseMsg.info({ message: 'Combination of Value and Application must be unique.'});
+			}
 		}
 
 		return {

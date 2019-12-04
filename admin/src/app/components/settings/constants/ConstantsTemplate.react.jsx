@@ -11,7 +11,7 @@ import Button from '../../common/Button.react';
 
 import ConstantsTemplateEdit from './ConstantsTemplateEdit.react';
 
-const ConstantsTemplate = ({ title, slug, constants, addModalAction }) => {
+const ConstantsTemplate = ({ title, slug, constants, disableSelectApp, disableAdd = false, addModalAction }) => {
 
 	const tableData = {
 		columns: {
@@ -19,6 +19,7 @@ const ConstantsTemplate = ({ title, slug, constants, addModalAction }) => {
 			'Key': 'key',
 			'Value': 'value',
 			'Description': 'description',
+			'Application': 'app',
 		},
 		data: constants,
 	};
@@ -33,22 +34,25 @@ const ConstantsTemplate = ({ title, slug, constants, addModalAction }) => {
 				<Table
 					{...tableData}
 				/>
-				<Button
-					label='Add'
-					onClick={() => {
-						addModalAction({
-							component:
-								<ConstantsTemplateEdit
-									slug={slug}
-									title={title}
-									add={true}
-									constants={constants}
-								/>,
-						});
-					}}
-					width='120px'
-					style={{ marginTop: 20 }}
-				/>
+				{ !disableAdd &&
+					<Button
+						label='Add'
+						onClick={() => {
+							addModalAction({
+								component:
+									<ConstantsTemplateEdit
+										slug={slug}
+										title={title}
+										add={true}
+										constants={constants}
+										disableSelectApp={disableSelectApp}
+									/>,
+							});
+						}}
+						width='120px'
+						style={{ marginTop: 20 }}
+					/>
+				}
 			</CardBody>
 		</Card>
 	);

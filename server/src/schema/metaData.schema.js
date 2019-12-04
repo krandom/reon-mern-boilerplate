@@ -10,24 +10,28 @@ const MetaDataSchema = new mongoose.Schema({
 		type: String,
 		default: null,
 	},
+	app: {
+		type: String,
+		required: true,
+	},
 	tags: [
 		{
-			name: {
+			type: {
 				type: String,
-				default: null,
+				required: true,
 			},
-			itemprop: {
+			key: {
 				type: String,
-				default: null,
+				required: true,
 			},
-			property: {
+			value: {
 				type: String,
-				default: null,
+				required: true,
 			},
 			content: {
 				type: String,
 				default: null,
-			}
+			},
 		}
 	],
 });

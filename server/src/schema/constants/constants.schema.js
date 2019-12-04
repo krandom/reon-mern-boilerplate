@@ -14,27 +14,24 @@ const ConstantsSchema = new mongoose.Schema({
 	values: [{
 		key: {
 			type: String,
-			unique: true,
-			required: true,
+			default: null,
 		},
 		name: {
 			type: String,
-			unique: true,
 			required: true,
 		},
 		value: {
 			type: String,
-			unique: true,
-			default: null,
+			required: true,
 		},
 		description: {
 			type: String,
 			default: null,
 		},
-		url: {
+		app: {
 			type: String,
 			default: null,
-		},
+		}
 	}],
 });
 

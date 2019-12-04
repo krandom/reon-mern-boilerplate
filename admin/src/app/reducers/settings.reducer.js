@@ -2,6 +2,8 @@ import { createAction } from 'redux-actions';
 import initialState from './initialState';
 import formatActionTypeNames from '../helpers/formatActionTypeNames';
 
+import { actions as authActions } from './auth.reducer';
+
 export const actions = formatActionTypeNames(
 	{
 		getConstants: 'GET_CONSTANTS',
@@ -29,6 +31,12 @@ export default (state = initialState.settings, action) => {
 	const { payload } = action;
 
 	switch (action.type) {
+		// case actions.booted:
+		// 	return {
+		// 		...state,
+		// 		constants: payload.constants,
+		// 	};
+
 		case actions.getFeatureFlagsComplete:
 			return {
 				...state,
