@@ -8,11 +8,12 @@ import { settingsActions } from '../../../reducers/settings.reducer';
 import ModalHeader from '../../modal/ModalHeader.react';
 import Button from '../../common/Button.react';
 
-const EditFeatureFlags = ({ app, hideModalAction, setFeatureFlagsAction }) => {
+// TODO :: remove add, if flag exist we have en id
+const EditFeatureFlags = ({ add = false, app, featureFlagConstants, hideModalAction, setFeatureFlagsAction }) => {
 	const [id] = useState(uuid());
 	const [selectedFlag, setSelectedFlag] = useState('auth');
 	const [environment, setEnvironment] = useState('dev');
-	const [value, setValue] = useState('true');
+	const [value, setValue] = useState('on');
 
 	const flagDescription = [
 		{ name: 'sandbox', description: 'Allow sandbox environment' },
@@ -26,21 +27,24 @@ const EditFeatureFlags = ({ app, hideModalAction, setFeatureFlagsAction }) => {
 			environment.length > 0
 		);
 	};
-
+	console.log('FFF', featureFlagConstants)
 	return (
 		<div className='modal'>
 			<ModalHeader title={`Edit ${app === 'dev' ? 'Development' : 'Production'} Flags`} />
 
 			<select value={selectedFlag} onChange={e => { setSelectedFlag(e.target.value); }}>
 				<option value=''>Select Flag</option>
-				{ flagDescription.map(x =>
-					<option
-						value={x.name}
-						key={`${id}${x.name}`}
-					>
-						{x.name}
-					</option>
-				)}
+				{ featureFlagConstants
+					.filter(x => x.app === app)
+					.map(x =>
+						<option
+							value={x.name}
+							key={`${id}${x.name}`}
+						>
+							{x.name}
+						</option>
+					)
+				}
 			</select>
 
 			<select value={value} onChange={e => { setValue(e.target.value); }}>
@@ -60,9 +64,12 @@ const EditFeatureFlags = ({ app, hideModalAction, setFeatureFlagsAction }) => {
 				onClick={() => {
 
 					setFeatureFlagsAction({
+						// send id here
+						add,
 						app,
 						environment,
-						name: selectedFlag,
+						key: selectedFlag,
+						// TODO :: move to sanitize
 						value: value === 'on' ? true : false,
 					});
 

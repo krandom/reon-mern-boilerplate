@@ -13,7 +13,7 @@ const FeatureFlagSchema = new mongoose.Schema({
 		type: Boolean,
 		required: true,
 	},
-	name: {
+	key: {
 		type: String,
 		required: true,
 	}

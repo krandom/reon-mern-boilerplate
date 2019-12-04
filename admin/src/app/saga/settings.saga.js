@@ -14,7 +14,8 @@ function* getFeatureFlags() {
 function* setFeatureFlags({ payload }) {
 	try {
 		const endpoint = yield select(s => s.config.endpoints.settings.featureFlags);
-		const { featureFlags } = yield privateCall({ endpoint, payload });
+		// TODO :: send id, if null, then post
+		const { featureFlags } = yield privateCall({ endpoint, payload, method: payload.add ? 'post' : 'put' });
 
 		yield put(settingsActions.getFeatureFlagsComplete(featureFlags));
 	} catch (e) {}
@@ -30,6 +31,7 @@ function* getConstants() {
 }
 
 function* setConstants({ payload }) {
+	// TODO :: send id, if null, then post
 	try {
 		const endpoint = yield select(s => s.config.endpoints.settings.constants);
 		const { constants } = yield privateCall({
@@ -43,6 +45,7 @@ function* setConstants({ payload }) {
 }
 
 function* setMetaDataConstants({ payload }) {
+	// TODO :: send id, if null, then post
 	try {
 		const endpoint = yield select(s => s.config.endpoints.settings.metaDataConstants);
 		const { constants } = yield privateCall({
