@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { modalActions } from '../../../reducers/modal.reducer';
 import { settingsActions } from '../../../reducers/settings.reducer';
 
 import Card from '../../common/card/Card.react';
@@ -9,39 +7,40 @@ import CardHeader from '../../common/card/CardHeader.react';
 import CardBody from '../../common/card/CardBody.react';
 
 import Table from '../../common/table/Table.react';
-import Button from '../../common/Button.react';
-import EditFeatureFlags from './EditFeatureFlags.react';
 
 const FeatureFlagsCard = ({
 	application,
 	featureFlags,
 	environmentConstants,
 	featureFlagConstants,
-	addModalAction,
+	setFeatureFlagsAction,
 }) => {
 
-	const getFlag = ({ environment, key }) => {
-		let value = 'false';
+	const getFlag = ({ clientEnv, key, clientApp }) => {
+		let value = false;
 
 		featureFlags.forEach(x => {
-			if (x.environment === environment && x.key === key)
-				value = x.value.toString();
+			if (x.clientEnv === clientEnv && x.key === key && x.clientApp === clientApp)
+				value = x.value;
 		});
 
 		return value;
 	};
 
-	const getTableData = ({ app }) => {
+	const getTableData = ({ clientApp }) => {
 		return featureFlagConstants
-			.filter(x => x.app === app)
+			.filter(x => x.clientApp === clientApp)
 			.map(x => {
 				let returnObj = {
+					id: x['id'],
 					flagName: x['name'],
 					description: x['description'],
+					key: x['key'],
+					clientApp,
 				};
 
 				environmentConstants.map(y => {
-					returnObj[y.value] = getFlag({ environment: y.key, key: x.key });
+					returnObj[y.value] = getFlag({ clientEnv: y.key, key: x.key, clientApp });
 				});
 
 				return returnObj;
@@ -49,15 +48,30 @@ const FeatureFlagsCard = ({
 	};
 
 	const columns = {
-		'Flag Name': 'flagName',
-		'Description': 'description',
+		'flagName': 'Flag Name',
+		'description': 'Description',
 	};
 
 	environmentConstants.forEach(x => {
-		columns[x.name] = x.value;
+		columns[x.value] = {
+			title: x.name,
+			type: {
+				label: 'boolean',
+				true: 'Enabled',
+				false: 'Disabled',
+			},
+			onClick: flag => {
+				// TODO :: add confirm popup here
+				setFeatureFlagsAction({
+					id: flag.id,
+					clientApp: application.value,
+					clientEnv: x.value,
+					key: flag.key,
+					value: !flag[x.value],
+				});
+			},
+		};
 	});
-
-	const tableData = getTableData({ app: application.value });
 
 	return (
 		<Card>
@@ -67,37 +81,7 @@ const FeatureFlagsCard = ({
 			<CardBody>
 				<Table
 					columns={columns}
-					data={tableData}
-				/>
-				<Button
-					label='Edit flags'
-					onClick={() => {
-						addModalAction({
-							component:
-								<EditFeatureFlags
-									// TODO :: send flag here on edit
-									app={application.value}
-									featureFlagConstants={featureFlagConstants}
-								/>,
-						});
-					}}
-					width='120px'
-					style={{ marginTop: 20 }}
-				/>
-				<Button
-					label='Add flags'
-					onClick={() => {
-						addModalAction({
-							component:
-								<EditFeatureFlags
-									add={true}
-									app={application.value}
-									featureFlagConstants={featureFlagConstants}
-								/>,
-						});
-					}}
-					width='120px'
-					style={{ marginTop: 20 }}
+					data={getTableData({ clientApp: application.value })}
 				/>
 			</CardBody>
 		</Card>
@@ -111,7 +95,7 @@ const mstp = s => ({
 });
 
 const mdtp = {
-	addModalAction: modalActions.add,
+	setFeatureFlagsAction: settingsActions.setFeatureFlags,
 };
 
 export default connect(mstp, mdtp)(FeatureFlagsCard);

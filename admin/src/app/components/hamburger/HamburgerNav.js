@@ -37,6 +37,13 @@ export default [
 				megamenu: null,
 				action: null,
 			},
+			{
+				title: 'Meta Data',
+				url: '/settings/meta-data',
+				subnav: null,
+				megamenu: null,
+				action: null,
+			},
 		],
 		megamenu: null,
 		action: null,
@@ -48,13 +55,6 @@ export default [
 		title: 'Pages',
 		url: null,
 		subnav: [
-			{
-				title: 'Meta Data',
-				url: '/pages/meta-data',
-				subnav: null,
-				megamenu: null,
-				action: null,
-			},
 		],
 		megamenu: null,
 		action: null,

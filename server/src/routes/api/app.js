@@ -10,10 +10,11 @@ const anonRoute = require('../../middleware/anonRoute');
 const authRoute = require('../../middleware/authRoute');
 
 router.post('/get-feature-flags', async (req, res) => {
-	const { app = 'client', environment = 'dev' } = req.body;
+	const clientApp = req.header('clientApp');
+	const clientEnv = req.header('clientEnv');
 
 	try {
-		const featureFlags = await featureFlagModel({ app, environment });
+		const featureFlags = await featureFlagModel({ clientApp, clientEnv });
 
 		res.json({
 			success: true,

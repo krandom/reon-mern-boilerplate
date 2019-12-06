@@ -21,5 +21,6 @@
     "no-url-protocols": 0,
     "no-vendor-prefixes": 0,
     "property-sort-order": 0,
+    "placeholder-in-extend": 0,
   }
 }

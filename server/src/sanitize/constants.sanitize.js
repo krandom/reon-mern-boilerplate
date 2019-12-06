@@ -1,18 +1,21 @@
 module.exports = ({ app, description, key, name, value, ...rest }) => {
 
-	if (key.length === 0) key = null;
-	if (description.length === 0) description = null;
-	if (app.length === 0) app = null;
+    app = app.trim();
+    description = description.trim();
+    key = key.trim();
+    name = name.trim();
+    value = value.toLowerCase();
 
-	value = value.toLowerCase();
-	name = name.trim();
+    if (app.length === 0) app = null;
+    if (description.length === 0) description = null;
+    if (key.length === 0) key = null;
 
 	return {
-    key,
-    description,
     app,
-    value,
+    description,
+    key,
     name,
+    value,
     ...rest
   };
 };

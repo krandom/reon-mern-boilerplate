@@ -25,7 +25,7 @@ export default (state = initialState.notification, action) => {
 				toast: [
 					...state.toast,
 					{
-						ID: payload.ID || uuid(),
+						id: payload.id || uuid(),
 						type: payload.type || 'success',
 						sticky: payload.sticky || false,
 						pauseOnHover: payload.pauseOnHover || true,
@@ -41,7 +41,7 @@ export default (state = initialState.notification, action) => {
 			return {
 				...state,
 				toast: state.toast.map(x => {
-					if (x.ID === payload) x.visible = false;
+					if (x.id === payload) x.visible = false;
 
 					return x;
 				}),

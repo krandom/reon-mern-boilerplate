@@ -11,17 +11,27 @@ import Button from '../../common/Button.react';
 
 import ConstantsMetaDataEdit from './ConstantsMetaDataEdit.react';
 
-const ConstantsTemplate = ({ title, slug, constants, addModalAction }) => {
+const ConstantsTemplate = ({ title, constants, addModalAction }) => {
 
 	const tableData = {
 		columns: {
-			'Group': 'group',
-			'Type': 'type',
-			'Key': 'key',
-			'Value': 'value',
-			'Description': 'description',
+			'group': 'Group',
+			'type': 'Type',
+			'key': 'Key',
+			'value': 'Value',
+			'description': 'Description',
 		},
 		data: constants,
+	};
+
+	const addModal = ({ constant = null }) => {
+		addModalAction({
+			component:
+				<ConstantsMetaDataEdit
+					constant={constant}
+					constants={constants}
+				/>,
+		});
 	};
 
 	return (
@@ -32,18 +42,13 @@ const ConstantsTemplate = ({ title, slug, constants, addModalAction }) => {
 			<CardBody>
 				<Table
 					{...tableData}
+					actions={{
+						edit: { onEdit: constant => addModal({ constant }) },
+					}}
 				/>
 				<Button
 					label='Add'
-					onClick={() => {
-						addModalAction({
-							component:
-								<ConstantsMetaDataEdit
-									add={true}
-									constants={constants}
-								/>,
-						});
-					}}
+					onClick={() => addModal()}
 					width='120px'
 					style={{ marginTop: 20 }}
 				/>

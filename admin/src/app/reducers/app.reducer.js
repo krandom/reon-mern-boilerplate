@@ -28,7 +28,8 @@ export default (state = initialState.app, action) => {
 				token: payload.token,
 				featureFlags: payload.featureFlags,
 				booted: true,
-				isLoggedIn: payload.token ? true : false,
+				isLoggedIn: payload.isLoggedIn,
+				constants: payload.constants,
 			};
 
 		case actions.toggleHamburgerMenu:

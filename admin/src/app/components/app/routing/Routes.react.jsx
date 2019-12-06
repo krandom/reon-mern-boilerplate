@@ -6,7 +6,7 @@ import Sandbox from '../../sandbox/Sandbox.react';
 import Users from '../../users/Users.react';
 import FeatureFlags from '../../settings/FeatureFlags.react';
 import Constants from '../../settings/Constants.react';
-import MetaData from '../../pages/MetaData.react';
+import MetaData from '../../settings/MetaData.react';
 
 const Routes = () =>
 	<>
@@ -17,7 +17,7 @@ const Routes = () =>
 			<Route path='/settings/feature-flags' component={FeatureFlags} />
 			<Route path='/settings/constants' component={Constants} />
 
-			<Route path='/pages/meta-data' component={MetaData} />
+			<Route path='/settings/meta-data' component={MetaData} />
 
 			<Route exact path='/sandbox' component={Sandbox} />
 

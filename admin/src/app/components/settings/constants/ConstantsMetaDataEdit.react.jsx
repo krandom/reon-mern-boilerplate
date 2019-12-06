@@ -9,14 +9,14 @@ import Button from '../../common/Button.react';
 import Input from '../../common/form/Input.react';
 import Label from '../../common/form/Label.react';
 
-const ConstantsTemplateEdit = ({ add, constants, hideModalAction, setMetaDataConstantsAction }) => {
+const ConstantsTemplateEdit = ({ constant = null, constants, hideModalAction, setMetaDataConstantsAction }) => {
 	const [form, setForm] = useState({
-		group: '',
-		type: '',
-		key: '',
-		value: '',
-		description: '',
-		url: '',
+		group: constant?.group || '',
+		type: constant?.type || '',
+		key: constant?.key || '',
+		value: constant?.value || '',
+		description: constant?.description || '',
+		url: constant?.url || '',
 	});
 
 	const { group, type, key, value, description, url } = form;
@@ -24,7 +24,7 @@ const ConstantsTemplateEdit = ({ add, constants, hideModalAction, setMetaDataCon
 
 	const isValid = () => {
 		return (
-			['meta', 'title'].includes(type) &&
+			['meta'].includes(type) &&
 			type.length > 0 &&
 			['name', 'property', 'itemprop'].includes(key) &&
 			key.length > 0 &&
@@ -33,6 +33,9 @@ const ConstantsTemplateEdit = ({ add, constants, hideModalAction, setMetaDataCon
 	};
 
 	const isDuplicate = () => {
+		if (constant)
+			return false;
+
 		if (constants.filter(x => x.value.toLowerCase() === value.toLowerCase())[0])
 			return 'Duplicate Value. Another constant with the same Value already exists.';
 
@@ -41,7 +44,7 @@ const ConstantsTemplateEdit = ({ add, constants, hideModalAction, setMetaDataCon
 
 	return (
 		<div className='modal modal__320'>
-			<ModalHeader title={`${add ? 'Add' : 'Edit'} Meta Data Constants`} />
+			<ModalHeader title={`${!constant ? 'Add' : 'Edit'} Meta Data Constants`} />
 			<div className='modal__body'>
 
 				<Label
@@ -53,37 +56,41 @@ const ConstantsTemplateEdit = ({ add, constants, hideModalAction, setMetaDataCon
 					onChange={e => updateForm('group', e.target.value)}
 				/>
 
-				<Label
-					label='Tag Type'
-					required
-					info='Accepted types are <span>title</span> and <span>meta</span>.'
-				/>
-				<Input
-					value={type}
-					placeholder='title or meta'
-					onChange={e => updateForm('type', e.target.value.trim().toLowerCase().replace(/[^a-z-]/g, ''))}
-				/>
+				{ !constant &&
+					<>
+						<Label
+							label='Tag Type'
+							required
+							info='Accepted types are <span>meta</span>.'
+						/>
+						<Input
+							value={type}
+							placeholder='title or meta'
+							onChange={e => updateForm('type', e.target.value.trim().toLowerCase().replace(/[^a-z-]/g, ''))}
+						/>
 
-				<Label
-					label='Key'
-					required
-					info='Accepted types are <span>name</span>, <span>property</span> and <span>itemprop</span>.'
-				/>
-				<Input
-					value={key}
-					placeholder='name, property or itemprop'
-					onChange={e => updateForm('key', e.target.value.trim().toLowerCase().replace(/[^a-z-]/g, ''))}
-				/>
+						<Label
+							label='Key'
+							required
+							info='Accepted types are <span>name</span>, <span>property</span> and <span>itemprop</span>.'
+						/>
+						<Input
+							value={key}
+							placeholder='name, property or itemprop'
+							onChange={e => updateForm('key', e.target.value.trim().toLowerCase().replace(/[^a-z-]/g, ''))}
+						/>
 
-				<Label
-					label='Value'
-					required
-					info='Accepted types are <span>name</span>, <span>property</span> and <span>itemprop</span>.'
-				/>
-				<Input
-					value={value}
-					onChange={e => updateForm('value', e.target.value.trim().toLowerCase())}
-				/>
+						<Label
+							label='Value'
+							required
+							info='Accepted types are <span>name</span>, <span>property</span> and <span>itemprop</span>.'
+						/>
+						<Input
+							value={value}
+							onChange={e => updateForm('value', e.target.value.trim().toLowerCase())}
+						/>
+					</>
+				}
 
 				<Label
 					label='Description'
@@ -108,11 +115,11 @@ const ConstantsTemplateEdit = ({ add, constants, hideModalAction, setMetaDataCon
 				}
 
 				<Button
-					label={add ? 'Add' : 'Update'}
+					label={!constant ? 'Add' : 'Update'}
 					onClick={() => {
 
 						setMetaDataConstantsAction({
-							add,
+							id: constant?.id || null,
 							group,
 							type,
 							key,
@@ -121,7 +128,7 @@ const ConstantsTemplateEdit = ({ add, constants, hideModalAction, setMetaDataCon
 							url,
 						});
 
-						// hideModalAction();
+						hideModalAction();
 					}}
 					width='120px'
 					style={{ marginTop: 20 }}

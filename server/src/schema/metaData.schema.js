@@ -10,7 +10,7 @@ const MetaDataSchema = new mongoose.Schema({
 		type: String,
 		default: null,
 	},
-	app: {
+	clientApp: {
 		type: String,
 		required: true,
 	},

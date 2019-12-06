@@ -40,11 +40,12 @@ function* privateApi({
 		if (token)
 			axios.defaults.headers['x-auth-token'] = token;
 
-		axios.defaults.headers['app'] = 'admin';
+		axios.defaults.headers['clientApp'] = yield select(s => s.app.clientApp);
+		axios.defaults.headers['clientEnv'] = yield select(s => s.app.clientEnv);
 
 		let response = null;
 
-		if (method === 'post') {
+		if (['post', 'put'].includes(method)) {
 			response = yield call(
 				axios[method],
 				endpoint,
@@ -78,6 +79,7 @@ function* privateApi({
 		} = err;
 		yield toastNotifications(data);
 	}
+	// TODO :: use finally to yeald toastnotificaions
 }
 
 export const privateCall = (...args) => call(privateApi, ...args);

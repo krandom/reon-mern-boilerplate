@@ -33,7 +33,8 @@ export default (state = initialState.app, action) => {
 				token: payload.token,
 				featureFlags: payload.featureFlags,
 				booted: true,
-				isLoggedIn: payload.token ? true : false,
+				isLoggedIn: payload.isLoggedIn,
+				metaData: payload.metaData,
 			};
 
 		case actions.getFeatureFlagsComplete:

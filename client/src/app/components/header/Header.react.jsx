@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { appActions } from '../../reducers/app.reducer';
-import getFeatureFlag from '../../helpers/getFeatureFlag';
+import isFeatureEnabled from '../../helpers/isFeatureEnabled';
 
 import MegaMenu from './MegaMenu.react';
 import MainNavLink from './MainNavLink.react';
@@ -24,7 +24,7 @@ const Header = ({ mainNav, toggleHamburgerMenuAction }) => {
 					{ mainNav.map(x => {
 						if (!x.published) return null;
 
-						if (x.title === 'Sandbox' && !getFeatureFlag('sandbox'))
+						if (x.title === 'Sandbox' && !isFeatureEnabled('sandbox'))
 							return null;
 
 						return (

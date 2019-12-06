@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const Input = ({
-	id = uuid(),
+	// id = uuid(),
 	className = '',
 	value = '',
 	placeholder = null,
@@ -11,6 +11,8 @@ const Input = ({
 	onFocus = null,
 	onBlur = null,
 }) => {
+	const [id] = useState(uuid());
+
 	const handleOnChange = e => {
 		// if (value.length > 0) {
 		// }
@@ -30,7 +32,7 @@ const Input = ({
 	};
 
 	useEffect(() => {
-		if ($(`#${id}-input`).val().length > 0) handleOnFocus();
+		// if ($(`#${id}-input`).val().length > 0) handleOnFocus();
 	}, []);
 
 	return (

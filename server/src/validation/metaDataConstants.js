@@ -3,7 +3,7 @@ const isEmpty = require('is-empty');
 const metaDataConstantsSchema = require('../schema/constants/metaDataConstants.schema');
 const responseMsg = require('../helpers/responseMsg');
 
-module.exports = async ({ type, key, value, group, description, url, add }) => {
+module.exports = async ({ id = null, type, key, value, group, description, url, }) => {
 	try {
 	  let errors = {};
 
@@ -15,8 +15,7 @@ module.exports = async ({ type, key, value, group, description, url, add }) => {
 		key = key.toLowerCase().trim();
 		value = value.toLowerCase().trim();
 
-
-		if (Validator.isEmpty(type))
+		if (!['meta'].includes(type) || Validator.isEmpty(type))
 			errors.type = responseMsg.info({ message: 'Please include a valid Type.' });
 
 		if (Validator.isEmpty(key))
@@ -25,7 +24,8 @@ module.exports = async ({ type, key, value, group, description, url, add }) => {
 		if (Validator.isEmpty(value))
 			errors.value = responseMsg.info({ message: 'Please include a valid Value.' });
 
-		if (add) {
+		// TODO :: on edit (id !== null), look for match outside id
+		if (!id) {
 			const constant = await metaDataConstantsSchema.findOne({ value });
 			if (constant)
 				errors.value = responseMsg.info({ message: 'Value must be an unique.'});

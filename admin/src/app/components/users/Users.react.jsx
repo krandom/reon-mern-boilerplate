@@ -53,8 +53,8 @@ const Users = ({ booted, isLoggedIn, users, getAllProfilesAction }) => {
 	const usersTable = {
 		data: users,
 		columns: {
-			'ID': 'id',
-			'E-mail': 'email',
+			id: 'ID',
+			email: 'E-mail',
 		},
 	};
 

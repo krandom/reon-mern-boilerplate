@@ -11,8 +11,8 @@ import Label from '../../common/form/Label.react';
 
 const ConstantsTemplateEdit = ({
 	slug,
-	add,
 	title,
+	constant = null,
 	constants,
 	disableSelectApp = false,
 	applicationConstants,
@@ -20,14 +20,14 @@ const ConstantsTemplateEdit = ({
 	setConstantsAction,
 }) => {
 	const [form, setForm] = useState({
-		app: '',
-		description: '',
-		key: '',
-		name: '',
-		value: '',
+		clientApp: constant?.clientApp || '',
+		description: constant?.description || '',
+		key: constant?.key || '',
+		name: constant?.name || '',
+		value: constant.value || '',
 	});
 
-	const { app, key, name, value, description } = form;
+	const { clientApp, key, name, value, description } = form;
 	const updateForm = (key, value) => setForm({ ...form, [key]: value });
 
 	const isValid = () => {
@@ -38,13 +38,25 @@ const ConstantsTemplateEdit = ({
 	};
 
 	const isDuplicate = () => {
-		if (constants.filter(x => x.name.toLowerCase().trim() === name.toLowerCase().trim() && x.app === (app || null))[0])
+		if (constant)
+			return false;
+
+		if (
+			clientApp === '' && constants.filter(x => x.name.toLowerCase() === name.toLowerCase())[0] ||
+			constants.filter(x => x.name.toLowerCase().trim() === name.toLowerCase().trim() && (x.clientApp === clientApp || x.clientApp === null))[0]
+		)
 			return `Duplicate Name. Another constant with the same Name already exists in ${title}.`;
 
-		if (constants.filter(x => x.key.toLowerCase() === key.toLowerCase() && x.app === (app || null))[0])
+		if (
+			clientApp === '' && constants.filter(x => x.key.toLowerCase() === key.toLowerCase())[0] ||
+			constants.filter(x => x.key.toLowerCase() === key.toLowerCase() && (x.clientApp === clientApp || x.clientApp === null))[0]
+		)
 			return `Duplicate Key. Another constant with the same Key already exists in ${title}.`;
 
-		if (constants.filter(x => x.value.toLowerCase() === value.toLowerCase() && x.app === (app || null))[0])
+		if (
+			clientApp === '' && constants.filter(x => x.value.toLowerCase() === value.toLowerCase())[0] ||
+			constants.filter(x => x.value.toLowerCase() === value.toLowerCase() && (x.clientApp === clientApp || x.clientApp === null))[0]
+		)
 			return `Duplicate Value. Another constant with the same Value already exists in ${title}.`;
 
 		return false;
@@ -52,51 +64,55 @@ const ConstantsTemplateEdit = ({
 
 	return (
 		<div className='modal modal__320'>
-			<ModalHeader title={`${add ? 'Add' : 'Edit'} ${title}`} />
+			<ModalHeader title={`${!constant ? 'Add' : 'Edit'} ${title}`} />
 			<div className='modal__body'>
 
-				{ !disableSelectApp &&
+				{ !constant && !disableSelectApp &&
 					<>
 						<Label
 							label='Applications'
 							required
 							info='Select application touched by this constant.'
 						/>
-						<select value={app} onChange={e => updateForm('app', e.target.value)}>
+						<select value={clientApp} onChange={e => updateForm('clientApp', e.target.value)}>
 							<option value=''>All Applications</option>
 							{ applicationConstants.map(x => <option value={x.value} key={x.value}>{x.name}</option>)}
 						</select>
 					</>
 				}
 
-				<Label
-					label='Name'
-					required
-					info='Set a name for your constant. This is the name displayed throughout your app.<br /><br />E.g. adding <span>Admin</span> to <span>User Roles</span> this could be named <span>Administrator</span>.'
-				/>
-				<Input
-					value={name}
-					onChange={e => updateForm('name', e.target.value)}
-				/>
+				{ !constant &&
+					<>
+						<Label
+							label='Name'
+							required
+							info='Set a name for your constant. This is the name displayed throughout your app.<br /><br />E.g. adding <span>Admin</span> to <span>User Roles</span> this could be named <span>Administrator</span>.'
+						/>
+						<Input
+							value={name}
+							onChange={e => updateForm('name', e.target.value)}
+						/>
 
-				<Label
-					label='Key'
-					info='Set a key for your constant. This refers to what your constant is named in the database.<br /><br />E.g. adding <span>Admin</span> to <span>User Roles</span> this could be named <span>admin</span>.<br /><br />This key is optional, but in general keep key and value identical.'
-				/>
-				<Input
-					value={key}
-					onChange={e => updateForm('key', e.target.value.trim().toLowerCase().replace(/[^a-z-]/g, ''))}
-				/>
+						<Label
+							label='Key'
+							info='Set a key for your constant. This refers to what your constant is named in the database.<br /><br />E.g. adding <span>Admin</span> to <span>User Roles</span> this could be named <span>admin</span>.<br /><br />This key is optional, but in general keep key and value identical.'
+						/>
+						<Input
+							value={key}
+							onChange={e => updateForm('key', e.target.value.trim().toLowerCase().replace(/[^a-z-]/g, ''))}
+						/>
 
-				<Label
-					label='Value'
-					required
-					info='Set a value for your constant. This is the value saved to the database.<br /><br />E.g. adding <span>Admin</span> to <span>User Roles</span> this value could be <span>admin</span>.'
-				/>
-				<Input
-					value={value}
-					onChange={e => updateForm('value', e.target.value.trim().toLowerCase().replace(/[^a-z-]/g, ''))}
-				/>
+						<Label
+							label='Value'
+							required
+							info='Set a value for your constant. This is the value saved to the database.<br /><br />E.g. adding <span>Admin</span> to <span>User Roles</span> this value could be <span>admin</span>.'
+						/>
+						<Input
+							value={value}
+							onChange={e => updateForm('value', e.target.value.trim().toLowerCase().replace(/[^a-z-]/g, ''))}
+						/>
+					</>
+				}
 
 				<Label label='Description' />
 				<Input
@@ -109,12 +125,12 @@ const ConstantsTemplateEdit = ({
 				}
 
 				<Button
-					label={add ? 'Add' : 'Update'}
+					label={!constant ? 'Add' : 'Update'}
 					onClick={() => {
 
 						setConstantsAction({
-							add,
-							app,
+							id: constant?.id || null,
+							clientApp,
 							description,
 							key,
 							name,

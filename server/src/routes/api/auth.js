@@ -100,8 +100,10 @@ router.post('/validate-token', async (req, res) => {
 	const { token } = req.body;
 
 	try {
-		const { user } = jwtToken.verify({ token });
+		console.log('validating token here');
 
+		const { user } = jwtToken.verify({ token });
+		console.log('user', user)
 		res.json({
 			success: true,
 			message: 'Token is valid',

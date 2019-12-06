@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import TableHeader from './TableHeader.react';
 import TableRow from './TableRow.react';
 
-const Table = ({ data, columns = null, }) => {
+const Table = ({ data, actions, columns }) => {
 	const [rows, setRows] = useState([]);
 	const [layout, setLayout] = useState([]);
 
@@ -14,33 +14,32 @@ const Table = ({ data, columns = null, }) => {
 		else
 			setRows(data);
 
-		let tmpLayout = [];
-		if (columns) {
-			tmpLayout = Object.keys(columns).map(x => {
-				// const c =
+		setLayout(
+			Object.keys(columns).map(x => {
+				let { title, onClick = null, type = null } = columns[x];
+
 				return {
-					key: x['key'] || columns[x],
-					title: x['title'] || x
+					key: x['key'] || x,
+					title: title || columns[x],
+					onClick,
+					type,
 				};
-			});
-
-			setLayout(tmpLayout);
-		}
-
+			})
+		);
 	}, [data]);
 
-
-
-	// console.log('DATA in TABLE', rows)
 	// console.log('LAYOUT in TABLE', layout)
+	// console.log('Columns in TABLE', columns)
+
 	return (
 		<div className='table'>
 			<table>
-				<TableHeader layout={layout} />
+				<TableHeader layout={layout} actions={actions} />
 
 				<tbody>
 					{ rows.map(x =>
 						<TableRow
+							actions={actions}
 							data={x}
 							layout={layout}
 							key={x.id}

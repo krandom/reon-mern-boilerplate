@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
-const TableHeader = ({ layout = [] }) => {
+const TableHeader = ({ layout = [], actions }) => {
 	const [id] = useState(uuid());
-
 	return (
 		<thead>
 			<tr>
@@ -11,6 +10,10 @@ const TableHeader = ({ layout = [] }) => {
 						{x.title}
 					</th>
 				)}
+				{/* TODO :: add property position to actions so you can choose left/right */}
+				{ actions &&
+					<th />
+				}
 			</tr>
 		</thead>
 	);

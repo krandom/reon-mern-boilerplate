@@ -20,36 +20,36 @@ export const websocketActions = {
 	newMessage: createAction(actions.newMessage, payload => socket),
 };
 
-export const setupSocket = (dispatch, username) => {
-	const socket = new WebSocket('ws://localhost:5000');
-	console.log('SOCK', socket)
-	socket.onopen = () => {
-		socket.send(JSON.stringify({
-			type: 'ADD_USER', //types.ADD_USER,
-			name: username,
-		}));
-	};
+// export const setupSocket = (dispatch, username) => {
+// 	const socket = new WebSocket('ws://localhost:5000');
+// 	console.log('SOCK', socket)
+// 	socket.onopen = () => {
+// 		socket.send(JSON.stringify({
+// 			type: 'ADD_USER', //types.ADD_USER,
+// 			name: username,
+// 		}));
+// 	};
 
-	socket.onmessage = (event) => {
-		const data = JSON.parse(event.data);
-		switch (data.type) {
-			case 'ADD_MESSAGE':
-				console.log('message got added', data, appActions);
-				dispatch(appActions.setFeatureFlags(data));
-				// dispatch(messageReceived(data.message, data.author));
-				break;
-			case 'USERS_LIST':
-				console.log('list???');
-				// 	dispatch(populateUsersList(data.users));
-				break;
-			default:
-				break;
-		}
-	};
-	console.log('SOCK2', socket)
+// 	socket.onmessage = (event) => {
+// 		const data = JSON.parse(event.data);
+// 		switch (data.type) {
+// 			case 'ADD_MESSAGE':
+// 				console.log('message got added', data, appActions);
+// 				dispatch(appActions.setFeatureFlags(data));
+// 				// dispatch(messageReceived(data.message, data.author));
+// 				break;
+// 			case 'USERS_LIST':
+// 				console.log('list???');
+// 				// 	dispatch(populateUsersList(data.users));
+// 				break;
+// 			default:
+// 				break;
+// 		}
+// 	};
+// 	console.log('SOCK2', socket)
 
-	return socket;
-};
+// 	return socket;
+// };
 
 
 export default (state = initialState.websocket, action) => {
@@ -65,7 +65,7 @@ export default (state = initialState.websocket, action) => {
 			// appActions.setFeatureFlags({test:'test'});
 			return {
 				...state,
-				socket: 'test',
+				// socket: 'test',
 			};
 
 		// case actions.newMessage:

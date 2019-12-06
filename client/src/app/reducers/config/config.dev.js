@@ -18,11 +18,12 @@ export default {
 			getProfile: '//reonsolutions.com/mock-server/getProfile.php',
 		},
 		app: {
+			boot: '//localhost:5000/api/boot/client/init',
 			featureFlags: '//localhost:5000/api/app/get-feature-flags',
-			metaData: '//localhost:5000/api/app/get-meta-data',
+			metaData: '//localhost:5000/api/app/meta-data',
 		},
 		auth: {
-			validateCookie: '//localhost:5000/api/auth/validate-token',
+			// validateCookie: '//localhost:5000/api/auth/validate-token',
 			verifyEmail: '//localhost:5000/api/auth/verify-email',
 			signup: '//localhost:5000/api/auth/signup',
 			login: '//localhost:5000/api/auth/login',

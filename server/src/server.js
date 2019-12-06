@@ -31,6 +31,7 @@ app.all('*', (req, res, next) => {
 app.get('/', (req, res) => res.send('API Running'));
 
 // Define Routes
+app.use('/api/boot', require('./routes/api/boot'));
 app.use('/api/admin/auth', require('./routes/api/admin/auth'));
 app.use('/api/admin/users', require('./routes/api/admin/users'));
 app.use('/api/admin/settings', require('./routes/api/admin/settings'));

@@ -1,24 +1,20 @@
 const featureFlagSchema = require('../schema/featureFlag.schema');
 
-module.exports = async ({ app, environment, allFlags = false }) => {
-	const featureFlags = await featureFlagSchema.find(!allFlags ? { app, environment } : {}).lean();
+module.exports = async ({ clientApp, clientEnv }) => {
 
-	let returnObj = null;
-	let returnArr = null;
+	if (clientApp || clientEnv) {
+		const featureFlags = await featureFlagSchema.find({ clientApp, clientEnv }).lean();
 
-	if (!allFlags) {
-		returnObj = {};
-		featureFlags.forEach(x => returnObj[x.name] = x['value']);
-	}
-	else {
-		returnArr = featureFlags.map(x => {
+		let returnObj = {};
+		featureFlags.forEach(x => returnObj[x.key] = x.value);
+		return returnObj;
+	} else {
+		const featureFlags = await featureFlagSchema.find().lean();
+
+		return featureFlags.map(x => {
 			x.id = x._id;
-
 			delete x._id;
-
 			return x;
 		})
 	}
-
-	return returnObj || returnArr;
 };

@@ -11,21 +11,43 @@ import Button from '../../common/Button.react';
 
 import ConstantsTemplateEdit from './ConstantsTemplateEdit.react';
 
-const ConstantsTemplate = ({ title, slug, constants, disableSelectApp, disableAdd = false, addModalAction }) => {
+const ConstantsTemplate = ({
+	title,
+	slug,
+	constants,
+	disableSelectApp,
+	disableAdd = false,
+	hideApp = false,
+	addModalAction,
+}) => {
 
 	const tableData = {
 		columns: {
-			'Constant Name': 'name',
-			'Key': 'key',
-			'Value': 'value',
-			'Description': 'description',
-			'Application': 'app',
+			name: 'Constant Name',
+			key: 'Key',
+			value: 'Value',
+			description: 'Description',
 		},
 		data: constants,
 	};
 
-	return (
+	if (!hideApp)
+		tableData.columns.app = 'Application';
 
+	const addModal = ({ constant = null }) => {
+		addModalAction({
+			component:
+				<ConstantsTemplateEdit
+					slug={slug}
+					title={title}
+					constant={constant}
+					constants={constants}
+					disableSelectApp={disableSelectApp}
+				/>,
+		});
+	};
+
+	return (
 		<Card>
 			<CardHeader
 				title={title} />
@@ -33,22 +55,16 @@ const ConstantsTemplate = ({ title, slug, constants, disableSelectApp, disableAd
 			<CardBody>
 				<Table
 					{...tableData}
+					actions={{
+						edit: {
+							onEdit: constant => addModal({ constant }),
+						},
+					}}
 				/>
 				{ !disableAdd &&
 					<Button
 						label='Add'
-						onClick={() => {
-							addModalAction({
-								component:
-									<ConstantsTemplateEdit
-										slug={slug}
-										title={title}
-										add={true}
-										constants={constants}
-										disableSelectApp={disableSelectApp}
-									/>,
-							});
-						}}
+						onClick={() => addModal({ slug, title, constants, disableSelectApp })}
 						width='120px'
 						style={{ marginTop: 20 }}
 					/>

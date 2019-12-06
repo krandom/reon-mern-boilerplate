@@ -26,6 +26,8 @@ function* privateApi({
 	payload = {},
 }) {
 	try {
+		const token = yield select(s => s.app.token);
+
 		let options = {
 			headers: {
 				Accept: 'application/json',
@@ -35,20 +37,35 @@ function* privateApi({
 			},
 		};
 
-		const token = yield select(s => s.app.token);
-		if (token) {
-			options.headers = {
-				...options.headers,
-				'x-auth-token': token,
+		if (token)
+			axios.defaults.headers['x-auth-token'] = token;
+
+		axios.defaults.headers['clientApp'] = yield select(s => s.app.clientApp);
+		axios.defaults.headers['clientEnv'] = yield select(s => s.app.clientEnv);
+
+		let response = null;
+
+		if (['post', 'put'].includes(method)) {
+			response = yield call(
+				axios[method],
+				endpoint,
+				payload,
+				options,
+			);
+		} else if (method === 'get') {
+			options = {
+				...options,
+				params: payload,
 			};
+
+			response = yield call(
+				axios[method],
+				endpoint,
+				options,
+			);
 		}
 
-		const { status, data } = yield call(
-			axios[method],
-			endpoint,
-			payload,
-			options
-		);
+		const { status, data } = response;
 
 		yield toastNotifications(data);
 
@@ -62,6 +79,7 @@ function* privateApi({
 		} = err;
 		yield toastNotifications(data);
 	}
+	// TODO :: use finally to yeald toastnotificaions
 }
 
 export const privateCall = (...args) => call(privateApi, ...args);

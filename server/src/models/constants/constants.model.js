@@ -1,7 +1,22 @@
 const constantsSchema = require('../../schema/constants/constants.schema');
 
-module.exports = async ({ slug, app }) => {
+module.exports = async ({ slug, clientApp }) => {
 	const constants = await constantsSchema.find({ slug }).lean();
+
+	if (clientApp) {
+		let returnObj = {};
+
+		if (constants.length) {
+			constants[0]
+				.values
+				.filter(x => !x.clientApp || x.clientApp === clientApp)
+				.forEach(x => {
+					returnObj[x.value] = x.name;
+				});
+		}
+
+		return returnObj;
+	}
 
 	return constants.length === 1 ?
 		constants[0]
@@ -20,3 +35,5 @@ module.exports = async ({ slug, app }) => {
 		:
 			[];
 };
+
+

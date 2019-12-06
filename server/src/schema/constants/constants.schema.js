@@ -28,7 +28,7 @@ const ConstantsSchema = new mongoose.Schema({
 			type: String,
 			default: null,
 		},
-		app: {
+		clientApp: {
 			type: String,
 			default: null,
 		}

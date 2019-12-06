@@ -1,3 +1,5 @@
+import Cookies from 'universal-cookie';
+
 import getEnvironment from '../helpers/getEnvironment';
 import devConfig from './config/config.dev';
 
@@ -7,16 +9,20 @@ const getConfig = () => {
 	if (environment === 'dev') return devConfig;
 };
 
+const cookies = new Cookies();
+
 export default {
 	app: {
 		booted: false,
 		isLoggedIn: false,
-		token: null,
+		// TODO :: keep token name consistent to make session persist between apps
+		token: cookies.get('reon-mern-boilerplate'),
 		showHamburgerMenu: false,
 		mainNav: [],
 		featureFlags: {},
-		environment: getEnvironment(),
-		// websocketID: uuid(),
+		metaData: {},
+		clientEnv: getEnvironment(),
+		clientApp: 'client',
 	},
 
 	modal: {
