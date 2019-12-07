@@ -37,7 +37,8 @@ const MetaDataEdit = ({ clientApp, route, metaDataConstants, hideModalAction, se
 					value={value}
 					options={metaDataConstants.map(x => ({
 						...x,
-						label: x.value,
+						sLabel: x.value,
+						sValue: x.value,
 					}))}
 					onChange={x => {
 						setForm({

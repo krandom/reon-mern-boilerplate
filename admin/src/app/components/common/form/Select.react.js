@@ -5,14 +5,16 @@ import Input from './Input.react';
 
 // TODO :: consider changing names in options to something that won't be used in database
 const Select = ({
+	/*
+		All values used by <Select are passed in starting with s (sValue/sLabel)
+		to make sure they do not interfear
+	*/
 	// id = uuid(),
 	className = '',
 	value = '',
 	placeholder = null,
 	disabled = false,
 	options = [],
-
-
 	onChange = null,
 	// onFocus = null,
 	// onBlur = null,
@@ -21,27 +23,20 @@ const Select = ({
 	const [open, setOpen] = useState(false);
 	const [filter, setFilter] = useState('');
 
+	useOnClickOutside(id, () => setOpen(false));
+
 	useEffect(() => {
 		if (open) {
-			// TODO :: fix, need to pass id to <Input...
 			$(`#${id}-dropdown`).focus();
 		}
 	}, [open]);
 
-	const label = options.filter(x => x.value === value)[0];
+	const label = options.filter(x => x.sValue === value)[0];
 
 	const handleOnClick = option => {
-		console.log('handleOnClick', option)
 		onChange(option);
 		setOpen(false);
 	};
-
-	// const handleOnChange = e => {
-	// 	if (onChange)
-	// 		onChange(e);
-	// };
-
-	useOnClickOutside(id, () => setOpen(false));
 
 	return (
 		<div
@@ -50,7 +45,7 @@ const Select = ({
 
 			<Input
 				id={`${id}-input`}
-				value={label?.label || ''}
+				value={label?.sLabel || ''}
 				disabled={disabled}
 				// onChange={handleOnChange}
 				placeholder={placeholder}
@@ -76,7 +71,7 @@ const Select = ({
 						{/* TODO :: option to filter out array of values to avoid duplicates... */}
 						{ options
 							.filter(x =>
-								x.label?.toString().toLowerCase().includes(filter)
+								x.sLabel?.toString().toLowerCase().includes(filter)
 							)
 							.map(x => {
 
@@ -92,10 +87,10 @@ const Select = ({
 											if (!x.disabled)
 												handleOnClick(x);
 										}}
-										key={`${id}${x.value}`}
+										key={`${id}${x.sValue}`}
 									>
 
-										{x.label}
+										{x.sLabel}
 									</div>
 								);
 

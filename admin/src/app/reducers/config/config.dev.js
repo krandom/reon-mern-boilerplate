@@ -20,6 +20,7 @@ export default {
 			featureFlags: '//localhost:5000/api/admin/settings/feature-flags',
 			constants: '//localhost:5000/api/admin/settings/constants',
 			metaData: '//localhost:5000/api/admin/settings/meta-data',
+			metaDataTag: '//localhost:5000/api/admin/settings/meta-data-tag',
 			metaDataConstants: '//localhost:5000/api/admin/settings/meta-data-constants',
 		},
 		userProfiles: {

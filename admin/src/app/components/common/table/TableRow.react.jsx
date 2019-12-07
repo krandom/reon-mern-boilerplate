@@ -1,15 +1,35 @@
 import { useState } from 'react';
 
-const TableRow = ({ data, actions, layout = [] }) => {
+const TableRow = ({ row, table, actions }) => {
 	const [id] = useState(uuid());
 
+	const { layout } = table;
+
+	// console.log('row', row)
+	// console.log('layout', layout)
 	return (
 		<tr>
+			{ actions &&
+				<td style={{ padding: 0 }}>
+					{/* TODO :: loop actions but for now........ */}
+					{ actions.edit && !actions.edit?.disabled &&
+						<div
+							className='table__action'
+							onClick={e => {
+								e.stopPropagation();
+								actions.edit.onEdit(row);
+							}}
+						>
+							<i className='fa fa-pencil' />
+						</div>
+					}
+				</td>
+			}
 			{ layout.map(x => {
 
 				const { key, onClick } = x;
 				let { type } = x;
-				let value = data[key];
+				let value = row[key];
 
 				if (type) {
 					if (type.label === 'boolean') {
@@ -21,7 +41,7 @@ const TableRow = ({ data, actions, layout = [] }) => {
 					<td
 						onClick={() => {
 							if (onClick)
-								onClick(data);
+								onClick(row);
 						}}
 						key={`${id}${key}`}>
 
@@ -29,21 +49,6 @@ const TableRow = ({ data, actions, layout = [] }) => {
 					</td>
 				);
 			})}
-			{ actions &&
-				<tr>
-					{/* TODO :: loop actions but for now........ */}
-					{ actions.edit && !actions.edit?.disabled &&
-						<div>
-							<i
-								className='fa fa-pencil'
-								onClick={e => {
-									e.stopPropagation();
-									actions.edit.onEdit(data);
-								}} />
-						</div>
-					}
-				</tr>
-			}
 		</tr>
 	);
 };

@@ -79,7 +79,7 @@ router.get('/meta-data', adminRoute, async (req, res) => {
 
 router.post('/meta-data', adminRoute, async (req, res) => {
 	// TODO :: sanitize (???)
-	const { clientApp, route } = req.props;
+	const { clientApp, route, title } = req.props;
 
 	try {
 		const { errors, isValid } = await validateMetaDataRoute({ clientApp, route });
@@ -87,7 +87,7 @@ router.post('/meta-data', adminRoute, async (req, res) => {
 	  if (!isValid)
 	    return res.status(400).json({ toast: errors });
 
-		await metaDataSchema.create({ clientApp, route });
+		await metaDataSchema.create({ clientApp, route, title });
 
 		res.json({
 			toast: responseMsg.success({ message: 'Done!' }),
@@ -101,7 +101,21 @@ router.post('/meta-data', adminRoute, async (req, res) => {
 });
 
 router.put('/meta-data', adminRoute, async (req, res) => {
-	// TODO :: update TITLE here as well, so check what is present
+	const { id, title } = req.props;
+
+	try {
+		await metaDataSchema.findOneAndUpdate({ _id: id }, { title });
+
+		res.json({ metaData: await metaDataModel({}) })
+
+	} catch(err) {
+		console.error('/admin/settings/meta-data PUT', err.message);
+
+		res.status(500).send('Server error');
+	}
+});
+
+router.post('/meta-data-tag', adminRoute, async (req, res) => {
 	const { id, content, type, key, value, } = sanitizeMetaData(req.props);
 
 	try {

@@ -30,7 +30,6 @@ module.exports = async ({ clientApp }) => {
 				content: y.content,
 				type: y.type,
 				key: y.key,
-				value: y.value,
 			}
 		})
 

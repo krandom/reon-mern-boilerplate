@@ -9,6 +9,8 @@
 	border-radius: 5px;
 	line-height: 35px;
 	cursor: pointer;
+	display: inline-block;
+	vertical-align: top;
 
 	&__disabled {
 		opacity: .4;

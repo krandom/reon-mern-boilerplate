@@ -60,6 +60,7 @@ const FeatureFlagsCard = ({
 				true: 'Enabled',
 				false: 'Disabled',
 			},
+			sort: false,
 			onClick: flag => {
 				// TODO :: add confirm popup here
 				setFeatureFlagsAction({

@@ -48,8 +48,11 @@ function* getMetaData() {
 }
 
 function* setMetaData({ payload }) {
+	// console.log
 	try {
-		const endpoint = yield select(s => s.config.endpoints.settings.metaData);
+		const endpoint = payload.title ?
+			yield select(s => s.config.endpoints.settings.metaData) :
+			yield select(s => s.config.endpoints.settings.metaDataTag);
 		const { metaData } = yield privateCall({ endpoint, method: payload.id ? 'put' : 'post', payload });
 
 		yield put(settingsActions.getMetaDataComplete(metaData));

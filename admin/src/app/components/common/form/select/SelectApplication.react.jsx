@@ -9,7 +9,7 @@ const SelectApplication = ({
 
 	return (
 		<Select
-			options={Object.keys(applications).map(x => ({ label: applications[x], value: x }))}
+			options={Object.keys(applications).map(x => ({ sLabel: applications[x], sValue: x }))}
 			{...rest}
 		/>
 	);

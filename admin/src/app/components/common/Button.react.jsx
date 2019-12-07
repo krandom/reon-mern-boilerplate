@@ -2,7 +2,6 @@ const Button = ({
 	type = 'primary',
 	children = null,
 	label = null,
-	width = '',
 	disabled = false,
 	className = null,
 	onClick,
@@ -12,9 +11,12 @@ const Button = ({
 	return (
 		<div
 			className={`btn btn__${type} ${className} ${disabled && 'btn__disabled'}`}
-			style={{ ...style, width }}
+			style={style}
 			disabled={disabled}
 			onClick={() => {
+				if (disabled)
+					return;
+
 				if (onClick)
 					onClick();
 			}}
