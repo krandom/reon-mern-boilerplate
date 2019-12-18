@@ -1,24 +1,40 @@
 import { all, takeLatest, call, select, put } from 'redux-saga/effects';
 import { websocketActions } from '../reducers/websocket.reducer';
 
-function* newMessage({ payload: socket }) {
+const basePayload = s => ({
+	websocketID: s.websocket.websocketID,
+	userID: s.auth.user?.id,
+	clientEnv: s.app.clientEnv,
+	clientApp: s.app.clientApp,
+});
+
+function* send({ type, payload = {}, socket }) {
 	try {
-		// console.log('handle new message here 1', dispatch);
-		console.log('handle new message here 1', socket);
+		socket.send(
+			JSON.stringify({
+				...basePayload(yield select(s => s)),
+				...payload,
+				type,
+			})
+		);
+	} catch(e) {}
+}
 
-		const websocketID = yield select(s => s.websocket.websocketID);
-
-			socket.send(JSON.stringify({ type: 'ADD_MESSAGE', author: websocketID }));
-
-
-		console.log('handle new message here 2', websocketID);
-
+function* login({ payload: socket }) {
+	try {
+		yield send({ type: 'LOGIN', socket });
 	} catch (e) {}
 }
 
+function* logout({ payload: socket }) {
+	try {
+		yield send({ type: 'LOGOUT', socket });
+	} catch (e) {}
+}
 
 export default function* axiosSaga() {
 	yield all([
-		yield takeLatest(websocketActions.newMessage, newMessage),
+		yield takeLatest(websocketActions.login, login),
+		yield takeLatest(websocketActions.logout, logout),
 	]);
 }

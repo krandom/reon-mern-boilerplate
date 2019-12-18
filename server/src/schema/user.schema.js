@@ -40,14 +40,30 @@ const UserSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-	loginDate: {
-		type: Date,
-		default: Date.now,
-	},
-	lastActive: {
-		type: Date,
-		default: Date.now,
-	},
+	lastLogin: [{
+		clientApp: {
+			type: String,
+		},
+		clientEnv: {
+			type: String,
+		},
+		date: {
+			type: Date,
+			default: Date.now,
+		}
+	}],
+	lastActive: [{
+		clientApp: {
+			type: String,
+		},
+		clientEnv: {
+			type: String,
+		},
+		date: {
+			type: Date,
+			default: Date.now,
+		}
+	}],
 	role: {
 		type: String,
 		default: 'user',

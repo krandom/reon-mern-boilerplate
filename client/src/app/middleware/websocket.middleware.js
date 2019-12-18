@@ -1,27 +1,38 @@
 import { actions as appActionTypes, appActions } from '../reducers/app.reducer';
+import { notificationActions } from '../reducers/notification.reducer';
 
 export const setupSocket = (store) => {
 	const { dispatch, getState } = store;
-	const { websocket, config } = getState();
+	const { app, websocket, config } = getState();
 
 	const socket = new WebSocket(config.websocket);
 
 	socket.onopen = () => {
 		socket.send(JSON.stringify({
-			type: 'ADD_USER', //types.ADD_USER,
-			name: websocket.websocketID,
+			type: 'CONNECT',
+			websocketID: websocket.websocketID,
+			clientApp: app.clientApp,
+			clientEnv: app.clientEnv,
 		}));
 	};
 
+	// socket.onclose = () => {
+		// console.log('SOCET IS GETTING CLOSED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+	// };
+
 	socket.onmessage = (event) => {
 		const data = JSON.parse(event.data);
+
 		console.log('WE GOT A SIGNAL!!!', data)
+
 		switch (data.type) {
+
 			case 'REFRESH_FEATURE_FLAGS':
-			console.log('REFRESH_FEATURE_FLAGS', data)
-
 				dispatch(appActions.getFeatureFlags(data));
+				break;
 
+			case 'TOAST':
+				dispatch(notificationActions.addToast({ message: 'this is a test' }));
 				break;
 
 			// case 'ADD_MESSAGE':

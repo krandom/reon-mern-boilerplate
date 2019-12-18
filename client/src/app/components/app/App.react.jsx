@@ -15,9 +15,10 @@ import { hot } from 'react-hot-loader/root';
 
 import { history } from '../../store/store';
 
-import Header from '../header/Header.react';
 import { appActions } from '../../reducers/app.reducer';
+import { websocketActions } from '../../reducers/websocket.reducer';
 
+import Header from '../header/Header.react';
 import Modal from '../modal/Modal.react';
 import Routes from './routing/Routes.react';
 import Notification from '../notification/Notification.react';
@@ -25,10 +26,24 @@ import Sidebar from '../sidebar/Sidebar.react';
 import Hamburger from '../hamburger/Hamburger.react';
 import Preload from './Preload.react';
 
-const App = ({ bootAction }) => {
+const App = ({ bootAction, isLoggedIn, wsLoginAction }) => {
 	useEffect(() => {
 		bootAction();
+
+		// const beforeunload = e => {
+		// 	e.preventDefault();
+		// 	disconnectAction();
+		// };
+
+		// $(window).on('beforeunload', beforeunload);
+
+		// return () => $(window).off('beforeunload', beforeunload);
 	}, []);
+
+	useEffect(() => {
+		if (isLoggedIn)
+			wsLoginAction();
+	}, [isLoggedIn]);
 
 	return (
 		<Router history={history}>
@@ -46,8 +61,13 @@ const App = ({ bootAction }) => {
 	);
 };
 
+const mstp = s => ({
+	isLoggedIn: s.app.isLoggedIn,
+});
+
 const mdtp = {
 	bootAction: appActions.boot,
+	wsLoginAction: websocketActions.login,
 };
 
-export default hot(connect(null, mdtp)(App));
+export default hot(connect(mstp, mdtp)(App));

@@ -14,7 +14,7 @@ const anonRoute = require('../../../middleware/anonRoute');
 const adminRoute = require('../../../middleware/adminRoute');
 const authRoute = require('../../../middleware/authRoute');
 
-router.post('/all', adminRoute, async (req, res) => {
+router.get('/all', adminRoute, async (req, res) => {
 	try {
 		res.json({
 			success: true,
@@ -22,6 +22,36 @@ router.post('/all', adminRoute, async (req, res) => {
 		})
 	} catch(err) {
 		console.error('/auth/admin/user-profiles/all', err.message);
+
+		res.status(500).send('Server error');
+	}
+});
+
+router.post('/sendToast', adminRoute, async (req, res) => {
+	const { userID } = req.props;
+	console.log('send toast here!!!!')
+	try {
+		broadcastToUser({ clientApp: 'client', clientEnv: 'dev', payload: 'REFRESH_FEATURE_FLAGS', userID });
+
+		res.json({
+			success: true,
+			// users: await usersModel(),
+		})
+	} catch(err) {
+		console.error('/auth/admin/user-profiles/sendToast', err.message);
+
+		res.status(500).send('Server error');
+	}
+});
+
+router.get('/test', adminRoute, async (req, res) => {
+	try {
+		res.json({
+			success: true,
+			clientsObj: clientsObj,
+		})
+	} catch(err) {
+		console.error('/auth/admin/user-profiles/test', err.message);
 
 		res.status(500).send('Server error');
 	}

@@ -41,7 +41,7 @@ const App = ({ booted, isLoggedIn, bootAction, getConstantsAction }) => {
 			<>
 				<div className='app'>
 					<Preload />
-					{ booted &&
+					{ booted && isLoggedIn &&
 						<>
 							<Routes />
 							<Header />

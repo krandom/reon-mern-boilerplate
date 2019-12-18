@@ -6,6 +6,7 @@ import { history } from '../store/store';
 
 import { authActions } from '../reducers/auth.reducer';
 import { notificationActions } from '../reducers/notification.reducer';
+import { websocketActions } from '../reducers/websocket.reducer';
 
 function* getUser() {
 	try {
@@ -76,6 +77,7 @@ function* logout() {
 		cookies.remove('reon-mern-boilerplate', { path: '/' });
 
 		yield put(authActions.logoutComplete());
+		yield put(websocketActions.logout());
 	} catch (e) {}
 }
 

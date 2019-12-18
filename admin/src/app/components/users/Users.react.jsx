@@ -28,9 +28,11 @@ import Card from '../common/card/Card.react';
 import CardHeader from '../common/card/CardHeader.react';
 import CardBody from '../common/card/CardBody.react';
 
+import Button from '../common/Button.react';
+
 import Table from '../common/table/Table.react';
 
-const Users = ({ booted, isLoggedIn, users, getAllProfilesAction }) => {
+const Users = ({ booted, isLoggedIn, users, getAllProfilesAction, sendToastAction }) => {
 	useEffect(() => {
 		if (isLoggedIn)
 			getAllProfilesAction();
@@ -43,7 +45,7 @@ const Users = ({ booted, isLoggedIn, users, getAllProfilesAction }) => {
 			id: x.id,
 			role: x.role,
 			signupDate: x.signupDate,
-			loginDate: x.loginDate,
+			lastLogin: x.lastLogin,
 			lastActive: x.lastActive,
 			email: primaryEmail?.address,
 			emailVerified: primaryEmail?.verificationCode === null,
@@ -56,7 +58,19 @@ const Users = ({ booted, isLoggedIn, users, getAllProfilesAction }) => {
 			id: 'ID',
 			email: 'E-mail',
 		},
+		actions: {
+			edit: {
+				onEdit: () => { console.log('click'); },
+				disabled: true,
+			},
+			select: {
+				onSelect: () => { console.log('select'); },
+				multiSelect: true,
+			},
+		},
 	};
+
+	console.log('users', users);
 
 	return (
 		<div className='page'>
@@ -69,6 +83,13 @@ const Users = ({ booted, isLoggedIn, users, getAllProfilesAction }) => {
 						<CardBody>
 							<Table
 								{...usersTable}
+							/>
+
+							<Button
+								label='Send Msg to first user'
+								onClick={() => {
+									sendToastAction({ userID: users[0].id });
+								}}
 							/>
 						</CardBody>
 					</Card>
@@ -86,6 +107,7 @@ const mstp = s => ({
 
 const mdtp = {
 	getAllProfilesAction: usersActions.getAllProfiles,
+	sendToastAction: usersActions.sendToast,
 };
 
 export default connect(mstp, mdtp)(Users);

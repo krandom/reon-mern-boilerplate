@@ -1,21 +1,52 @@
 import { useState } from 'react';
 
-const TableRow = ({ row, table, actions }) => {
+import Checkbox from '../form/Checkbox.react';
+
+const TableRow = ({ row, table, actions, onSelect }) => {
 	const [id] = useState(uuid());
 
-	const { layout } = table;
+	const { layout, tr, rows } = table;
 
-	// console.log('row', row)
+	console.log('row', row)
 	// console.log('layout', layout)
+
+	// console.log('trying', tr)
+
 	return (
-		<tr>
+		<tr
+			onClick={() => {
+				if (tr.onClick)
+					tr.onClick();
+			}}
+			className={`${row.isSelected && 'table__row--selected'}`}
+		>
 			{ actions &&
-				<td style={{ padding: 0 }}>
+				<td style={{ padding: 0 }}> {/*  className={`${id}-actions`} */}
+
 					{/* TODO :: loop actions but for now........ */}
-					{ actions.edit && !actions.edit?.disabled &&
+					{ actions.select &&
+						<div className={`table__action ${actions.select.disabled && 'disabled'}`}>
+							<Checkbox
+								checked={row.isSelected}
+								className='table__checkbox'
+								onChange={() => {
+									const selectedRows = rows.filter(x => x.isSelected === true).map(x => x.id);
+
+									if (actions.select?.multiSelect === true || selectedRows.length === 0 || selectedRows.includes(row.id))
+										onSelect(row);
+
+
+								}}
+							/>
+						</div>
+					}
+					{ actions.edit &&
 						<div
-							className='table__action'
+							className={`table__action ${actions.edit.disabled && 'disabled'}`}
 							onClick={e => {
+								if (actions.edit.disabled)
+									return;
+
 								e.stopPropagation();
 								actions.edit.onEdit(row);
 							}}

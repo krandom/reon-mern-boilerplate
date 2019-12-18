@@ -25,6 +25,8 @@ export default {
 		},
 		userProfiles: {
 			getAllProfiles: '//localhost:5000/api/admin/users/all',
+			sendToast: '//localhost:5000/api/admin/users/sendToast',
+			test: '//localhost:5000/api/admin/users/test',
 		},
 	},
 };

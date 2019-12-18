@@ -26,6 +26,9 @@ const validateResetPassword = require('../../validation/resetPassword');
 const anonRoute = require('../../middleware/anonRoute');
 const authRoute = require('../../middleware/authRoute');
 
+const setLastLogin = require('../../helpers/setLastLogin');
+const setLastActive = require('../../helpers/setLastActive');
+
 // @route 		POST api/auth/signup
 // @desc 			Routes for creating new user account
 // @access 		Public
@@ -74,12 +77,17 @@ router.post('/signup', anonRoute, async (req, res) => {
 // @access 		Public
 router.post('/login', anonRoute, async (req, res) => {
 	const { email, password } = req.body;
+	const clientApp = req.header('clientApp');
+	const clientEnv = req.header('clientEnv');
 
 	try {
 		const { errors, isValid, user } = await validateLoginInput({ email, password, role: 'user' });
 
 	  if (!isValid)
 	    return res.status(400).json({ toast: errors });
+
+		setLastLogin({ userID: user._id, clientApp, clientEnv });
+		setLastActive({ userID: user._id, clientApp, clientEnv });
 
 		res.json({
 			token: jwtToken.sign(user._id),
@@ -96,6 +104,7 @@ router.post('/login', anonRoute, async (req, res) => {
 // @route 		POST api/auth/signup
 // @desc 			Routes for creating new user account
 // @access 		Public
+// TODO :: are we using this one any more?
 router.post('/validate-token', async (req, res) => {
 	const { token } = req.body;
 

@@ -10,14 +10,16 @@ import { socket } from '../store/store'; //null;
 const actions = formatActionTypeNames(
 	{
 		connect: 'CONNECT',
-		newMessage: 'NEW_MESSAGE',
+		login: 'LOGIN',
+		logout: 'LOGOUT',
 	},
-	'SIDEBAR'
+	'WEBSOCKET'
 );
 
 export const websocketActions = {
 	connect: createAction(actions.connect),
-	newMessage: createAction(actions.newMessage, payload => socket),
+	login: createAction(actions.login, payload => socket),
+	logout: createAction(actions.logout, payload => socket),
 };
 
 // export const setupSocket = (dispatch, username) => {

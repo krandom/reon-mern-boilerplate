@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import TableHeader from './TableHeader.react';
 import TableRow from './TableRow.react';
 
-const Table = ({ data, actions, columns, sort }) => {
+const Table = ({ data, actions, columns, sort, tr = {} }) => {
 	// const [rows, setRows] = useState([]);
 	// const [layout, setLayout] = useState([]);
 
@@ -11,12 +11,21 @@ const Table = ({ data, actions, columns, sort }) => {
 		rows: [],
 		layout: [],
 		sort: null,
+		tr: {
+			onClick: null,
+			onHover: null,
+			onBlur: null,
+		},
 	});
 
 	useEffect(() => {
 
 		setTable({
 			...table,
+			tr: {
+				...table.tr,
+				...tr,
+			},
 			// TODO :: do we even need this? or can we just set rows: data
 			// TODO :: escape null values here to make sort work
 			rows: !Array.isArray(data) ? Object.values(data).map(x => x) : data,
@@ -33,7 +42,7 @@ const Table = ({ data, actions, columns, sort }) => {
 			}),
 			sort: !table.sort && Object.keys(columns).length > 0 ?
 				{ by: Object.keys(columns)[0], asc: true } :
-				null,
+				table.sort,
 		});
 	}, [data]);
 
@@ -52,6 +61,19 @@ const Table = ({ data, actions, columns, sort }) => {
 			rows.reverse();
 	}
 
+	const handleSelectRow = row => {
+		setTable({
+			...table,
+			rows: table.rows.map(x => {
+				if (x.id === row.id)
+					x.isSelected = 'isSelected' in x ? !x.isSelected : true;
+
+				return x;
+			})
+		});
+		console.log('row', row)
+	};
+
 	return (
 		<div className='table'>
 			<table>
@@ -63,7 +85,7 @@ const Table = ({ data, actions, columns, sort }) => {
 							...table,
 							sort: {
 								by: key,
-								asc: table.sort?.by === key ? !table.sort.asc : true,
+								asc: table.sort?.by === key ? !table.sort?.asc : true,
 							},
 						});
 					}} />
@@ -74,6 +96,7 @@ const Table = ({ data, actions, columns, sort }) => {
 							actions={actions}
 							row={x}
 							table={table}
+							onSelect={handleSelectRow}
 							key={x.id}
 						/>
 					)}

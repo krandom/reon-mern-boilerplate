@@ -21,6 +21,7 @@ module.exports = async (userID) => {
 	delete user.role;
 	delete user.profile;
 	delete user.lastActive;
+	delete user.lastLogin;
 	delete user.resetPassword;
 
 	return user;

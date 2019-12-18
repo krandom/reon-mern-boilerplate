@@ -72,7 +72,8 @@ router.get('/client/init', async (req, res) => {
 		const { user } = jwtToken.verify({ token });
 
 		res.json({
-			success: true,
+			isLoggedIn: true,
+			// success: true,
 			token,
 			user: await userModel(user.id),
 			profile: await profileModel(user.id),
@@ -85,7 +86,8 @@ router.get('/client/init', async (req, res) => {
 		res
 			.status(200)
 			.json({
-				success: false,
+				isLoggedIn: false,
+				// success: false,
 				token: null,
 				user: null,
 				profile: null,
