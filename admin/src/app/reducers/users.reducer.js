@@ -9,6 +9,7 @@ export const actions = formatActionTypeNames(
 		getAllProfiles: 'GET_ALL_PROFILES',
 		getAllProfilesComplete: 'GET_ALL_PROFILES_COMPLETE',
 		sendToast: 'SEND_TOAST',
+		test: 'TEST',
 	},
 	'USER_PROFILES'
 );
@@ -17,6 +18,7 @@ export const usersActions = {
 	getAllProfiles: createAction(actions.getAllProfiles),
 	getAllProfilesComplete: createAction(actions.getAllProfilesComplete),
 	sendToast: createAction(actions.sendToast),
+	test: createAction(actions.test),
 };
 
 export default (state = initialState.users, action) => {

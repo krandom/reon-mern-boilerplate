@@ -3,7 +3,6 @@ export default {
 	api: 'http://localhost:5000/',
 	websocket: 'ws://localhost:5000',
 	fbAppID: '',
-	cookieID: 'reon-react-boilerplate-admin',
 
 	// TODO :: add GET so we don't have to do "setFeatureFlags" etc...
 	endpoints: {

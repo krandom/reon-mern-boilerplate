@@ -48,6 +48,7 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 global.clientsObj = {};
 
+// TODO :: make broadcast by App/Env
 global.broadcast = (data) => {
   wss.clients.forEach((client) => {
     // console.log('CLIENT', client)
@@ -60,22 +61,20 @@ global.broadcast = (data) => {
 global.broadcastToUser = ({ clientApp, clientEnv, userID, payload }) => {
   checkSocketsAppEnv({ clientApp, clientEnv });
 
-  const ws = clientsObj[clientApp][clientEnv][userID]['ws'];
-
   console.log('broadcastToUser', clientsObj)
-  console.log('broadcastToUser', ws)
-  if (ws) {
+  console.log('broadcastToUser', clientApp, clientEnv, userID, payload )
 
-    // ws.send()
+  const user = clientsObj[clientApp][clientEnv][userID];
 
-    // ws.on('message', message => {
-    //   console.log('test')
-    // });
+  console.log('broadcastToUser', user)
+  if (user) {
 
-    ws.send(JSON.stringify({
-      type: 'TOAST',
-      payload
-    }))
+    user.forEach(x => {
+      x.socket.send(JSON.stringify({
+        type: 'TOAST',
+        payload
+      }))
+    })
   }
 
   // wss.clients.forEach((client) => {
@@ -111,18 +110,28 @@ const addSocket = ({ clientApp, clientEnv, websocketID, ws }) => {
 };
 
 // TODO :: add timestamp of ws
-const removeSocket = ({ clientApp, clientEnv, websocketID }) => {
+const removeSocket = ({ clientApp, clientEnv, websocketID, userID = null }) => {
   checkSocketsAppEnv({ clientApp, clientEnv });
 
-  delete clientsObj[clientApp][clientEnv][websocketID];
-  // clientsObj[clientApp][clientEnv][websocketID] = { ws };
+  if (userID) {
+    const user = clientsObj[clientApp][clientEnv][userID];
+
+    if (user) {
+      if (user.length === 1)
+        delete clientsObj[clientApp][clientEnv][userID];
+      else
+        clientsObj[clientApp][clientEnv][userID] = clientsObj[clientApp][clientEnv][userID]
+          .filter(x => x.websocketID !== websocketID);
+    }
+  } else
+    delete clientsObj[clientApp][clientEnv][websocketID];
 };
 
 // TODO :: add timestamp of ws
 const updateSocketID = ({ clientApp, clientEnv, currentID, newID, ws }) => {
   checkSocketsAppEnv({ clientApp, clientEnv });
 
-  // console.log('UPDATING socket user id', clientApp, clientEnv, websocketID, userID, ws);
+  console.log('UPDATING socket user id', clientApp, clientEnv, currentID, newID);
 
   clientsObj[clientApp][clientEnv][newID] = { ws };
 
@@ -130,6 +139,54 @@ const updateSocketID = ({ clientApp, clientEnv, currentID, newID, ws }) => {
 
   // console.log('UPDATING socket user id 22222222', clientsObj);
 
+};
+
+// TODO :: add timestamp of ws
+const userLogin = ({ clientApp, clientEnv, websocketID, userID, ws }) => {
+  checkSocketsAppEnv({ clientApp, clientEnv });
+
+  console.log('userLogin socket user id', clientApp, clientEnv, websocketID, userID);
+
+  if (userID in clientsObj[clientApp][clientEnv]) {
+    clientsObj[clientApp][clientEnv][userID].push({
+      socket: ws,
+      websocketID,
+    });
+  } else {
+    clientsObj[clientApp][clientEnv][userID] = [{ socket: ws, websocketID }];
+  }
+
+  // clientsObj[clientApp][clientEnv][userID] = { ws };
+
+  delete clientsObj[clientApp][clientEnv][websocketID];
+
+  // console.log('UPDATING socket user id 22222222', clientsObj);
+
+};
+
+const userLogout = ({ clientApp, clientEnv, websocketID, userID, ws }) => {
+
+  console.log('userLogout socket user id', clientApp, clientEnv, websocketID, userID);
+
+  const user = clientsObj[clientApp][clientEnv][userID];
+
+  if (user) {
+
+    if (user.length === 1)
+      delete clientsObj[clientApp][clientEnv][userID];
+    else
+      clientsObj[clientApp][clientEnv][userID] = clientsObj[clientApp][clientEnv][userID]
+        .filter(x => x.websocketID !== websocketID);
+    // clientsObj[clientApp][clientEnv][userID].push({
+      // socket: ws,
+      // websocketID,
+    // });
+  }
+   // else {
+    // clientsObj[clientApp][clientEnv][userID] = { socket: ws, websocketID };
+  // }
+
+  clientsObj[clientApp][clientEnv][websocketID] = { ws };
 };
 
 wss.on('connection', ws => {
@@ -157,7 +214,7 @@ wss.on('connection', ws => {
     if (userID)
       setLastActive({ clientApp, clientEnv, userID });
 
-    console.log('ACTION', data)
+    // console.log('ACTION', data)
     switch (data.type) {
       case 'CONNECT':
         client.app = clientApp;
@@ -190,53 +247,60 @@ wss.on('connection', ws => {
         // console.log('SET USER ID HERE FOR WEBSOCKETS!!!', data)
         client.userID = userID;
 
-        updateSocketID({
+        userLogin({
           clientApp,
           clientEnv,
-          currentID: data.websocketID,
-          newID: userID,
+          websocketID: client.websocketID,
+          userID,
           ws,
         });
+
+        // updateSocketID({
+        //   clientApp,
+        //   clientEnv,
+        //   currentID: data.websocketID,
+        //   newID: userID,
+        //   ws,
+        // });
         break;
 
       case 'LOGOUT':
-        console.log('LOGOUTLOGOUTLOGOUTLOGOUTLOGOUTLOGOUTLOGOUTLOGOUTLOGOUT')
+        // console.log('LOGOUTLOGOUTLOGOUTLOGOUTLOGOUTLOGOUTLOGOUTLOGOUTLOGOUT')
         // client.id = userID;
 
-        updateSocketID({
+        userLogout({
           clientApp,
           clientEnv,
-          currentID: client.userID,
-          newID: client.websocketID,
+          websocketID: client.websocketID,
+          userID: client.userID,
           ws,
         });
 
+        // updateSocketID({
+        //   clientApp,
+        //   clientEnv,
+        //   currentID: client.userID,
+        //   newID: client.websocketID,
+        //   ws,
+        // });
+
         client.userID = null;
         break;
-
-      case 'ADD_MESSAGE':
-        broadcastToClient({
-          type: 'ADD_MESSAGE',
-          message: data.message,
-          author: data.author
-        }, ws)
-        break
-
-
-      // TODO :: if the user logs out, switch back to websocketID instead of userID
-      case 'DISCONNECT':
-        console.log('DISCONNECT', data);
-        break
 
       default:
         break
     }
 
     ws.on('close', message => {
-      console.log('TODO :: CLEAN UP CONNECTION HERE', client)
+      // console.log('TODO :: CLEAN UP CONNECTION HERE', client)
 
       if (client.userID)
-        removeSocket({ clientApp: client.app, clientEnv: client.env, websocketID: client.userID });
+        removeSocket({
+          clientApp: client.app,
+          clientEnv: client.env,
+          websocketID: client.websocketID,
+          userID: client.userID
+        });
 
       removeSocket({ clientApp: client.app, clientEnv: client.env, websocketID: client.websocketID });
 

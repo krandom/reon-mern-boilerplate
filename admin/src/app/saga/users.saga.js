@@ -38,6 +38,37 @@ function* sendToast({ payload }) {
 		// let endpoint = yield select(s => s.config.endpoints.userProfiles.sendToast);
 		// let response = yield privateCall({ endpoint, payload });
 
+		let endpoint = yield select(s => s.config.endpoints.userProfiles.sendToast);
+		let response = yield privateCall({ endpoint, method: 'post' , payload });
+
+		// yield put(usersActions.getAllProfilesComplete(normalizeUsers(users)))
+		// console.log('res', users)
+		// users = ;
+
+		// console.log('normaliser', users)
+		console.log('RESPONSE', response);
+
+		// const { user } = yield privateCall({ endpoint, payload: { token } });
+
+		// if (!user) {
+			// token = null;
+			// cookies.remove('reon-mern-boilerplate-admin');
+		// }
+
+		// const endpoint = yield select(s => s.config.endpoints.user.getProfile);
+		// const response = yield api({endpoint});
+
+		// yield put(userProfileActions.booted({  user, token }));
+	} catch (e) {}
+}
+
+function* test({ payload }) {
+	try {
+		console.log('sendToastsendToastsendToastsendToastsendToastsendToast')
+		// Look for cookie and log user in if valid
+		// let endpoint = yield select(s => s.config.endpoints.userProfiles.sendToast);
+		// let response = yield privateCall({ endpoint, payload });
+
 		let endpoint = yield select(s => s.config.endpoints.userProfiles.test);
 		let response = yield privateCall({ endpoint, method: 'get' });
 
@@ -65,4 +96,5 @@ function* sendToast({ payload }) {
 export default function* userProfilesSaga() {
 	yield takeLatest(usersActions.getAllProfiles, getAllProfiles);
 	yield takeLatest(usersActions.sendToast, sendToast);
+	yield takeLatest(usersActions.test, test);
 }

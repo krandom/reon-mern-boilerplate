@@ -1,12 +1,8 @@
-import Cookies from 'universal-cookie';
-
 import { select, put, takeLatest, all } from 'redux-saga/effects';
 import { privateCall } from './api.saga';
 import { appActions } from '../reducers/app.reducer';
 
 function* boot() {
-	const cookies = new Cookies();
-
 	try {
 		let endpoint = yield select(s => s.config.endpoints.app.boot);
 		const {
@@ -19,7 +15,7 @@ function* boot() {
 		} = yield privateCall({ endpoint, method: 'get' });
 
 		if (!token)
-			cookies.remove('reon-mern-boilerplate-admin');
+			localStorage.clear();
 
 		// move to mongodb
 		// make published by environment

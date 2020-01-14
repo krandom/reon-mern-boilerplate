@@ -32,7 +32,7 @@ import Button from '../common/Button.react';
 
 import Table from '../common/table/Table.react';
 
-const Users = ({ booted, isLoggedIn, users, getAllProfilesAction, sendToastAction }) => {
+const Users = ({ booted, isLoggedIn, users, getAllProfilesAction, sendToastAction, testAction }) => {
 	useEffect(() => {
 		if (isLoggedIn)
 			getAllProfilesAction();
@@ -70,7 +70,7 @@ const Users = ({ booted, isLoggedIn, users, getAllProfilesAction, sendToastActio
 		},
 	};
 
-	console.log('users', users);
+	// console.log('users', users);
 
 	return (
 		<div className='page'>
@@ -91,6 +91,13 @@ const Users = ({ booted, isLoggedIn, users, getAllProfilesAction, sendToastActio
 									sendToastAction({ userID: users[0].id });
 								}}
 							/>
+
+							<Button
+								label='Send Msg to first user'
+								onClick={() => {
+									testAction({ userID: users[0].id });
+								}}
+							/>
 						</CardBody>
 					</Card>
 				</div>
@@ -108,6 +115,7 @@ const mstp = s => ({
 const mdtp = {
 	getAllProfilesAction: usersActions.getAllProfiles,
 	sendToastAction: usersActions.sendToast,
+	testAction: usersActions.test,
 };
 
 export default connect(mstp, mdtp)(Users);

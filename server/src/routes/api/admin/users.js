@@ -36,6 +36,7 @@ router.post('/sendToast', adminRoute, async (req, res) => {
 		res.json({
 			success: true,
 			// users: await usersModel(),
+			clientsObj: clientsObj,
 		})
 	} catch(err) {
 		console.error('/auth/admin/user-profiles/sendToast', err.message);

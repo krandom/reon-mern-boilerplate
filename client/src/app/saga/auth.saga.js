@@ -1,5 +1,3 @@
-import Cookies from 'universal-cookie';
-
 import { select, put, takeLatest, all } from 'redux-saga/effects';
 import { privateCall } from './api.saga';
 import { history } from '../store/store';
@@ -7,6 +5,18 @@ import { history } from '../store/store';
 import { authActions } from '../reducers/auth.reducer';
 import { notificationActions } from '../reducers/notification.reducer';
 import { websocketActions } from '../reducers/websocket.reducer';
+
+function* login({ payload }) {
+	try {
+		const endpoint = yield select(s => s.config.endpoints.auth.login);
+		const response = yield privateCall({ endpoint, payload });
+
+		if (payload.rememberMe)
+			localStorage.setItem('token', response.token);
+
+		yield put(authActions.loginComplete(response));
+	} catch (e) {}
+}
 
 function* getUser() {
 	try {
@@ -59,22 +69,9 @@ function* signup({ payload }) {
 	} catch (e) {}
 }
 
-function* login({ payload }) {
-	try {
-		const endpoint = yield select(s => s.config.endpoints.auth.login);
-		const response = yield privateCall({ endpoint, payload });
-
-		if (payload.rememberMe)
-			new Cookies().set('reon-mern-boilerplate', response.token, { path: '/' });
-
-		yield put(authActions.loginComplete(response));
-	} catch (e) {}
-}
-
 function* logout() {
 	try {
-		const cookies = new Cookies();
-		cookies.remove('reon-mern-boilerplate', { path: '/' });
+		localStorage.clear();
 
 		yield put(authActions.logoutComplete());
 		yield put(websocketActions.logout());

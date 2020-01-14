@@ -1,5 +1,3 @@
-import Cookies from 'universal-cookie';
-
 import { select, put, takeLatest, all } from 'redux-saga/effects';
 import { privateCall } from './api.saga';
 
@@ -11,7 +9,7 @@ function* login({ payload }) {
 		const response = yield privateCall({ endpoint, payload });
 
 		if (payload.rememberMe)
-			new Cookies().set('reon-mern-boilerplate-admin', response.token, { path: '/' });
+			localStorage.setItem('token', response.token);
 
 		yield put(authActions.loginComplete(response));
 	} catch (e) {}
@@ -28,8 +26,7 @@ function* getUser() {
 
 function* logout() {
 	try {
-		const cookies = new Cookies();
-		cookies.remove('reon-mern-boilerplate-admin', { path: '/' });
+		localStorage.clear();
 
 		yield put(authActions.logoutComplete());
 	} catch (e) {}
