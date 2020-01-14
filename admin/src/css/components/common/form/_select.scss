@@ -1,0 +1,50 @@
+.select {
+	position: relative;
+	// @extend .input-text;
+
+	&__dropdown {
+		position: absolute;
+		top: 0;
+		left: 0;
+		// width: 300px;
+		width: 100%;
+		height: 300px;
+		background-color: $white;
+		z-index: 2;
+		background: #fdfdfd;
+		border: 1px solid;
+		border-color: #cbcfe2 #c8cee7 #c4c7d7;
+		border-radius: 5px;
+		overflow: hidden;
+		overflow-x: hidden;
+		line-height: 28px;
+
+		input {
+			@extend .input;
+		}
+
+		&--content {
+			position: relative;
+			width: 100%;
+			height: calc(100% - 35px);
+			top: 35px;
+			overflow-y: auto;
+			overflow-x: hidden;
+		}
+	}
+
+	&__option {
+		position: relative;
+		padding-left: 10px;
+		min-height: 35px;
+		line-height: 53px;
+		// white-space: nowrap;
+		cursor: pointer;
+
+		// @include transition(all, .1s);
+
+		&:hover {
+			background-color: $grey-1;
+		}
+	}
+}

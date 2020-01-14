@@ -1,0 +1,21 @@
+.preload {
+	@include transition(opacity, 1s);
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: $preload;
+	opacity: 1;
+	background-image: url('/assets/login-bg.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+
+	&__loader {
+		@include center;
+
+		color: $white;
+	}
+}

@@ -1,0 +1,119 @@
+.table {
+	table {
+		// border-radius: 5px;
+		border-collapse: collapse;
+	}
+
+	th,
+	td {
+		border-bottom: 1px solid $grey-4;
+
+		&:first-child {
+			padding-left: 4px;
+			border-left: 1px solid $grey-4;
+		}
+
+		&:last-child {
+			border-right: 1px solid $grey-4;
+		}
+	}
+
+	th {
+		position: relative;
+		border-top: 1px solid $grey-4;
+		padding: 8px 30px 8px 4px;
+		text-align: left;
+		background-color: #364c66;
+		color: $white;
+
+		div {
+			position: absolute;
+			top: 0;
+			right: 0;
+			// display: inline-block;
+			width: 30px;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+		}
+	}
+
+	td {
+		padding: 8px 20px 8px 4px;
+	}
+
+	tr {
+		&:hover {
+			background-color: rgba($blue, .25);
+		}
+	}
+
+	&__action {
+		@include transition(color, .2s);
+
+		position: relative;
+		width: 30px;
+		min-height: 33px;
+		display: inline-block;
+		// justify-content: center;
+		// align-items: center;
+		cursor: pointer;
+		color: $grey-8;
+		// display:
+		vertical-align: top;
+
+		&:hover {
+			color: $blue;
+		}
+
+		i {
+			@include center(absolute);
+		}
+	}
+
+	&__sort {
+		position: absolute;
+		top: 0;
+		right: 0;
+		// display: inline-block;
+		width: 30px;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+
+		.fa-sort-up,
+		.fa-sort-down {
+			@include horizontal-center;
+
+			opacity: .2;
+		}
+
+		.active {
+			opacity: 1;
+		}
+	}
+
+	&__row {
+
+		&--selected {
+			background-color: $grey-4;
+		}
+	}
+
+	&__checkbox {
+		position: absolute !important;
+		top: 50% !important;
+		left: 50% !important;
+		transform: translateX(-50%) translateY(-50%) !important;
+
+		height: 20px !important;
+		display: inline-block;
+		// min-height: 33px;
+		width: auto !important;
+		margin-bottom: 0 !important;
+	}
+}

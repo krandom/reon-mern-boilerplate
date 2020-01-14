@@ -1,0 +1,64 @@
+https://demo.frontted.com/stackadmin/20190406/ui-alerts.html
+
+https://coreui.io/demo/3.0-beta.0/#main.html
+
+
+sidebar
+https://demos.vuejsadmin.com/arbano/free/#/components/tables
+https://chuibility.github.io/inspinia/metrics.html
+
+
+// websockets
+
+https://dev.to/aduranil/how-to-use-websockets-with-redux-a-step-by-step-guide-to-writing-understanding-connecting-socket-middleware-to-your-project-km3
+
+
+https://medium.com/factory-mind/websocket-node-js-express-step-by-step-using-typescript-725114ad5fe4
+
+https://blog.bitlabstudio.com/a-simple-chat-app-with-react-node-and-websocket-35d3c9835807
+
+https://medium.com/javascript-in-plain-english/simple-real-time-web-socket-app-using-node-express-socket-io-react-da73a2685b6a
+
+!!!
+https://www.freecodecamp.org/news/how-to-build-a-chat-application-using-react-redux-redux-saga-and-web-sockets-47423e4bc21a/
+
+https://flaviocopes.com/node-websockets/
+
+https://www.valentinog.com/blog/socket-react/
+
+https://medium.com/@ianovenden/redux-websocket-integration-c1a0d22d3189
+
+
+
+
+!!! Frontned
+https://dev.to/aduranil/how-to-use-websockets-with-redux-a-step-by-step-guide-to-writing-understanding-connecting-socket-middleware-to-your-project-km3
+
+
+https://css-tricks.com/build-a-chat-app-using-react-hooks-in-100-lines-of-code/
+
+
+!! this is it
+https://github.com/slava-lu/saga-socket-example/tree/master/client/src
+https://github.com/raineroviir/react-redux-socketio-chat/tree/master/src/common
+https://github.com/flaviocopes/chat-app-react-redux-saga-websockets
+
+
+
+
+
+
+
+// tutorial
+http://appsbuilders.org/guides/build-a-chat-application-using-react-redux-redux-saga-and-web-sockets-tutorial/
+https://github.com/beaucarnes/fcc-project-tutorials/tree/master/chat
+
+https://dzone.com/articles/building-a-react-based-chat-client-with-redux-part
+
+
+
+
+// metaDataConstants
+// featureFlagConstants
+
+// constants table with all constants in it

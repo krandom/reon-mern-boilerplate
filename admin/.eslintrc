@@ -1,0 +1,63 @@
+{
+  "plugins": [
+      "react",
+  ],
+  "parser": "babel-eslint",
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true
+		}
+	},
+	"env": {
+		"browser": true,
+		"commonjs": true,
+		"es6": true,
+		"mocha": true,
+		"node": true,
+	},
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    "comma-dangle": ["warn", "always-multiline"],
+    "no-console": 1,
+    "no-empty": 0,
+    "no-unused-vars": ["warn"],
+    "quotes": ["warn", "single"],
+    "react/jsx-first-prop-new-line": 1,
+    "react/no-array-index-key": 1,
+    "react/prop-types": 0,
+    "indent": ["warn", "tab", { "SwitchCase": 1 }],
+    "key-spacing": ["warn", { "beforeColon": false }],
+    "max-len": 0, // ["warn", { "code": 240 }],
+    "no-debugger": 1,
+    "no-extra-parens": "warn",
+    "no-multi-spaces": "warn",
+    "object-curly-spacing": ["warn", "always"],
+    "prefer-const": ["warn", { "destructuring": "any" }],
+    "prefer-destructuring": ["warn", {"object": true, "array": false}],
+    "semi": 1,
+  },
+  "settings": {
+    "react": {
+      "version": "16.3"
+    }
+  },
+
+  "globals" : {
+    "$" : false,
+    "_" : false,
+    "JQuery" : false,
+    "moment" : false,
+    "Promise" : false,
+    "React" : false,
+    "ReactDOM" : false,
+    "Tween" : false,
+    "Typekit" : false,
+    "uuid" : false,
+    "axios": false,
+  },
+}

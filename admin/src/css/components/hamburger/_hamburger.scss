@@ -1,0 +1,92 @@
+.hamburger {
+	@include transition(all, .5s);
+	@include disable-select-text;
+
+	position: fixed;
+	top: 64px;
+	left: -$hamburger-width;
+	width: $hamburger-width;
+	height: calc(100vh - 64px);
+	background-color: #364c66;
+	z-index: $sidebar;
+
+	&__open {
+		left: 0 !important;
+	}
+
+	&__overlay {
+		position: fixed;
+		top: 64px;
+		width: 100%;
+		height: calc(100% - 64px);
+		z-index: $sidebar-overlay;
+		background-color: rgba($black, .45);
+		display: none;
+
+		&--visible {
+			@include transition(opacity, .5s);
+
+			opacity: 0;
+			display: none;
+
+			@media only screen and (max-width: 768px) {
+				display: block;
+			}
+		}
+	}
+
+	&__item {
+		@include transition(all, .2s);
+
+		height: 47px;
+		overflow: hidden;
+	}
+
+	&__link {
+		@include transition(color, .1s);
+		@include transition(background-color, .1s);
+
+		position: relative;
+		width: 100%;
+		height: 47px;
+		line-height: 47px;
+		cursor: pointer;
+		overflow: hidden;
+		font-size: 13px;
+		font-weight: 600;
+		color: #a7b1c2;
+		letter-spacing: 1.1px;
+
+		&:hover {
+			color: $white;
+			background-color: #2f4050;
+		}
+
+		&--icon {
+			width: 60px;
+			height: 60px;
+			text-align: center;
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		&--title {
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		&--active {
+			color: $white;
+		}
+	}
+
+	&__subnav {
+		padding-left: 60px;
+
+		div {
+			height: 30px;
+			line-height: 30px;
+			cursor: pointer;
+		}
+	}
+}

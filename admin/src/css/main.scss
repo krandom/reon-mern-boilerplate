@@ -1,0 +1,9 @@
+@import 'base/base';
+@import 'components/base';
+@import 'utils/base';
+@import 'vendors/base';
+
+body {
+	background: $white;
+	font-size: 15px;
+}
