@@ -1,37 +1,46 @@
-# Hot Reload
+# MERN Boilerplate
 
-Using [react-hot-loader](https://www.npmjs.com/package/react-hot-loader)
+This is a boilerplate amed at starting up a new client app with an admin CMS panel and a node server using mongoDB.
 
-## App.react.jsx
+## Client App
+## Admin CMS
 
-### import { hot } from 'react-hot-loader/root';
+Both Client and Admin apps follow the same structure. Webpack as bundler. Both apps comes with authentication (signup / login / verify email / reset password / sessions with jwt).
 
-### export default hot(App);
+| Libraries | Info |
+| ------ | ------ |
+| React Redux | For state management. |
+| React Router | Routing is set up with protected route's and 404 page to get you running. |
+| React Sagas | Completed with API calls, just update your route's and start hitting that server. |
+| React Helmet | SEO made easy with Helmet. Update document head data depending on what route is visited. All meta data is set up in CMS so no need to hardcode/rebuild when SEO data updates. |
 
-## package.json
+| Webpack | Info |
+| ------ | ------ |
+| babel-loader | This package allows transpiling JavaScript files using Babel and webpack. |
+| react-hot-loader | Live reloading your app without the loss of state. |
+| sass-loader | Sassy CSS makes CSS fun! Use features that aren&apos;t a part of the wider CSS standard yet. Webpack handles the bundling. |
+| urifycss-webpack | Remove all unused styling for your production build. |
+| uglifyjs-webpack-plugin | Minimize your build by removing unwanted javascript and uglifying what&apos;s included. |
+| nodemon | Restart your environment automatically when any config file changes. |
+| sass-lint | Keep your CSS tidy with sass-lint. |
+| eslint | Maintain your code quality with ease. |
 
-Make sure to use --hot when starting dev server
+Both apps comes with a set of handy React components. Sidebar, modal and hamburger menu runs through Redux for easy access / manipulation from anywhere in the app.
+| Component | Info |
+| ------ | ------ |
+| Hamburger Menu | Navigation for mobile view. Can be hardcoded or dynamically loaded from CMS. |
+| Sidebar | Any reason for a sidebar to show up? This one supports multiple pages so you can navigate inside your sidebar as well. |
+| Modal | Easy way to show a modal window from anywhere, just send in a React component. Supporst a stack of modal windows so you can have several modal's opened on top of each other. |
+| Header | Header with navigation (dropdown with submenus, megamenu, etc... |
 
-"start": "nodemon --exec webpack.config.js --exec \"webpack-dev-server --hot --env development\"",
+### Websockets
+Both Apps support webosockets. Keep's track of if user is logged in or not. Can handle several "sessions" from the same user simultaniously. Also keeps track of what environment the session belongs to (dev/staging/production or whatever your envisonments are set up as)
 
-# Redux Store
+## Node / Express / mongoDB
+Server is running Express. mongoDB as database.
+| Content | Info |
+| ------ | ------ |
+| Authentication | Signup / Login / jwt / etc... |
+| HTML email templates | Send HTML emails whenever and from wherever |
+| Websockets | |
 
-/src/app/store/store.js
-
-## redux-devtools-extension
-
-[redux-devtools-extension](https://www.npmjs.com/package/redux-devtools-extension) adding devtools to broswer console for redux
-
-## rootReducer
-
-Importing all your reducers here
-
-### app.reducer
-
-#### Using [redux-actions](https://www.npmjs.com/package/redux-actions)
-#### Initialstate can be found in ./initialstate. If initial state grows you can move it into
-######
-
-
-
-https://hugogiraudel.com/2015/06/18/styling-react-components-in-sass/
